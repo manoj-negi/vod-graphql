@@ -8,18 +8,34 @@ import (
 	"context"
 	"fmt"
 
+	"crypto/rand"
+	"math/big"
+
 	graph "xyz.com/gqlgen-todos/graph/generator"
 	"xyz.com/gqlgen-todos/graph/model"
 )
 
 // CreateUser is the resolver for the createUser field.
+
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+
+	randNumber, _ := rand.Int(rand.Reader, big.NewInt(100))
+
+	user := &model.User{
+		ID:   fmt.Sprintf("%d", randNumber),
+		Name: input.Name,
+	}
+	r.users = append(r.users, user)
+	return user, nil
 }
 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: Users - users"))
+	if len(r.users) == 0 {
+		return nil, fmt.Errorf("no user found")
+	}
+
+	return r.users, nil
 }
 
 // Mutation returns graph.MutationResolver implementation.
