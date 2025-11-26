@@ -1,0 +1,56 @@
+version: '3'
+
+dotenv: [".env", ".testenv"]
+
+tasks:
+ 
+
+  migrateup:
+    desc: Run database migrations (up)
+    cmds:
+      - migrate -path platform/migrations -database "$DB_URI" -verbose up
+
+  migrateup1:
+    desc: Run the first database migration (up)
+    cmds:
+      - migrate -path db/migration -database "$DB_URI" -verbose up 1
+
+  migratedown:
+    desc: Rollback database migrations (down)
+    cmds:
+      - migrate -path platform/migrations -database "$(DB_URI)" -verbose down
+
+  migratedown1:
+    desc: Rollback the first database migration (down)
+    cmds:
+      - migrate -path db/migration -database "$DB_URI" -verbose down 1
+
+  new_schema:
+    desc: Create a new database migration
+    cmds:
+      - migrate create -ext sql -dir platform/migrations -seq {{.name}}
+
+  air:
+    desc: Live reloading
+    cmds:
+      - air -c .air.toml
+
+  test:
+    desc: Run tests for the bank application
+    cmds:
+      - go test -v -cover -short ./...
+
+  server:
+    desc: Run the bank application server
+    cmds:
+      - go run main.go
+  
+  gqlgen:
+    desc: Generate GraphQL code
+    cmds:
+      - go run github.com/99designs/gqlgen generate
+
+  sqlc:
+    desc: Generate sqlc code from SQL queries
+    cmds:
+      - sqlc generate
