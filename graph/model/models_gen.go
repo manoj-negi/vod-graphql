@@ -5,9 +5,9 @@ package model
 type Mutation struct {
 }
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type NewRole struct {
+	Name        string  `json:"name"`
+	Description *string `json:"description,omitempty"`
 }
 
 type NewUser struct {
@@ -19,7 +19,31 @@ type NewUser struct {
 type Query struct {
 }
 
+type Role struct {
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description *string `json:"description,omitempty"`
+}
+
+type SignIn struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type SignUp struct {
+	FullName string `json:"fullName"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type UpdateRole struct {
+	ID          string  `json:"id"`
+	Name        *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+}
+
 type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID       string  `json:"id"`
+	FullName *string `json:"fullName,omitempty"`
+	Email    *string `json:"email,omitempty"`
 }

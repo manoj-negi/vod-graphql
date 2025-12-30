@@ -15,3 +15,5 @@ CREATE TABLE users (
 
 CREATE INDEX idx_users_country ON users(country_code);
 CREATE INDEX idx_users_role ON users(role_id);
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS password_hash TEXT;
