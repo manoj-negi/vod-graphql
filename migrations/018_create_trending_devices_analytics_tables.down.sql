@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS analytics_events CASCADE;
+DROP TABLE IF EXISTS user_devices CASCADE;
+DROP TABLE IF EXISTS trending_videos CASCADE;

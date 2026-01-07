@@ -1,56 +1,211 @@
 version: '3'
 
-dotenv: [".env", ".testenv"]
+vars:
+  BINARY_NAME: tiktok-graphql-api
+  MAIN_FILE: main.go
+  MIGRATIONS_DIR: migrations
+  DB_URL:
+    sh: echo "${DATABASE_URL:-postgresql://username:password@localhost:5432/professional_video_platform?sslmode=disable}"
 
 tasks:
- 
-
-  migrateup:
-    desc: Run database migrations (up)
+  default:
+    desc: Show available tasks
     cmds:
-      - migrate -path platform/migrations -database "$DB_URI" -verbose up
+      - task --list
+    silent: true
 
-  migrateup1:
-    desc: Run the first database migration (up)
+  build:
+    desc: Build the application binary
     cmds:
-      - migrate -path db/migration -database "$DB_URI" -verbose up 1
+      - echo "Building {{.BINARY_NAME}}..."
+      - go build -o {{.BINARY_NAME}} {{.MAIN_FILE}}
+      - echo "✅ Build completed: {{.BINARY_NAME}}"
 
-  migratedown:
-    desc: Rollback database migrations (down)
+  run:
+    desc: Run the application
     cmds:
-      - migrate -path platform/migrations -database "$(DB_URI)" -verbose down
+      - echo "Starting GraphQL server..."
+      - go run {{.MAIN_FILE}}
 
-  migratedown1:
-    desc: Rollback the first database migration (down)
+  dev:
+    desc: Run in development mode with auto-reload
     cmds:
-      - migrate -path db/migration -database "$DB_URI" -verbose down 1
+      - task: install-air
+      - echo "Starting development server with auto-reload..."
+      - air
 
-  new_schema:
-    desc: Create a new database migration
+  clean:
+    desc: Clean build artifacts
     cmds:
-      - migrate create -ext sql -dir platform/migrations -seq {{.name}}
-
-  air:
-    desc: Live reloading
-    cmds:
-      - air -c .air.toml
+      - echo "Cleaning build artifacts..."
+      - rm -f {{.BINARY_NAME}}
+      - go clean
+      - echo "✅ Clean completed"
 
   test:
-    desc: Run tests for the bank application
+    desc: Run tests
     cmds:
-      - go test -v -cover -short ./...
+      - echo "Running tests..."
+      - go test -v ./...
 
-  server:
-    desc: Run the bank application server
+  install-tools:
+    desc: Install development tools (air, migrate)
     cmds:
-      - go run main.go
-  
-  gqlgen:
+      - echo "Installing development tools..."
+      - go install github.com/cosmtrek/air@latest
+      - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+      - echo "✅ Tools installed"
+
+  install-air:
+    desc: Install air if not present
+    cmds:
+      - go install github.com/cosmtrek/air@latest
+    status:
+      - command -v air
+
+  install-migrate:
+    desc: Install migrate if not present
+    cmds:
+      - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+    status:
+      - command -v migrate
+
+  migrate-up:
+    desc: Run database migrations up
+    deps: [install-migrate]
+    cmds:
+      - echo "Running database migrations..."
+      - migrate -database "{{.DB_URL}}" -path {{.MIGRATIONS_DIR}} up
+      - echo "✅ Migrations completed"
+
+  migrate-down:
+    desc: Rollback database migrations
+    deps: [install-migrate]
+    cmds:
+      - echo "Rolling back database migrations..."
+      - migrate -database "{{.DB_URL}}" -path {{.MIGRATIONS_DIR}} down
+      - echo "✅ Rollback completed"
+
+  migrate-down-1:
+    desc: Rollback last migration
+    deps: [install-migrate]
+    cmds:
+      - echo "Rolling back last migration..."
+      - migrate -database "{{.DB_URL}}" -path {{.MIGRATIONS_DIR}} down 1
+      - echo "✅ Rollback completed"
+
+  migrate-version:
+    desc: Show current migration version
+    deps: [install-migrate]
+    cmds:
+      - migrate -database "{{.DB_URL}}" -path {{.MIGRATIONS_DIR}} version
+
+  migrate-force:
+    desc: Force migration to specific version (usage: task migrate-force VERSION=5)
+    deps: [install-migrate]
+    cmds:
+      - |
+        if [ -z "{{.VERSION}}" ]; then
+          echo "❌ Please provide VERSION: task migrate-force VERSION=5"
+          exit 1
+        fi
+      - migrate -database "{{.DB_URL}}" -path {{.MIGRATIONS_DIR}} force {{.VERSION}}
+      - echo "✅ Forced to version {{.VERSION}}"
+
+  migrate-create:
+    desc: Create a new migration file (usage: task migrate-create NAME=migration_name)
+    deps: [install-migrate]
+    cmds:
+      - |
+        if [ -z "{{.NAME}}" ]; then
+          echo "❌ Please provide NAME: task migrate-create NAME=your_migration_name"
+          exit 1
+        fi
+      - echo "Creating migration: {{.NAME}}"
+      - migrate create -ext sql -dir {{.MIGRATIONS_DIR}} -seq {{.NAME}}
+      - echo "✅ Migration created"
+
+  setup:
+    desc: Setup project (install tools and run migrations)
+    deps: [install-tools, migrate-up]
+    cmds:
+      - echo "✅ Project setup completed"
+
+  start:
+    desc: Start everything (run migrations and start server)
+    deps: [migrate-up]
+    cmds:
+      - task: run
+
+  dev-setup:
+    desc: Complete development setup (tools + migrations + dev server)
+    deps: [install-tools, migrate-up]
+    cmds:
+      - task: dev
+
+  generate:
     desc: Generate GraphQL code
     cmds:
-      - go run github.com/99designs/gqlgen generate
+      - echo "Generating GraphQL code..."
+      - gqlgen generate
+      - echo "✅ GraphQL code generated"
 
-  sqlc:
-    desc: Generate sqlc code from SQL queries
+  fmt:
+    desc: Format Go code
     cmds:
-      - sqlc generate
+      - echo "Formatting code..."
+      - go fmt ./...
+      - echo "✅ Code formatted"
+
+  lint:
+    desc: Lint Go code
+    cmds:
+      - task: install-golangci-lint
+      - echo "Linting code..."
+      - golangci-lint run
+      - echo "✅ Linting completed"
+
+  install-golangci-lint:
+    desc: Install golangci-lint if not present
+    cmds:
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    status:
+      - command -v golangci-lint
+
+  # Database management shortcuts
+  db:up:
+    desc: Alias for migrate-up
+    cmds:
+      - task: migrate-up
+
+  db:down:
+    desc: Alias for migrate-down
+    cmds:
+      - task: migrate-down
+
+  db:reset:
+    desc: Reset database (down all + up all)
+    cmds:
+      - task: migrate-down
+      - task: migrate-up
+
+  db:status:
+    desc: Show migration status
+    cmds:
+      - task: migrate-version
+
+  # Development workflow shortcuts
+  d:
+    desc: Quick alias for dev
+    cmds:
+      - task: dev
+
+  b:
+    desc: Quick alias for build
+    cmds:
+      - task: build
+
+  t:
+    desc: Quick alias for test
+    cmds:
+      - task: test
