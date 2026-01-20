@@ -1,6 +1,6 @@
 -- Countries Table
 CREATE TABLE countries (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
     code VARCHAR(2) UNIQUE NOT NULL,
     code_alpha3 VARCHAR(3) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,

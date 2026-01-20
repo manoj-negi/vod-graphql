@@ -1,6 +1,6 @@
 -- Permissions Table
 CREATE TABLE permissions (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL,
     description TEXT,
     resource VARCHAR(50),

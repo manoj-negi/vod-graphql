@@ -1,7 +1,7 @@
 -- Attachments Table (for user documents like CV, certificates, etc.)
 CREATE TABLE attachments (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title VARCHAR(255) NOT NULL,
     path VARCHAR(500) NOT NULL,
     expiry_date TIMESTAMP,

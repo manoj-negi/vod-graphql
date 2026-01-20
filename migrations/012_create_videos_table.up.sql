@@ -1,7 +1,7 @@
 -- Videos Table
 CREATE TABLE videos (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     video_url VARCHAR(500) NOT NULL,
     thumbnail_url VARCHAR(500),
     duration INTEGER NOT NULL,

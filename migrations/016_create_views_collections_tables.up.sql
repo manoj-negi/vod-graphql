@@ -1,8 +1,8 @@
 -- Video Views Table
 CREATE TABLE video_views (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id) ON DELETE SET NULL,
-    video_id BIGINT NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    video_id UUID NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
     watch_duration INTEGER,
     is_completed BOOLEAN DEFAULT false,
     ip_address INET,
@@ -15,8 +15,8 @@ CREATE INDEX idx_video_views_user_created ON video_views(user_id, created_at DES
 
 -- Collections Table
 CREATE TABLE collections (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     is_private BOOLEAN DEFAULT false,
@@ -29,9 +29,9 @@ CREATE INDEX idx_collections_user_created ON collections(user_id, created_at DES
 
 -- Saved Videos Table
 CREATE TABLE saved_videos (
-    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-    video_id BIGINT REFERENCES videos(id) ON DELETE CASCADE,
-    collection_id BIGINT REFERENCES collections(id) ON DELETE SET NULL,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    video_id UUID REFERENCES videos(id) ON DELETE CASCADE,
+    collection_id UUID REFERENCES collections(id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (user_id, video_id)
 );

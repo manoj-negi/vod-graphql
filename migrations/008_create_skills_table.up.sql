@@ -1,6 +1,6 @@
 -- Skills Table
 CREATE TABLE skills (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
     category VARCHAR(50),

@@ -1,8 +1,8 @@
 -- Notifications Table
 CREATE TABLE notifications (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    actor_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    actor_id UUID REFERENCES users(id) ON DELETE CASCADE,
     type notification_type_enum NOT NULL,
     target_type target_type_enum,
     target_id BIGINT,
@@ -16,10 +16,10 @@ CREATE INDEX idx_notifications_created_at ON notifications(created_at DESC);
 
 -- Reports Table
 CREATE TABLE reports (
-    id BIGSERIAL PRIMARY KEY,
-    reporter_id BIGINT REFERENCES users(id) ON DELETE SET NULL,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    reporter_id UUID REFERENCES users(id) ON DELETE SET NULL,
     target_type target_type_enum NOT NULL,
-    target_id BIGINT NOT NULL,
+    target_id UUID NOT NULL,
     reason VARCHAR(100) NOT NULL,
     description TEXT,
     status report_status_enum DEFAULT 'pending',
@@ -32,8 +32,8 @@ CREATE INDEX idx_reports_target ON reports(target_type, target_id);
 
 -- Blocks Table
 CREATE TABLE blocks (
-    blocker_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-    blocked_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    blocker_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    blocked_id UUID REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (blocker_id, blocked_id),
     CONSTRAINT no_self_block CHECK (blocker_id != blocked_id)

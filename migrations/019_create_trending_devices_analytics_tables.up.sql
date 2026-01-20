@@ -1,6 +1,6 @@
 -- Trending Videos Table
 CREATE TABLE trending_videos (
-    video_id BIGINT REFERENCES videos(id) ON DELETE CASCADE,
+    video_id UUID REFERENCES videos(id) ON DELETE CASCADE,
     score DECIMAL(10, 2) NOT NULL,
     rank INTEGER,
     category VARCHAR(50),
@@ -13,8 +13,8 @@ CREATE INDEX idx_trending_videos_ranking ON trending_videos(category, country, r
 
 -- User Devices Table
 CREATE TABLE user_devices (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     device_token VARCHAR(500) NOT NULL,
     device_type device_type_enum,
     is_active BOOLEAN DEFAULT true,
@@ -26,10 +26,10 @@ CREATE INDEX idx_user_devices_user_active ON user_devices(user_id, is_active);
 
 -- Analytics Events Table
 CREATE TABLE analytics_events (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id) ON DELETE SET NULL,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
     event_type VARCHAR(100) NOT NULL,
-    video_id BIGINT REFERENCES videos(id) ON DELETE SET NULL,
+    video_id UUID REFERENCES videos(id) ON DELETE SET NULL,
     properties JSONB,
     created_at TIMESTAMP DEFAULT NOW()
 );

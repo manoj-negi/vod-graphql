@@ -1,7 +1,7 @@
 -- User Skills Junction Table
 CREATE TABLE user_skills (
-    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-    skill_id BIGINT REFERENCES skills(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    skill_id UUID REFERENCES skills(id) ON DELETE CASCADE,
     proficiency_level proficiency_level_enum,
     years_of_experience INTEGER,
     is_primary BOOLEAN DEFAULT false,

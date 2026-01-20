@@ -1,12 +1,12 @@
 -- Users Table
 CREATE TABLE users (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20),
     password_hash VARCHAR(255) NOT NULL,
-    role_id BIGINT DEFAULT 1 REFERENCES roles(id) ON DELETE SET NULL,
-    profession_id BIGINT REFERENCES professions(id) ON DELETE SET NULL,
+    role_id UUID REFERENCES roles(id) ON DELETE SET NULL,
+    profession_id UUID REFERENCES professions(id) ON DELETE SET NULL,
     display_name VARCHAR(100),
     bio TEXT,
     avatar_url VARCHAR(500),
@@ -18,8 +18,8 @@ CREATE TABLE users (
     total_likes_received BIGINT DEFAULT 0,
     total_views BIGINT DEFAULT 0,
     date_of_birth DATE,
-    country_id BIGINT REFERENCES countries(id) ON DELETE SET NULL,
-    timezone_id BIGINT REFERENCES timezones(id) ON DELETE SET NULL,
+    country_id UUID REFERENCES countries(id) ON DELETE SET NULL,
+    timezone_id UUID REFERENCES timezones(id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     last_login_at TIMESTAMP

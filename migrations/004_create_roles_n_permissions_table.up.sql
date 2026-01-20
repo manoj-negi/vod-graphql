@@ -1,7 +1,6 @@
--- Roles and Permissions Junction Table
 CREATE TABLE roles_n_permissions (
-    role_id BIGINT REFERENCES roles(id) ON DELETE CASCADE,
-    permission_id BIGINT REFERENCES permissions(id) ON DELETE CASCADE,
+    role_id UUID REFERENCES roles(id) ON DELETE CASCADE,
+    permission_id UUID REFERENCES permissions(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (role_id, permission_id)
 );

@@ -1,6 +1,6 @@
 -- Timezones Table
 CREATE TABLE timezones (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID DEFAULT uuid_generate_v7() PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL,
     display_name VARCHAR(150) NOT NULL,
     utc_offset VARCHAR(10) NOT NULL,
