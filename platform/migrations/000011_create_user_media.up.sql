@@ -1,5 +1,0 @@
-CREATE TABLE user_media (
-  id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
-  media_id BIGINT REFERENCES media(id) ON DELETE CASCADE
-);

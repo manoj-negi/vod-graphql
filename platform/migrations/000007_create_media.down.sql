@@ -1,2 +1,0 @@
-DROP TABLE IF EXISTS media;
-DROP TYPE IF EXISTS video_type;
