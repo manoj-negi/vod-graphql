@@ -15,19 +15,3 @@ type Role struct {
 	CreatedAt   pgtype.Timestamp `json:"created_at"`
 	UpdatedAt   pgtype.Timestamp `json:"updated_at"`
 }
-
-type User struct {
-	ID           int64            `json:"id"`
-	FullName     pgtype.Text      `json:"full_name"`
-	Username     string           `json:"username"`
-	Email        pgtype.Text      `json:"email"`
-	ContactNo    pgtype.Text      `json:"contact_no"`
-	Bio          pgtype.Text      `json:"bio"`
-	Avatar       pgtype.Text      `json:"avatar"`
-	IsVerified   pgtype.Bool      `json:"is_verified"`
-	PasswordHash pgtype.Text      `json:"password_hash"`
-	CreatedAt    pgtype.Timestamp `json:"created_at"`
-	CountryCode  pgtype.Int4      `json:"country_code"`
-	RoleID       pgtype.Int4      `json:"role_id"`
-	Timezone     pgtype.Int4      `json:"timezone"`
-}

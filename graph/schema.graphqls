@@ -2,13 +2,6 @@
 #
 # https://gqlgen.com/getting-started/
 
-
-type User {
-  id: ID!
-  fullName: String
-  email: String
-}
-
 type Role { 
   id: ID!,
   name: String!,
@@ -31,27 +24,7 @@ input UpdateRole {
   description: String
 }
 
-input NewUser {
-  fname: String!
-  lname: String!
-  email: String!
-}
-
-input SignUp {
-  fullName: String!
-  email: String!
-  password: String!
-}
-
-input SignIn {
-  email: String!
-  password: String!
-}
-
 type Mutation {
-    createUser(input: NewUser!): User!
-    signUp(input: SignUp!): User!
-    signIn(input: SignIn!): User!
     createRole(input: NewRole!): Role!
     updateRole(input: UpdateRole!): Role!
     deleteRole(id: ID!): Boolean!

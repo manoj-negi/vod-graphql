@@ -10,12 +10,6 @@ type NewRole struct {
 	Description *string `json:"description,omitempty"`
 }
 
-type NewUser struct {
-	Fname string `json:"fname"`
-	Lname string `json:"lname"`
-	Email string `json:"email"`
-}
-
 type Query struct {
 }
 
@@ -25,25 +19,8 @@ type Role struct {
 	Description *string `json:"description,omitempty"`
 }
 
-type SignIn struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
-type SignUp struct {
-	FullName string `json:"fullName"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
 type UpdateRole struct {
 	ID          string  `json:"id"`
 	Name        *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
-}
-
-type User struct {
-	ID       string  `json:"id"`
-	FullName *string `json:"fullName,omitempty"`
-	Email    *string `json:"email,omitempty"`
 }
