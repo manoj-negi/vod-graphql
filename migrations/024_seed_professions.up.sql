@@ -1,3 +1,44 @@
+-- Insert professions data
+INSERT INTO professions (name, slug, category, description) VALUES
+-- Technology
+('Software Engineer', 'software-engineer', 'Technology', 'Develops and maintains software applications and systems'),
+('Full Stack Developer', 'full-stack-developer', 'Technology', 'Works on both frontend and backend development'),
+('Frontend Developer', 'frontend-developer', 'Technology', 'Specializes in user interface and client-side development'),
+('Backend Developer', 'backend-developer', 'Technology', 'Focuses on server-side logic and database management'),
+('Mobile App Developer', 'mobile-app-developer', 'Technology', 'Creates applications for iOS and Android platforms'),
+('DevOps Engineer', 'devops-engineer', 'Technology', 'Manages deployment pipelines and infrastructure'),
+('Data Scientist', 'data-scientist', 'Technology', 'Analyzes complex data and builds predictive models'),
+('Machine Learning Engineer', 'ml-engineer', 'Technology', 'Develops AI and machine learning systems'),
+('Cloud Architect', 'cloud-architect', 'Technology', 'Designs and implements cloud infrastructure solutions'),
+('Cybersecurity Specialist', 'cybersecurity-specialist', 'Technology', 'Protects systems and data from security threats'),
+('QA Engineer', 'qa-engineer', 'Technology', 'Ensures software quality through testing and automation'),
+('Database Administrator', 'database-administrator', 'Technology', 'Manages and optimizes database systems'),
+('System Administrator', 'system-administrator', 'Technology', 'Maintains and configures computer systems'),
+
+-- Design
+('UI/UX Designer', 'ui-ux-designer', 'Design', 'Creates user interfaces and experiences'),
+('Graphic Designer', 'graphic-designer', 'Design', 'Designs visual content for various media'),
+('Product Designer', 'product-designer', 'Design', 'Designs end-to-end product experiences'),
+('Web Designer', 'web-designer', 'Design', 'Creates website layouts and visual elements'),
+('Motion Graphics Designer', 'motion-graphics-designer', 'Design', 'Creates animated visual content'),
+('3D Artist', '3d-artist', 'Design', 'Creates three-dimensional models and animations'),
+('Illustrator', 'illustrator', 'Design', 'Creates original artwork and illustrations'),
+('Brand Designer', 'brand-designer', 'Design', 'Develops brand identity and visual systems'),
+
+-- Marketing
+('Digital Marketing Specialist', 'digital-marketing-specialist', 'Marketing', 'Manages online marketing campaigns'),
+('Content Marketing Manager', 'content-marketing-manager', 'Marketing', 'Creates and manages content strategy'),
+('SEO Specialist', 'seo-specialist', 'Marketing', 'Optimizes websites for search engines'),
+('Social Media Manager', 'social-media-manager', 'Marketing', 'Manages social media presence and campaigns'),
+('Email Marketing Specialist', 'email-marketing-specialist', 'Marketing', 'Creates and manages email campaigns'),
+('Growth Hacker', 'growth-hacker', 'Marketing', 'Drives rapid business growth through creative strategies'),
+('Marketing Analyst', 'marketing-analyst', 'Marketing', 'Analyzes marketing data and performance'),
+('Brand Manager', 'brand-manager', 'Marketing', 'Manages brand strategy and positioning'),
+
+-- Business
+('Product Manager', 'product-manager', 'Business', 'Manages product development and strategy'),
+('Project Manager', 'project-manager', 'Business', 'Coordinates and manages project execution'),
+('Business Analyst', 'business-analyst', 'Business', 'Analyzes business processes and requirements'),
 ('Operations Manager', 'operations-manager', 'Business', 'Oversees daily business operations'),
 ('HR Manager', 'hr-manager', 'Business', 'Manages human resources and talent'),
 
@@ -33,35 +74,3 @@
 ('Industrial Engineer', 'industrial-engineer', 'Engineering', 'Optimizes production and manufacturing processes'),
 ('Environmental Engineer', 'environmental-engineer', 'Engineering', 'Develops solutions for environmental challenges')
 ON CONFLICT (slug) DO NOTHING;
-
--- Insert skills data
-INSERT INTO skills (name, slug, category, description) VALUES
--- Programming Languages
-('JavaScript', 'javascript', 'Programming Language', 'Popular web programming language'),
-('TypeScript', 'typescript', 'Programming Language', 'Typed superset of JavaScript'),
-('Python', 'python', 'Programming Language', 'Versatile high-level programming language'),
-('Go', 'go', 'Programming Language', 'Fast and efficient compiled language'),
-('Java', 'java', 'Programming Language', 'Enterprise-grade object-oriented language'),
-('C#', 'csharp', 'Programming Language', 'Microsoft .NET programming language'),
-('C++', 'cpp', 'Programming Language', 'High-performance systems programming language'),
-('PHP', 'php', 'Programming Language', 'Server-side scripting language'),
-('Ruby', 'ruby', 'Programming Language', 'Dynamic object-oriented language'),
-('Swift', 'swift', 'Programming Language', 'Apple iOS/macOS development language'),
-('Kotlin', 'kotlin', 'Programming Language', 'Modern Android development language'),
-('Rust', 'rust', 'Programming Language', 'Memory-safe systems programming language'),
-('Scala', 'scala', 'Programming Language', 'Functional and object-oriented language'),
-('R', 'r-language', 'Programming Language', 'Statistical computing language'),
-('MATLAB', 'matlab', 'Programming Language', 'Numerical computing environment'),
-
--- Frameworks & Libraries
-('React', 'react', 'Framework', 'JavaScript library for building UIs'),
-('Vue.js', 'vuejs', 'Framework', 'Progressive JavaScript framework'),
-('Angular', 'angular', 'Framework', 'TypeScript-based web framework'),
-('Next.js', 'nextjs', 'Framework', 'React framework for production'),
-('Nuxt.js', 'nuxtjs', 'Framework', 'Vue.js framework for SSR'),
-('Node.js', 'nodejs', 'Framework', 'JavaScript runtime for server-side'),
-('Express.js', 'expressjs', 'Framework', 'Minimal Node.js web framework'),
-('Django', 'django', 'Framework', 'Python web framework'),
-('Flask', 'flask', 'Framework', 'Lightweight Python web framework'),
-('FastAPI', 'fastapi', 'Framework', 'Modern Python API framework'),
-('Spring Boot', 'spring-boot', 'Framework', 'Java application framework'),
