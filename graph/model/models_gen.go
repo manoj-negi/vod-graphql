@@ -2,6 +2,23 @@
 
 package model
 
+import (
+	"github.com/google/uuid"
+)
+
+type Country struct {
+	ID           uuid.UUID `json:"id"`
+	Code         string    `json:"code"`
+	CodeAlpha3   string    `json:"codeAlpha3"`
+	Name         string    `json:"name"`
+	NativeName   *string   `json:"nativeName,omitempty"`
+	PhoneCode    *string   `json:"phoneCode,omitempty"`
+	CurrencyCode *string   `json:"currencyCode,omitempty"`
+	FlagEmoji    *string   `json:"flagEmoji,omitempty"`
+	IsActive     bool      `json:"isActive"`
+	CreatedAt    *string   `json:"createdAt,omitempty"`
+}
+
 type Mutation struct {
 }
 

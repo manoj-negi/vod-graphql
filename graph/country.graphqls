@@ -1,0 +1,30 @@
+scalar UUID
+
+type Country {
+  id: UUID!
+  code: String!
+  codeAlpha3: String!
+  name: String!
+  nativeName: String
+  phoneCode: String
+  currencyCode: String
+  flagEmoji: String
+  isActive: Boolean!
+  createdAt: String
+}
+
+extend type Query {
+  Listcountries: [Country!]!
+}
+
+
+input CreateCountryInput {
+  code: String!
+  codeAlpha3: String!
+  name: String!
+  nativeName: String
+  phoneCode: String
+  currencyCode: String
+  flagEmoji: String
+  isActive: Boolean
+}

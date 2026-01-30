@@ -11,13 +11,11 @@ import (
 )
 
 type Querier interface {
-	CreateUser(ctx context.Context, arg CreateUserParams) (CreateUserRow, error)
-	DeleteUser(ctx context.Context, id int64) error
-	GetUserByEmail(ctx context.Context, email pgtype.Text) (GetUserByEmailRow, error)
-	GetUserByID(ctx context.Context, id int64) (GetUserByIDRow, error)
-	ListUsers(ctx context.Context) ([]ListUsersRow, error)
-	SignUpUser(ctx context.Context, arg SignUpUserParams) (SignUpUserRow, error)
-	UpdateUser(ctx context.Context, arg UpdateUserParams) (UpdateUserRow, error)
+	CreateCountry(ctx context.Context, arg CreateCountryParams) (Country, error)
+	DeactivateCountry(ctx context.Context, id pgtype.UUID) error
+	GetCountryByID(ctx context.Context, id pgtype.UUID) (Country, error)
+	ListCountries(ctx context.Context) ([]Country, error)
+	UpdateCountry(ctx context.Context, arg UpdateCountryParams) (Country, error)
 }
 
 var _ Querier = (*Queries)(nil)

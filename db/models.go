@@ -8,6 +8,19 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Country struct {
+	ID           pgtype.UUID      `json:"id"`
+	Code         string           `json:"code"`
+	CodeAlpha3   string           `json:"code_alpha3"`
+	Name         string           `json:"name"`
+	NativeName   pgtype.Text      `json:"native_name"`
+	PhoneCode    pgtype.Text      `json:"phone_code"`
+	CurrencyCode pgtype.Text      `json:"currency_code"`
+	FlagEmoji    pgtype.Text      `json:"flag_emoji"`
+	IsActive     pgtype.Bool      `json:"is_active"`
+	CreatedAt    pgtype.Timestamp `json:"created_at"`
+}
+
 type Role struct {
 	ID          int32            `json:"id"`
 	Name        string           `json:"name"`
