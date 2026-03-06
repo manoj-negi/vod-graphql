@@ -19,6 +19,17 @@ type Country struct {
 	CreatedAt    *string   `json:"createdAt,omitempty"`
 }
 
+type CreateCountryInput struct {
+	Code         string  `json:"code"`
+	CodeAlpha3   string  `json:"codeAlpha3"`
+	Name         string  `json:"name"`
+	NativeName   *string `json:"nativeName,omitempty"`
+	PhoneCode    *string `json:"phoneCode,omitempty"`
+	CurrencyCode *string `json:"currencyCode,omitempty"`
+	FlagEmoji    *string `json:"flagEmoji,omitempty"`
+	IsActive     *bool   `json:"isActive,omitempty"`
+}
+
 type Mutation struct {
 }
 
@@ -34,6 +45,17 @@ type Role struct {
 	ID          string  `json:"id"`
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitempty"`
+}
+
+type UpdateCountryInput struct {
+	Code         *string `json:"code,omitempty"`
+	CodeAlpha3   *string `json:"codeAlpha3,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	NativeName   *string `json:"nativeName,omitempty"`
+	PhoneCode    *string `json:"phoneCode,omitempty"`
+	CurrencyCode *string `json:"currencyCode,omitempty"`
+	FlagEmoji    *string `json:"flagEmoji,omitempty"`
+	IsActive     *bool   `json:"isActive,omitempty"`
 }
 
 type UpdateRole struct {

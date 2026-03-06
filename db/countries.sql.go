@@ -19,10 +19,9 @@ INSERT INTO countries (
   native_name,
   phone_code,
   currency_code,
-  flag_emoji,
-  is_active
+  flag_emoji
 ) VALUES (
-  $1, $2, $3, $4, $5, $6, $7, COALESCE($8, TRUE)
+  $1, $2, $3, $4, $5, $6, $7
 )
 RETURNING id, code, code_alpha3, name, native_name, phone_code, currency_code, flag_emoji, is_active, created_at
 `
@@ -35,7 +34,6 @@ type CreateCountryParams struct {
 	PhoneCode    pgtype.Text `json:"phone_code"`
 	CurrencyCode pgtype.Text `json:"currency_code"`
 	FlagEmoji    pgtype.Text `json:"flag_emoji"`
-	Column8      interface{} `json:"column_8"`
 }
 
 func (q *Queries) CreateCountry(ctx context.Context, arg CreateCountryParams) (Country, error) {
@@ -47,7 +45,6 @@ func (q *Queries) CreateCountry(ctx context.Context, arg CreateCountryParams) (C
 		arg.PhoneCode,
 		arg.CurrencyCode,
 		arg.FlagEmoji,
-		arg.Column8,
 	)
 	var i Country
 	err := row.Scan(

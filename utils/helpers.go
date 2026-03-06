@@ -1,4 +1,4 @@
-package graph
+package utils
 
 import (
 	"time"
@@ -6,6 +6,14 @@ import (
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
+
+func BoolPtr(s string) *bool {
+	if s == "" {
+		return nil
+	}
+	b := s == "true"
+	return &b
+}
 
 // StringPtr converts a string to a string pointer.
 // Returns nil if the string is empty.

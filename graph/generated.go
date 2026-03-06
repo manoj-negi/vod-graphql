@@ -62,15 +62,19 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateRole func(childComplexity int, input model.NewRole) int
-		DeleteRole func(childComplexity int, id string) int
-		UpdateRole func(childComplexity int, input model.UpdateRole) int
+		CreateCountry func(childComplexity int, input model.CreateCountryInput) int
+		CreateRole    func(childComplexity int, input model.NewRole) int
+		DeleteCountry func(childComplexity int, id uuid.UUID) int
+		DeleteRole    func(childComplexity int, id string) int
+		UpdateCountry func(childComplexity int, id uuid.UUID, input model.UpdateCountryInput) int
+		UpdateRole    func(childComplexity int, input model.UpdateRole) int
 	}
 
 	Query struct {
-		Listcountries func(childComplexity int) int
-		Role          func(childComplexity int, id string) int
-		Roles         func(childComplexity int) int
+		GetCountryByID func(childComplexity int, id uuid.UUID) int
+		Listcountries  func(childComplexity int) int
+		Role           func(childComplexity int, id string) int
+		Roles          func(childComplexity int) int
 	}
 
 	Role struct {
@@ -84,11 +88,15 @@ type MutationResolver interface {
 	CreateRole(ctx context.Context, input model.NewRole) (*model.Role, error)
 	UpdateRole(ctx context.Context, input model.UpdateRole) (*model.Role, error)
 	DeleteRole(ctx context.Context, id string) (bool, error)
+	CreateCountry(ctx context.Context, input model.CreateCountryInput) (*model.Country, error)
+	UpdateCountry(ctx context.Context, id uuid.UUID, input model.UpdateCountryInput) (*model.Country, error)
+	DeleteCountry(ctx context.Context, id uuid.UUID) (bool, error)
 }
 type QueryResolver interface {
 	Roles(ctx context.Context) ([]*model.Role, error)
 	Role(ctx context.Context, id string) (*model.Role, error)
 	Listcountries(ctx context.Context) ([]*model.Country, error)
+	GetCountryByID(ctx context.Context, id uuid.UUID) (*model.Country, error)
 }
 
 type executableSchema struct {
@@ -171,6 +179,17 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Country.PhoneCode(childComplexity), true
 
+	case "Mutation.createCountry":
+		if e.complexity.Mutation.CreateCountry == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_createCountry_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CreateCountry(childComplexity, args["input"].(model.CreateCountryInput)), true
 	case "Mutation.createRole":
 		if e.complexity.Mutation.CreateRole == nil {
 			break
@@ -182,6 +201,17 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Mutation.CreateRole(childComplexity, args["input"].(model.NewRole)), true
+	case "Mutation.deleteCountry":
+		if e.complexity.Mutation.DeleteCountry == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_deleteCountry_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.DeleteCountry(childComplexity, args["id"].(uuid.UUID)), true
 	case "Mutation.deleteRole":
 		if e.complexity.Mutation.DeleteRole == nil {
 			break
@@ -193,6 +223,17 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 		}
 
 		return e.complexity.Mutation.DeleteRole(childComplexity, args["id"].(string)), true
+	case "Mutation.updateCountry":
+		if e.complexity.Mutation.UpdateCountry == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateCountry_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateCountry(childComplexity, args["id"].(uuid.UUID), args["input"].(model.UpdateCountryInput)), true
 	case "Mutation.updateRole":
 		if e.complexity.Mutation.UpdateRole == nil {
 			break
@@ -205,6 +246,17 @@ func (e *executableSchema) Complexity(ctx context.Context, typeName, field strin
 
 		return e.complexity.Mutation.UpdateRole(childComplexity, args["input"].(model.UpdateRole)), true
 
+	case "Query.GetCountryById":
+		if e.complexity.Query.GetCountryByID == nil {
+			break
+		}
+
+		args, err := ec.field_Query_GetCountryById_args(ctx, rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.GetCountryByID(childComplexity, args["id"].(uuid.UUID)), true
 	case "Query.Listcountries":
 		if e.complexity.Query.Listcountries == nil {
 			break
@@ -256,7 +308,9 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	opCtx := graphql.GetOperationContext(ctx)
 	ec := executionContext{opCtx, e, 0, 0, make(chan graphql.DeferredResult)}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
+		ec.unmarshalInputCreateCountryInput,
 		ec.unmarshalInputNewRole,
+		ec.unmarshalInputUpdateCountryInput,
 		ec.unmarshalInputUpdateRole,
 	)
 	first := true
@@ -375,6 +429,17 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
 // region    ***************************** args.gotpl *****************************
 
+func (ec *executionContext) field_Mutation_createCountry_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := graphql.ProcessArgField(ctx, rawArgs, "input", ec.unmarshalNCreateCountryInput2githubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCreateCountryInput)
+	if err != nil {
+		return nil, err
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_createRole_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
@@ -383,6 +448,17 @@ func (ec *executionContext) field_Mutation_createRole_args(ctx context.Context, 
 		return nil, err
 	}
 	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_deleteCountry_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := graphql.ProcessArgField(ctx, rawArgs, "id", ec.unmarshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID)
+	if err != nil {
+		return nil, err
+	}
+	args["id"] = arg0
 	return args, nil
 }
 
@@ -397,6 +473,22 @@ func (ec *executionContext) field_Mutation_deleteRole_args(ctx context.Context, 
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_updateCountry_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := graphql.ProcessArgField(ctx, rawArgs, "id", ec.unmarshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID)
+	if err != nil {
+		return nil, err
+	}
+	args["id"] = arg0
+	arg1, err := graphql.ProcessArgField(ctx, rawArgs, "input", ec.unmarshalNUpdateCountryInput2githubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐUpdateCountryInput)
+	if err != nil {
+		return nil, err
+	}
+	args["input"] = arg1
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_updateRole_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
 	var err error
 	args := map[string]any{}
@@ -405,6 +497,17 @@ func (ec *executionContext) field_Mutation_updateRole_args(ctx context.Context, 
 		return nil, err
 	}
 	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_GetCountryById_args(ctx context.Context, rawArgs map[string]any) (map[string]any, error) {
+	var err error
+	args := map[string]any{}
+	arg0, err := graphql.ProcessArgField(ctx, rawArgs, "id", ec.unmarshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID)
+	if err != nil {
+		return nil, err
+	}
+	args["id"] = arg0
 	return args, nil
 }
 
@@ -911,6 +1014,173 @@ func (ec *executionContext) fieldContext_Mutation_deleteRole(ctx context.Context
 	return fc, nil
 }
 
+func (ec *executionContext) _Mutation_createCountry(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_Mutation_createCountry,
+		func(ctx context.Context) (any, error) {
+			fc := graphql.GetFieldContext(ctx)
+			return ec.resolvers.Mutation().CreateCountry(ctx, fc.Args["input"].(model.CreateCountryInput))
+		},
+		nil,
+		ec.marshalNCountry2ᚖgithubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCountry,
+		true,
+		true,
+	)
+}
+
+func (ec *executionContext) fieldContext_Mutation_createCountry(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Country_id(ctx, field)
+			case "code":
+				return ec.fieldContext_Country_code(ctx, field)
+			case "codeAlpha3":
+				return ec.fieldContext_Country_codeAlpha3(ctx, field)
+			case "name":
+				return ec.fieldContext_Country_name(ctx, field)
+			case "nativeName":
+				return ec.fieldContext_Country_nativeName(ctx, field)
+			case "phoneCode":
+				return ec.fieldContext_Country_phoneCode(ctx, field)
+			case "currencyCode":
+				return ec.fieldContext_Country_currencyCode(ctx, field)
+			case "flagEmoji":
+				return ec.fieldContext_Country_flagEmoji(ctx, field)
+			case "isActive":
+				return ec.fieldContext_Country_isActive(ctx, field)
+			case "createdAt":
+				return ec.fieldContext_Country_createdAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Country", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_createCountry_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_updateCountry(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_Mutation_updateCountry,
+		func(ctx context.Context) (any, error) {
+			fc := graphql.GetFieldContext(ctx)
+			return ec.resolvers.Mutation().UpdateCountry(ctx, fc.Args["id"].(uuid.UUID), fc.Args["input"].(model.UpdateCountryInput))
+		},
+		nil,
+		ec.marshalNCountry2ᚖgithubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCountry,
+		true,
+		true,
+	)
+}
+
+func (ec *executionContext) fieldContext_Mutation_updateCountry(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Country_id(ctx, field)
+			case "code":
+				return ec.fieldContext_Country_code(ctx, field)
+			case "codeAlpha3":
+				return ec.fieldContext_Country_codeAlpha3(ctx, field)
+			case "name":
+				return ec.fieldContext_Country_name(ctx, field)
+			case "nativeName":
+				return ec.fieldContext_Country_nativeName(ctx, field)
+			case "phoneCode":
+				return ec.fieldContext_Country_phoneCode(ctx, field)
+			case "currencyCode":
+				return ec.fieldContext_Country_currencyCode(ctx, field)
+			case "flagEmoji":
+				return ec.fieldContext_Country_flagEmoji(ctx, field)
+			case "isActive":
+				return ec.fieldContext_Country_isActive(ctx, field)
+			case "createdAt":
+				return ec.fieldContext_Country_createdAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Country", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_updateCountry_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_deleteCountry(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_Mutation_deleteCountry,
+		func(ctx context.Context) (any, error) {
+			fc := graphql.GetFieldContext(ctx)
+			return ec.resolvers.Mutation().DeleteCountry(ctx, fc.Args["id"].(uuid.UUID))
+		},
+		nil,
+		ec.marshalNBoolean2bool,
+		true,
+		true,
+	)
+}
+
+func (ec *executionContext) fieldContext_Mutation_deleteCountry(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_deleteCountry_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_roles(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	return graphql.ResolveField(
 		ctx,
@@ -1044,6 +1314,69 @@ func (ec *executionContext) fieldContext_Query_Listcountries(_ context.Context, 
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Country", field.Name)
 		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_GetCountryById(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_Query_GetCountryById,
+		func(ctx context.Context) (any, error) {
+			fc := graphql.GetFieldContext(ctx)
+			return ec.resolvers.Query().GetCountryByID(ctx, fc.Args["id"].(uuid.UUID))
+		},
+		nil,
+		ec.marshalOCountry2ᚖgithubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCountry,
+		true,
+		false,
+	)
+}
+
+func (ec *executionContext) fieldContext_Query_GetCountryById(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Country_id(ctx, field)
+			case "code":
+				return ec.fieldContext_Country_code(ctx, field)
+			case "codeAlpha3":
+				return ec.fieldContext_Country_codeAlpha3(ctx, field)
+			case "name":
+				return ec.fieldContext_Country_name(ctx, field)
+			case "nativeName":
+				return ec.fieldContext_Country_nativeName(ctx, field)
+			case "phoneCode":
+				return ec.fieldContext_Country_phoneCode(ctx, field)
+			case "currencyCode":
+				return ec.fieldContext_Country_currencyCode(ctx, field)
+			case "flagEmoji":
+				return ec.fieldContext_Country_flagEmoji(ctx, field)
+			case "isActive":
+				return ec.fieldContext_Country_isActive(ctx, field)
+			case "createdAt":
+				return ec.fieldContext_Country_createdAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Country", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_GetCountryById_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
 	}
 	return fc, nil
 }
@@ -2689,6 +3022,82 @@ func (ec *executionContext) fieldContext___Type_isOneOf(_ context.Context, field
 
 // region    **************************** input.gotpl *****************************
 
+func (ec *executionContext) unmarshalInputCreateCountryInput(ctx context.Context, obj any) (model.CreateCountryInput, error) {
+	var it model.CreateCountryInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"code", "codeAlpha3", "name", "nativeName", "phoneCode", "currencyCode", "flagEmoji", "isActive"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "code":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("code"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Code = data
+		case "codeAlpha3":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("codeAlpha3"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.CodeAlpha3 = data
+		case "name":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Name = data
+		case "nativeName":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("nativeName"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.NativeName = data
+		case "phoneCode":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("phoneCode"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.PhoneCode = data
+		case "currencyCode":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("currencyCode"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.CurrencyCode = data
+		case "flagEmoji":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("flagEmoji"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.FlagEmoji = data
+		case "isActive":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("isActive"))
+			data, err := ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.IsActive = data
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputNewRole(ctx context.Context, obj any) (model.NewRole, error) {
 	var it model.NewRole
 	asMap := map[string]any{}
@@ -2717,6 +3126,82 @@ func (ec *executionContext) unmarshalInputNewRole(ctx context.Context, obj any) 
 				return it, err
 			}
 			it.Description = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputUpdateCountryInput(ctx context.Context, obj any) (model.UpdateCountryInput, error) {
+	var it model.UpdateCountryInput
+	asMap := map[string]any{}
+	for k, v := range obj.(map[string]any) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"code", "codeAlpha3", "name", "nativeName", "phoneCode", "currencyCode", "flagEmoji", "isActive"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "code":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("code"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Code = data
+		case "codeAlpha3":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("codeAlpha3"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.CodeAlpha3 = data
+		case "name":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Name = data
+		case "nativeName":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("nativeName"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.NativeName = data
+		case "phoneCode":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("phoneCode"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.PhoneCode = data
+		case "currencyCode":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("currencyCode"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.CurrencyCode = data
+		case "flagEmoji":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("flagEmoji"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.FlagEmoji = data
+		case "isActive":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("isActive"))
+			data, err := ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.IsActive = data
 		}
 	}
 
@@ -2881,6 +3366,27 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "createCountry":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_createCountry(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "updateCountry":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_updateCountry(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "deleteCountry":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_deleteCountry(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -2977,6 +3483,25 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				if res == graphql.Null {
 					atomic.AddUint32(&fs.Invalids, 1)
 				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "GetCountryById":
+			field := field
+
+			innerFunc := func(ctx context.Context, _ *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_GetCountryById(ctx, field)
 				return res
 			}
 
@@ -3414,6 +3939,10 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
+func (ec *executionContext) marshalNCountry2githubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCountry(ctx context.Context, sel ast.SelectionSet, v model.Country) graphql.Marshaler {
+	return ec._Country(ctx, sel, &v)
+}
+
 func (ec *executionContext) marshalNCountry2ᚕᚖgithubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCountryᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Country) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
@@ -3466,6 +3995,11 @@ func (ec *executionContext) marshalNCountry2ᚖgithubᚗcomᚋmanojnegiᚋgqlᚋ
 		return graphql.Null
 	}
 	return ec._Country(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNCreateCountryInput2githubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCreateCountryInput(ctx context.Context, v any) (model.CreateCountryInput, error) {
+	res, err := ec.unmarshalInputCreateCountryInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v any) (string, error) {
@@ -3577,6 +4111,11 @@ func (ec *executionContext) marshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID(ctx
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) unmarshalNUpdateCountryInput2githubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐUpdateCountryInput(ctx context.Context, v any) (model.UpdateCountryInput, error) {
+	res, err := ec.unmarshalInputUpdateCountryInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNUpdateRole2githubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐUpdateRole(ctx context.Context, v any) (model.UpdateRole, error) {
@@ -3865,6 +4404,13 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	_ = ctx
 	res := graphql.MarshalBoolean(*v)
 	return res
+}
+
+func (ec *executionContext) marshalOCountry2ᚖgithubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐCountry(ctx context.Context, sel ast.SelectionSet, v *model.Country) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Country(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalORole2ᚖgithubᚗcomᚋmanojnegiᚋgqlᚋgraphᚋmodelᚐRole(ctx context.Context, sel ast.SelectionSet, v *model.Role) graphql.Marshaler {

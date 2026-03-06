@@ -6,10 +6,9 @@ INSERT INTO countries (
   native_name,
   phone_code,
   currency_code,
-  flag_emoji,
-  is_active
+  flag_emoji
 ) VALUES (
-  $1, $2, $3, $4, $5, $6, $7, COALESCE($8, TRUE)
+  $1, $2, $3, $4, $5, $6, $7
 )
 RETURNING id, code, code_alpha3, name, native_name, phone_code, currency_code, flag_emoji, is_active, created_at;
 

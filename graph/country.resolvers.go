@@ -7,9 +7,63 @@ package graph
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5/pgtype"
+	"github.com/manojnegi/gql/db"
 	"github.com/manojnegi/gql/graph/model"
+	"github.com/manojnegi/utils"
 )
+
+// CreateCountry is the resolver for the createCountry field.
+func (r *mutationResolver) CreateCountry(ctx context.Context, input model.CreateCountryInput) (*model.Country, error) {
+	params := db.CreateCountryParams{
+		Code:         input.Code,
+		CodeAlpha3:   input.CodeAlpha3,
+		Name:         input.Name,
+		NativeName:   utils.PgTextFromPtr(input.NativeName),
+		PhoneCode:    utils.PgTextFromPtr(input.PhoneCode),
+		CurrencyCode: utils.PgTextFromPtr(input.CurrencyCode),
+		FlagEmoji:    utils.PgTextFromPtr(input.FlagEmoji),
+	}
+	country, err := r.queries.CreateCountry(ctx, params)
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Country{
+		ID:           country.ID.Bytes,
+		Code:         country.Code,
+		CodeAlpha3:   country.CodeAlpha3,
+		Name:         country.Name,
+		NativeName:   utils.PgTextToPtr(country.NativeName),
+		PhoneCode:    utils.PgTextToPtr(country.PhoneCode),
+		CurrencyCode: utils.PgTextToPtr(country.CurrencyCode),
+		FlagEmoji:    utils.PgTextToPtr(country.FlagEmoji),
+		IsActive:     utils.BoolPtr(country.IsActive),
+	}, nil
+}
+
+// UpdateCountry is the resolver for the updateCountry field.
+func (r *mutationResolver) UpdateCountry(ctx context.Context, id uuid.UUID, input model.UpdateCountryInput) (*model.Country, error) {
+	panic(fmt.Errorf("not implemented: UpdateCountry - updateCountry"))
+}
+
+// DeleteCountry is the resolver for the deleteCountry field.
+func (r *mutationResolver) DeleteCountry(ctx context.Context, id uuid.UUID) (bool, error) {
+	pgUUID := pgtype.UUID{
+		Bytes: id,
+		Valid: true,
+	}
+
+	err := r.queries.DeactivateCountry(ctx, pgUUID)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
 
 // Listcountries is the resolver for the Listcountries field.
 func (r *queryResolver) Listcountries(ctx context.Context) ([]*model.Country, error) {
@@ -21,17 +75,43 @@ func (r *queryResolver) Listcountries(ctx context.Context) ([]*model.Country, er
 	result := make([]*model.Country, len(countries))
 	for i, country := range countries {
 		result[i] = &model.Country{
-			ID:           PgUUIDToUUID(country.ID),
+			ID:           utils.PgUUIDToUUID(country.ID),
 			Code:         country.Code,
 			CodeAlpha3:   country.CodeAlpha3,
 			Name:         country.Name,
-			NativeName:   PgTextPtr(country.NativeName),
-			PhoneCode:    PgTextPtr(country.PhoneCode),
-			CurrencyCode: PgTextPtr(country.CurrencyCode),
-			FlagEmoji:    PgTextPtr(country.FlagEmoji),
+			NativeName:   utils.PgTextPtr(country.NativeName),
+			PhoneCode:    utils.PgTextPtr(country.PhoneCode),
+			CurrencyCode: utils.PgTextPtr(country.CurrencyCode),
+			FlagEmoji:    utils.PgTextPtr(country.FlagEmoji),
 			IsActive:     country.IsActive.Bool,
-			CreatedAt:    PgTimestampPtrString(country.CreatedAt),
+			CreatedAt:    utils.PgTimestampPtrString(country.CreatedAt),
 		}
 	}
 	return result, nil
+}
+
+// GetCountryByID is the resolver for the GetCountryById field.
+func (r *queryResolver) GetCountryByID(ctx context.Context, id uuid.UUID) (*model.Country, error) {
+	pgUUID := pgtype.UUID{
+		Bytes: id,
+		Valid: true,
+	}
+
+	country, err := r.queries.GetCountryByID(ctx, pgUUID)
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Country{
+		ID:           country.ID.Bytes,
+		Code:         country.Code,
+		CodeAlpha3:   country.CodeAlpha3,
+		Name:         country.Name,
+		NativeName:   utils.PgTextPtr(country.NativeName),
+		PhoneCode:    utils.PgTextPtr(country.PhoneCode),
+		CurrencyCode: utils.PgTextPtr(country.CurrencyCode),
+		FlagEmoji:    utils.PgTextPtr(country.FlagEmoji),
+		IsActive:     country.IsActive.Bool,
+		CreatedAt:    utils.PgTimestampPtrString(country.CreatedAt),
+	}, nil
 }

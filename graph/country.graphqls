@@ -15,6 +15,7 @@ type Country {
 
 extend type Query {
   Listcountries: [Country!]!
+  GetCountryById(id: UUID!): Country
 }
 
 
@@ -27,4 +28,21 @@ input CreateCountryInput {
   currencyCode: String
   flagEmoji: String
   isActive: Boolean
+}
+
+input UpdateCountryInput {
+  code: String
+  codeAlpha3: String
+  name: String
+  nativeName: String
+  phoneCode: String
+  currencyCode: String
+  flagEmoji: String
+  isActive: Boolean
+}
+
+extend type Mutation {
+  createCountry(input: CreateCountryInput!): Country!
+  updateCountry(id: UUID!, input: UpdateCountryInput!): Country!
+  deleteCountry(id: UUID!): Boolean!
 }
