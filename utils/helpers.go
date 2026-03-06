@@ -23,6 +23,25 @@ func StringPtr(s string) *string {
 	}
 	return &s
 }
+func PgUUIDFromPtr(id *uuid.UUID) pgtype.UUID {
+	if id == nil {
+		return pgtype.UUID{Valid: false}
+	}
+
+	return pgtype.UUID{
+		Bytes: *id,
+		Valid: true,
+	}
+}
+
+func PgUUIDPtr(u pgtype.UUID) *uuid.UUID {
+	if !u.Valid {
+		return nil
+	}
+
+	id := uuid.UUID(u.Bytes)
+	return &id
+}
 
 // PgTextFromPtr converts a *string to pgtype.Text.
 // Returns an invalid pgtype.Text if the pointer is nil.

@@ -30,6 +30,21 @@ type CreateCountryInput struct {
 	IsActive     *bool   `json:"isActive,omitempty"`
 }
 
+type CreateUserInput struct {
+	Username      string     `json:"username"`
+	Email         string     `json:"email"`
+	Phone         *string    `json:"phone,omitempty"`
+	Password      string     `json:"password"`
+	RoleID        *uuid.UUID `json:"roleId,omitempty"`
+	ProfessionID  *uuid.UUID `json:"professionId,omitempty"`
+	DisplayName   *string    `json:"displayName,omitempty"`
+	Bio           *string    `json:"bio,omitempty"`
+	AvatarURL     *string    `json:"avatarUrl,omitempty"`
+	CoverImageURL *string    `json:"coverImageUrl,omitempty"`
+	CountryID     *uuid.UUID `json:"countryId,omitempty"`
+	TimezoneID    *uuid.UUID `json:"timezoneId,omitempty"`
+}
+
 type Mutation struct {
 }
 
@@ -62,4 +77,25 @@ type UpdateRole struct {
 	ID          string  `json:"id"`
 	Name        *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
+}
+
+type User struct {
+	ID                 uuid.UUID  `json:"id"`
+	Username           string     `json:"username"`
+	Email              string     `json:"email"`
+	Phone              *string    `json:"phone,omitempty"`
+	DisplayName        *string    `json:"displayName,omitempty"`
+	Bio                *string    `json:"bio,omitempty"`
+	AvatarURL          *string    `json:"avatarUrl,omitempty"`
+	CoverImageURL      *string    `json:"coverImageUrl,omitempty"`
+	IsVerified         bool       `json:"isVerified"`
+	IsPrivate          bool       `json:"isPrivate"`
+	FollowerCount      int32      `json:"followerCount"`
+	FollowingCount     int32      `json:"followingCount"`
+	TotalLikesReceived int32      `json:"totalLikesReceived"`
+	TotalViews         int32      `json:"totalViews"`
+	RoleID             *uuid.UUID `json:"roleId,omitempty"`
+	ProfessionID       *uuid.UUID `json:"professionId,omitempty"`
+	CountryID          *uuid.UUID `json:"countryId,omitempty"`
+	TimezoneID         *uuid.UUID `json:"timezoneId,omitempty"`
 }

@@ -1,0 +1,39 @@
+type User {
+  id: UUID!
+  username: String!
+  email: String!
+  phone: String
+  displayName: String
+  bio: String
+  avatarUrl: String
+  coverImageUrl: String
+  isVerified: Boolean!
+  isPrivate: Boolean!
+  followerCount: Int!
+  followingCount: Int!
+  totalLikesReceived: Int!
+  totalViews: Int!
+  roleId: UUID
+  professionId:UUID
+  countryId: UUID
+  timezoneId: UUID
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  phone: String
+  password: String!
+  roleId: UUID
+  professionId: UUID
+  displayName: String
+  bio: String
+  avatarUrl: String
+  coverImageUrl: String
+  countryId: UUID
+  timezoneId: UUID
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
