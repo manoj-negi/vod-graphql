@@ -28,3 +28,29 @@ type Role struct {
 	CreatedAt   pgtype.Timestamp `json:"created_at"`
 	UpdatedAt   pgtype.Timestamp `json:"updated_at"`
 }
+
+type User struct {
+	ID                 pgtype.UUID      `json:"id"`
+	Username           string           `json:"username"`
+	Email              string           `json:"email"`
+	Phone              pgtype.Text      `json:"phone"`
+	PasswordHash       string           `json:"password_hash"`
+	RoleID             pgtype.UUID      `json:"role_id"`
+	ProfessionID       pgtype.UUID      `json:"profession_id"`
+	DisplayName        pgtype.Text      `json:"display_name"`
+	Bio                pgtype.Text      `json:"bio"`
+	AvatarUrl          pgtype.Text      `json:"avatar_url"`
+	CoverImageUrl      pgtype.Text      `json:"cover_image_url"`
+	IsVerified         pgtype.Bool      `json:"is_verified"`
+	IsPrivate          pgtype.Bool      `json:"is_private"`
+	FollowerCount      pgtype.Int4      `json:"follower_count"`
+	FollowingCount     pgtype.Int4      `json:"following_count"`
+	TotalLikesReceived pgtype.Int8      `json:"total_likes_received"`
+	TotalViews         pgtype.Int8      `json:"total_views"`
+	DateOfBirth        pgtype.Date      `json:"date_of_birth"`
+	CountryID          pgtype.UUID      `json:"country_id"`
+	TimezoneID         pgtype.UUID      `json:"timezone_id"`
+	CreatedAt          pgtype.Timestamp `json:"created_at"`
+	UpdatedAt          pgtype.Timestamp `json:"updated_at"`
+	LastLoginAt        pgtype.Timestamp `json:"last_login_at"`
+}

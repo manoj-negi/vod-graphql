@@ -49,6 +49,22 @@ RETURNING
     updated_at,
     last_login_at;
 
+  -- name: GetUserById :one
+  SELECT id, name, description, created_at, updated_at
+  FROM roles WHERE id = $1;
+
+  -- name: ListUsers :many
+  SELECT id, name, description, created_at, updated_at
+  FROM roles ORDER BY created_at DESC;
+
+  -- name: UpdateUser :one
+  UPDATE roles
+  SET name = $2, description = $3, updated_at = $4
+  WHERE id = $1
+  RETURNING id, name, description, created_at, updated_at;
+
+  -- name: DeleteUser :exec
+  DELETE FROM roles WHERE id = $1;
 -- name: GetUserById :one
 SELECT
     id,

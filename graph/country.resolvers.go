@@ -40,8 +40,8 @@ func (r *mutationResolver) CreateCountry(ctx context.Context, input model.Create
 		NativeName:   utils.PgTextToPtr(country.NativeName),
 		PhoneCode:    utils.PgTextToPtr(country.PhoneCode),
 		CurrencyCode: utils.PgTextToPtr(country.CurrencyCode),
-			FlagEmoji:    utils.PgTextToPtr(country.FlagEmoji),
-			IsActive:     country.IsActive.Bool,
+		FlagEmoji:    utils.PgTextToPtr(country.FlagEmoji),
+		IsActive:     country.IsActive.Bool,
 	}, nil
 }
 

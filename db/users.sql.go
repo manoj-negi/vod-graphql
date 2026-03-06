@@ -12,127 +12,251 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (full_name, username, email, password_hash)
-VALUES ($1, $2, $3, $4)
-RETURNING id, full_name, username, email, password_hash, created_at
+INSERT INTO users (
+    username,
+    email,
+    phone,
+    password_hash,
+    role_id,
+    profession_id,
+    display_name,
+    bio,
+    avatar_url,
+    cover_image_url,
+    is_verified,
+    is_private,
+    follower_count,
+    following_count,
+    total_likes_received,
+    total_views,
+    date_of_birth,
+    country_id,
+    timezone_id
+)
+VALUES (
+    $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
+    $11,$12,$13,$14,$15,$16,$17,$18,$19
+)
+RETURNING
+    id,
+    username,
+    email,
+    phone,
+    password_hash,
+    role_id,
+    profession_id,
+    display_name,
+    bio,
+    avatar_url,
+    cover_image_url,
+    is_verified,
+    is_private,
+    follower_count,
+    following_count,
+    total_likes_received,
+    total_views,
+    date_of_birth,
+    country_id,
+    timezone_id,
+    created_at,
+    updated_at,
+    last_login_at
 `
 
 type CreateUserParams struct {
-	FullName     pgtype.Text `json:"full_name"`
-	Username     string      `json:"username"`
-	Email        pgtype.Text `json:"email"`
-	PasswordHash pgtype.Text `json:"password_hash"`
+	Username           string      `json:"username"`
+	Email              string      `json:"email"`
+	Phone              pgtype.Text `json:"phone"`
+	PasswordHash       string      `json:"password_hash"`
+	RoleID             pgtype.UUID `json:"role_id"`
+	ProfessionID       pgtype.UUID `json:"profession_id"`
+	DisplayName        pgtype.Text `json:"display_name"`
+	Bio                pgtype.Text `json:"bio"`
+	AvatarUrl          pgtype.Text `json:"avatar_url"`
+	CoverImageUrl      pgtype.Text `json:"cover_image_url"`
+	IsVerified         pgtype.Bool `json:"is_verified"`
+	IsPrivate          pgtype.Bool `json:"is_private"`
+	FollowerCount      pgtype.Int4 `json:"follower_count"`
+	FollowingCount     pgtype.Int4 `json:"following_count"`
+	TotalLikesReceived pgtype.Int8 `json:"total_likes_received"`
+	TotalViews         pgtype.Int8 `json:"total_views"`
+	DateOfBirth        pgtype.Date `json:"date_of_birth"`
+	CountryID          pgtype.UUID `json:"country_id"`
+	TimezoneID         pgtype.UUID `json:"timezone_id"`
 }
 
-type CreateUserRow struct {
-	ID           int64            `json:"id"`
-	FullName     pgtype.Text      `json:"full_name"`
-	Username     string           `json:"username"`
-	Email        pgtype.Text      `json:"email"`
-	PasswordHash pgtype.Text      `json:"password_hash"`
-	CreatedAt    pgtype.Timestamp `json:"created_at"`
-}
-
-func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (CreateUserRow, error) {
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
 	row := q.db.QueryRow(ctx, createUser,
-		arg.FullName,
 		arg.Username,
 		arg.Email,
+		arg.Phone,
 		arg.PasswordHash,
+		arg.RoleID,
+		arg.ProfessionID,
+		arg.DisplayName,
+		arg.Bio,
+		arg.AvatarUrl,
+		arg.CoverImageUrl,
+		arg.IsVerified,
+		arg.IsPrivate,
+		arg.FollowerCount,
+		arg.FollowingCount,
+		arg.TotalLikesReceived,
+		arg.TotalViews,
+		arg.DateOfBirth,
+		arg.CountryID,
+		arg.TimezoneID,
 	)
-	var i CreateUserRow
+	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.FullName,
 		&i.Username,
 		&i.Email,
+		&i.Phone,
 		&i.PasswordHash,
+		&i.RoleID,
+		&i.ProfessionID,
+		&i.DisplayName,
+		&i.Bio,
+		&i.AvatarUrl,
+		&i.CoverImageUrl,
+		&i.IsVerified,
+		&i.IsPrivate,
+		&i.FollowerCount,
+		&i.FollowingCount,
+		&i.TotalLikesReceived,
+		&i.TotalViews,
+		&i.DateOfBirth,
+		&i.CountryID,
+		&i.TimezoneID,
 		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.LastLoginAt,
 	)
 	return i, err
 }
 
-const deleteUser = `-- name: DeleteUser :exec
-DELETE FROM users
+const getUserById = `-- name: GetUserById :one
+SELECT
+    id,
+    username,
+    email,
+    phone,
+    password_hash,
+    role_id,
+    profession_id,
+    display_name,
+    bio,
+    avatar_url,
+    cover_image_url,
+    is_verified,
+    is_private,
+    follower_count,
+    following_count,
+    total_likes_received,
+    total_views,
+    date_of_birth,
+    country_id,
+    timezone_id,
+    created_at,
+    updated_at,
+    last_login_at
+FROM users
 WHERE id = $1
 `
 
-func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
-	_, err := q.db.Exec(ctx, deleteUser, id)
-	return err
-}
-
-const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, full_name, username, email, password_hash, created_at
-FROM users
-WHERE email = $1
-`
-
-type GetUserByEmailRow struct {
-	ID           int64            `json:"id"`
-	FullName     pgtype.Text      `json:"full_name"`
-	Username     string           `json:"username"`
-	Email        pgtype.Text      `json:"email"`
-	PasswordHash pgtype.Text      `json:"password_hash"`
-	CreatedAt    pgtype.Timestamp `json:"created_at"`
-}
-
-func (q *Queries) GetUserByEmail(ctx context.Context, email pgtype.Text) (GetUserByEmailRow, error) {
-	row := q.db.QueryRow(ctx, getUserByEmail, email)
-	var i GetUserByEmailRow
+func (q *Queries) GetUserById(ctx context.Context, id pgtype.UUID) (User, error) {
+	row := q.db.QueryRow(ctx, getUserById, id)
+	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.FullName,
 		&i.Username,
 		&i.Email,
+		&i.Phone,
 		&i.PasswordHash,
+		&i.RoleID,
+		&i.ProfessionID,
+		&i.DisplayName,
+		&i.Bio,
+		&i.AvatarUrl,
+		&i.CoverImageUrl,
+		&i.IsVerified,
+		&i.IsPrivate,
+		&i.FollowerCount,
+		&i.FollowingCount,
+		&i.TotalLikesReceived,
+		&i.TotalViews,
+		&i.DateOfBirth,
+		&i.CountryID,
+		&i.TimezoneID,
 		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.LastLoginAt,
 	)
 	return i, err
 }
 
-const getUserByID = `-- name: GetUserByID :one
-SELECT id, full_name, username, email, password_hash, created_at
+const getUserByUsername = `-- name: GetUserByUsername :one
+SELECT
+    id,
+    username,
+    email,
+    password_hash,
+    role_id,
+    is_verified,
+    created_at
 FROM users
-WHERE id = $1
+WHERE username = $1
 `
 
-type GetUserByIDRow struct {
-	ID           int64            `json:"id"`
-	FullName     pgtype.Text      `json:"full_name"`
+type GetUserByUsernameRow struct {
+	ID           pgtype.UUID      `json:"id"`
 	Username     string           `json:"username"`
-	Email        pgtype.Text      `json:"email"`
-	PasswordHash pgtype.Text      `json:"password_hash"`
+	Email        string           `json:"email"`
+	PasswordHash string           `json:"password_hash"`
+	RoleID       pgtype.UUID      `json:"role_id"`
+	IsVerified   pgtype.Bool      `json:"is_verified"`
 	CreatedAt    pgtype.Timestamp `json:"created_at"`
 }
 
-func (q *Queries) GetUserByID(ctx context.Context, id int64) (GetUserByIDRow, error) {
-	row := q.db.QueryRow(ctx, getUserByID, id)
-	var i GetUserByIDRow
+func (q *Queries) GetUserByUsername(ctx context.Context, username string) (GetUserByUsernameRow, error) {
+	row := q.db.QueryRow(ctx, getUserByUsername, username)
+	var i GetUserByUsernameRow
 	err := row.Scan(
 		&i.ID,
-		&i.FullName,
 		&i.Username,
 		&i.Email,
 		&i.PasswordHash,
+		&i.RoleID,
+		&i.IsVerified,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, full_name, username, email, password_hash, created_at
+SELECT
+    id,
+    username,
+    display_name,
+    avatar_url,
+    follower_count,
+    following_count,
+    is_verified,
+    created_at
 FROM users
 ORDER BY created_at DESC
 `
 
 type ListUsersRow struct {
-	ID           int64            `json:"id"`
-	FullName     pgtype.Text      `json:"full_name"`
-	Username     string           `json:"username"`
-	Email        pgtype.Text      `json:"email"`
-	PasswordHash pgtype.Text      `json:"password_hash"`
-	CreatedAt    pgtype.Timestamp `json:"created_at"`
+	ID             pgtype.UUID      `json:"id"`
+	Username       string           `json:"username"`
+	DisplayName    pgtype.Text      `json:"display_name"`
+	AvatarUrl      pgtype.Text      `json:"avatar_url"`
+	FollowerCount  pgtype.Int4      `json:"follower_count"`
+	FollowingCount pgtype.Int4      `json:"following_count"`
+	IsVerified     pgtype.Bool      `json:"is_verified"`
+	CreatedAt      pgtype.Timestamp `json:"created_at"`
 }
 
 func (q *Queries) ListUsers(ctx context.Context) ([]ListUsersRow, error) {
@@ -146,10 +270,12 @@ func (q *Queries) ListUsers(ctx context.Context) ([]ListUsersRow, error) {
 		var i ListUsersRow
 		if err := rows.Scan(
 			&i.ID,
-			&i.FullName,
 			&i.Username,
-			&i.Email,
-			&i.PasswordHash,
+			&i.DisplayName,
+			&i.AvatarUrl,
+			&i.FollowerCount,
+			&i.FollowingCount,
+			&i.IsVerified,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err
@@ -162,77 +288,60 @@ func (q *Queries) ListUsers(ctx context.Context) ([]ListUsersRow, error) {
 	return items, nil
 }
 
-const signUpUser = `-- name: SignUpUser :one
-INSERT INTO users (full_name, username, email, password_hash)
-VALUES ($1, $2, $3, $4)
-RETURNING id, full_name, username, email, created_at
-`
-
-type SignUpUserParams struct {
-	FullName     pgtype.Text `json:"full_name"`
-	Username     string      `json:"username"`
-	Email        pgtype.Text `json:"email"`
-	PasswordHash pgtype.Text `json:"password_hash"`
-}
-
-type SignUpUserRow struct {
-	ID        int64            `json:"id"`
-	FullName  pgtype.Text      `json:"full_name"`
-	Username  string           `json:"username"`
-	Email     pgtype.Text      `json:"email"`
-	CreatedAt pgtype.Timestamp `json:"created_at"`
-}
-
-func (q *Queries) SignUpUser(ctx context.Context, arg SignUpUserParams) (SignUpUserRow, error) {
-	row := q.db.QueryRow(ctx, signUpUser,
-		arg.FullName,
-		arg.Username,
-		arg.Email,
-		arg.PasswordHash,
-	)
-	var i SignUpUserRow
-	err := row.Scan(
-		&i.ID,
-		&i.FullName,
-		&i.Username,
-		&i.Email,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
 const updateUser = `-- name: UpdateUser :one
 UPDATE users
-SET full_name = $2, email = $3
+SET
+    display_name = $2,
+    bio = $3,
+    avatar_url = $4,
+    cover_image_url = $5,
+    updated_at = NOW()
 WHERE id = $1
-RETURNING id, full_name, username, email, password_hash, created_at
+RETURNING
+    id,
+    username,
+    display_name,
+    bio,
+    avatar_url,
+    cover_image_url,
+    updated_at
 `
 
 type UpdateUserParams struct {
-	ID       int64       `json:"id"`
-	FullName pgtype.Text `json:"full_name"`
-	Email    pgtype.Text `json:"email"`
+	ID            pgtype.UUID `json:"id"`
+	DisplayName   pgtype.Text `json:"display_name"`
+	Bio           pgtype.Text `json:"bio"`
+	AvatarUrl     pgtype.Text `json:"avatar_url"`
+	CoverImageUrl pgtype.Text `json:"cover_image_url"`
 }
 
 type UpdateUserRow struct {
-	ID           int64            `json:"id"`
-	FullName     pgtype.Text      `json:"full_name"`
-	Username     string           `json:"username"`
-	Email        pgtype.Text      `json:"email"`
-	PasswordHash pgtype.Text      `json:"password_hash"`
-	CreatedAt    pgtype.Timestamp `json:"created_at"`
+	ID            pgtype.UUID      `json:"id"`
+	Username      string           `json:"username"`
+	DisplayName   pgtype.Text      `json:"display_name"`
+	Bio           pgtype.Text      `json:"bio"`
+	AvatarUrl     pgtype.Text      `json:"avatar_url"`
+	CoverImageUrl pgtype.Text      `json:"cover_image_url"`
+	UpdatedAt     pgtype.Timestamp `json:"updated_at"`
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (UpdateUserRow, error) {
-	row := q.db.QueryRow(ctx, updateUser, arg.ID, arg.FullName, arg.Email)
+	row := q.db.QueryRow(ctx, updateUser,
+		arg.ID,
+		arg.DisplayName,
+		arg.Bio,
+		arg.AvatarUrl,
+		arg.CoverImageUrl,
+	)
 	var i UpdateUserRow
 	err := row.Scan(
 		&i.ID,
-		&i.FullName,
 		&i.Username,
-		&i.Email,
-		&i.PasswordHash,
-		&i.CreatedAt,
+		&i.DisplayName,
+		&i.Bio,
+		&i.AvatarUrl,
+		&i.CoverImageUrl,
+		&i.UpdatedAt,
 	)
 	return i, err
 }

@@ -12,10 +12,15 @@ import (
 
 type Querier interface {
 	CreateCountry(ctx context.Context, arg CreateCountryParams) (Country, error)
+	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeactivateCountry(ctx context.Context, id pgtype.UUID) error
 	GetCountryByID(ctx context.Context, id pgtype.UUID) (Country, error)
+	GetUserById(ctx context.Context, id pgtype.UUID) (User, error)
+	GetUserByUsername(ctx context.Context, username string) (GetUserByUsernameRow, error)
 	ListCountries(ctx context.Context) ([]Country, error)
+	ListUsers(ctx context.Context) ([]ListUsersRow, error)
 	UpdateCountry(ctx context.Context, arg UpdateCountryParams) (Country, error)
+	UpdateUser(ctx context.Context, arg UpdateUserParams) (UpdateUserRow, error)
 }
 
 var _ Querier = (*Queries)(nil)
