@@ -24,6 +24,15 @@ func StringPtr(s string) *string {
 	return &s
 }
 
+// PgTextFromPtr converts a *string to pgtype.Text.
+// Returns an invalid pgtype.Text if the pointer is nil.
+func PgTextFromPtr(p *string) pgtype.Text {
+	if p == nil {
+		return pgtype.Text{Valid: false}
+	}
+	return pgtype.Text{String: *p, Valid: true}
+}
+
 // PgTextPtr converts a pgtype.Text to a string pointer.
 // Returns nil if the Text is not valid.
 func PgTextPtr(t pgtype.Text) *string {
@@ -31,6 +40,11 @@ func PgTextPtr(t pgtype.Text) *string {
 		return nil
 	}
 	return &t.String
+}
+
+// PgTextToPtr is an alias for PgTextPtr for readability.
+func PgTextToPtr(t pgtype.Text) *string {
+	return PgTextPtr(t)
 }
 
 // PgTimestamptzPtrRFC3339 converts a pgtype.Timestamptz to an RFC3339 formatted string pointer.

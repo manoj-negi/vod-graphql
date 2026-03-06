@@ -13,7 +13,7 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/manojnegi/gql/db"
 	"github.com/manojnegi/gql/graph/model"
-	"github.com/manojnegi/utils"
+	"github.com/manojnegi/gql/utils"
 )
 
 // CreateCountry is the resolver for the createCountry field.
@@ -33,15 +33,15 @@ func (r *mutationResolver) CreateCountry(ctx context.Context, input model.Create
 	}
 
 	return &model.Country{
-		ID:           country.ID.Bytes,
+		ID:           utils.PgUUIDToUUID(country.ID),
 		Code:         country.Code,
 		CodeAlpha3:   country.CodeAlpha3,
 		Name:         country.Name,
 		NativeName:   utils.PgTextToPtr(country.NativeName),
 		PhoneCode:    utils.PgTextToPtr(country.PhoneCode),
 		CurrencyCode: utils.PgTextToPtr(country.CurrencyCode),
-		FlagEmoji:    utils.PgTextToPtr(country.FlagEmoji),
-		IsActive:     utils.BoolPtr(country.IsActive),
+			FlagEmoji:    utils.PgTextToPtr(country.FlagEmoji),
+			IsActive:     country.IsActive.Bool,
 	}, nil
 }
 
