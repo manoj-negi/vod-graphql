@@ -1,0 +1,11 @@
+services:
+  bitvistara:
+    image: bitvistara
+    build: .
+    ports:
+      - "9090:9090"
+    volumes:
+      - .:/app
+    working_dir: /app
+
+ 

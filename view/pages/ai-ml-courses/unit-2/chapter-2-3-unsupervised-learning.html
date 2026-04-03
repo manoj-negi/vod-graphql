@@ -1,0 +1,193 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline text-sm">← Back to Roadmap</a>
+    </div>
+    <div class="inline-flex items-center justify-center rounded-full bg-green-500/10 dark:bg-green-500/20 px-4 py-2 mb-4">
+      <span class="text-xs font-bold text-green-600 dark:text-green-400">Unit 2 • Chapter 2.3</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Unsupervised Learning</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Discover patterns in unlabeled data through clustering and dimensionality reduction
+    </p>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 dark:from-green-500/20 dark:to-green-600/20 p-6 border border-green-500/20">
+    <h2 class="text-2xl font-bold mb-3">📚 What You'll Learn</h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>K-Means clustering algorithm</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Principal Component Analysis (PCA)</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Hierarchical clustering</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Anomaly detection techniques</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">1. K-Means Clustering</h2>
+    <p class="mb-4">Group similar data points into K clusters based on feature similarity.</p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+import matplotlib.pyplot as plt
+
+# Generate sample data
+X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.60, random_state=0)
+
+# K-Means clustering
+kmeans = KMeans(n_clusters=4, random_state=42)
+y_kmeans = kmeans.fit_predict(X)
+
+# Visualize
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.scatter(X[:, 0], X[:, 1], c=y_true, cmap='viridis', s=50)
+plt.title('True Labels')
+
+plt.subplot(1, 2, 2)
+plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, cmap='viridis', s=50)
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], 
+            c='red', s=200, alpha=0.75, marker='X')
+plt.title('K-Means Clustering')
+
+plt.tight_layout()
+plt.show()
+
+# Elbow method to find optimal K
+inertias = []
+K_range = range(1, 11)
+
+for k in K_range:
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X)
+    inertias.append(kmeans.inertia_)
+
+plt.figure(figsize=(8, 5))
+plt.plot(K_range, inertias, 'bo-')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('Inertia')
+plt.title('Elbow Method')
+plt.grid(True)
+plt.show()</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">2. Principal Component Analysis (PCA)</h2>
+    <p class="mb-4">Reduce dimensionality while preserving maximum variance.</p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from sklearn.decomposition import PCA
+from sklearn.datasets import load_iris
+import pandas as pd
+
+# Load dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Apply PCA
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# Explained variance
+print(f"Explained variance ratio: {pca.explained_variance_ratio_}")
+print(f"Total variance explained: {sum(pca.explained_variance_ratio_):.4f}")
+
+# Visualize
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap='viridis', s=50)
+plt.xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2%} variance)')
+plt.ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.2%} variance)')
+plt.title('PCA of Iris Dataset')
+plt.colorbar(scatter, label='Species')
+plt.grid(True)
+plt.show()
+
+# Scree plot
+pca_full = PCA()
+pca_full.fit(X)
+
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(pca_full.explained_variance_ratio_) + 1), 
+         pca_full.explained_variance_ratio_, 'bo-')
+plt.xlabel('Principal Component')
+plt.ylabel('Explained Variance Ratio')
+plt.title('Scree Plot')
+plt.grid(True)
+plt.show()</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">3. Hierarchical Clustering</h2>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.cluster import AgglomerativeClustering
+
+# Generate sample data
+X, _ = make_blobs(n_samples=50, centers=3, random_state=42)
+
+# Hierarchical clustering
+linkage_matrix = linkage(X, method='ward')
+
+# Plot dendrogram
+plt.figure(figsize=(12, 6))
+dendrogram(linkage_matrix)
+plt.title('Hierarchical Clustering Dendrogram')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+
+# Apply clustering
+hc = AgglomerativeClustering(n_clusters=3, linkage='ward')
+y_hc = hc.fit_predict(X)
+
+# Visualize clusters
+plt.figure(figsize=(8, 6))
+plt.scatter(X[:, 0], X[:, 1], c=y_hc, cmap='viridis', s=100)
+plt.title('Hierarchical Clustering Results')
+plt.show()</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-green-500/10 dark:from-primary/20 dark:to-green-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Practice Exercises</h2>
+    <ol class="space-y-3 text-sm list-decimal list-inside">
+      <li><strong>Customer Segmentation:</strong> Use K-Means to segment customers based on purchasing behavior.</li>
+      <li><strong>Image Compression:</strong> Apply K-Means for color quantization to compress images.</li>
+      <li><strong>Dimensionality Reduction:</strong> Use PCA to reduce high-dimensional data and visualize in 2D/3D.</li>
+      <li><strong>Anomaly Detection:</strong> Implement isolation forest for detecting outliers in a dataset.</li>
+    </ol>
+  </div>
+
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Additional Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://scikit-learn.org/stable/modules/clustering.html" class="text-primary hover:underline" target="_blank">Scikit-learn Clustering Guide</a></li>
+      <li>• <a href="https://www.youtube.com/watch?v=4b5d3muPQmA" class="text-primary hover:underline" target="_blank">StatQuest: K-Means Clustering</a></li>
+      <li>• <a href="https://setosa.io/ev/principal-component-analysis/" class="text-primary hover:underline" target="_blank">PCA Visual Explanation</a></li>
+    </ul>
+  </div>
+
+  <div class="flex justify-between items-center pt-8 border-t border-border-light dark:border-border-dark">
+    <a href="/ai-ml-courses/unit-2/chapter-2-2-supervised-learning" class="text-primary hover:underline">← Previous: Supervised Learning</a>
+    <a href="/ai-ml-courses/unit-3/chapter-3-1-deep-learning" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Next: Deep Learning →</a>
+  </div>
+</div>
+{{end}}

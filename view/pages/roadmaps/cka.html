@@ -1,0 +1,68 @@
+{{define "content"}}
+<div class="max-w-4xl mx-auto">
+  <div class="text-center mb-10">
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight">Certified Kubernetes Administrator (CKA) Roadmap</h1>
+    <p class="mt-3 text-lg text-foreground-muted-light dark:text-foreground-muted-dark">A comprehensive guide to mastering Kubernetes and preparing for the CKA exam.</p>
+  </div>
+
+  <ol class="space-y-8">
+    <li class="rounded-xl border border-border-light dark:border-border-dark p-6">
+      <h2 class="text-2xl font-bold">1) Cluster Architecture, Installation & Configuration</h2>
+      <ul class="mt-3 list-disc list-inside space-y-1">
+        <li>Manage role based access control (RBAC).</li>
+        <li>Use Kubeadm to install a basic cluster and manage a highly-available cluster.</li>
+        <li>Provision underlying infrastructure to deploy a Kubernetes cluster.</li>
+        <li>Perform a version upgrade on a Kubernetes cluster using Kubeadm.</li>
+        <li>Implement etcd backup and restore.</li>
+      </ul>
+    </li>
+
+    <li class="rounded-xl border border-border-light dark:border-border-dark p-6">
+      <h2 class="text-2xl font-bold">2) Workloads & Scheduling</h2>
+      <ul class="mt-3 list-disc list-inside space-y-1">
+        <li>Understand deployments and how to perform rolling update and rollbacks.</li>
+        <li>Use ConfigMaps and Secrets to configure applications.</li>
+        <li>Know how to scale applications and understand the primitives used to create robust, self-healing, application deployments.</li>
+        <li>Understand how resource limits can affect Pod scheduling.</li>
+        <li>Awareness of manifest management and common templating tools.</li>
+      </ul>
+    </li>
+
+    <li class="rounded-xl border border-border-light dark:border-border-dark p-6">
+      <h2 class="text-2xl font-bold">3) Services & Networking</h2>
+      <ul class="mt-3 list-disc list-inside space-y-1">
+        <li>Understand host network routing on the cluster nodes.</li>
+        <li>Understand connectivity between Pods and Service types (ClusterIP, NodePort, LoadBalancer).</li>
+        <li>Know how to use Ingress controllers and Ingress resources.</li>
+        <li>Know how to configure and use CoreDNS.</li>
+        <li>Choose an appropriate container network interface plugin.</li>
+      </ul>
+    </li>
+
+    <li class="rounded-xl border border-border-light dark:border-border-dark p-6">
+      <h2 class="text-2xl font-bold">4) Storage</h2>
+      <ul class="mt-3 list-disc list-inside space-y-1">
+        <li>Understand storage classes, persistent volumes (PV).</li>
+        <li>Understand volume mode, access modes and reclaim policies for volumes.</li>
+        <li>Understand persistent volume claims primitive (PVC).</li>
+        <li>Know how to configure applications with persistent storage.</li>
+      </ul>
+    </li>
+
+    <li class="rounded-xl border border-border-light dark:border-border-dark p-6">
+      <h2 class="text-2xl font-bold">5) Troubleshooting</h2>
+      <ul class="mt-3 list-disc list-inside space-y-1">
+        <li>Evaluate cluster and node logging.</li>
+        <li>Understand how to monitor applications.</li>
+        <li>Manage container stdout & stderr logs.</li>
+        <li>Troubleshoot application failure and cluster component failure.</li>
+        <li>Troubleshoot networking issues (e.g., DNS, NetworkPolicies).</li>
+      </ul>
+    </li>
+  </ol>
+
+  <div class="mt-10 rounded-xl bg-primary/10 dark:bg-primary/20 p-6 text-center">
+    <p class="text-base font-medium">Practice heavily with `kubectl` imperatively. Speed and accuracy are key to passing the CKA exam!</p>
+  </div>
+</div>
+{{end}}

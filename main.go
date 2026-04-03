@@ -140,6 +140,21 @@ func main() {
 		render(w, "pages/godocs/golang-packages.html", nil)
 	})
 
+	// Go interview questions page
+	r.HandleFunc("/golang-interview-questions", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/go-interview-qns/golang-interview-questions.html", nil)
+	})
+
+	// Go goroutines and concurrency page
+	r.HandleFunc("/golang-goroutines-concurrency", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/go-interview-qns/golang-goroutines-concurrency.html", nil)
+	})
+
+	// Go channels deep dive page
+	r.HandleFunc("/golang-channels", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/go-interview-qns/golang-channels.html", nil)
+	})
+
 	// Optional: if you want to expose server.html on /server
 	r.HandleFunc("/server", func(w http.ResponseWriter, _ *http.Request) {
 		render(w, "pages/server.html", nil)
@@ -158,10 +173,64 @@ func main() {
 		render(w, "pages/roadmaps/devops-roadmap.html", nil)
 	})
 	r.HandleFunc("/project-manager", func(w http.ResponseWriter, _ *http.Request) {
-		render(w, "pages/project-manager-roadmap.html", nil)
+		render(w, "pages/roadmaps/project-manager-roadmap.html", nil)
 	})
 	r.HandleFunc("/ai-ml", func(w http.ResponseWriter, _ *http.Request) {
-		render(w, "pages/ai-ml-roadmap.html", nil)
+		render(w, "pages/roadmaps/ai-ml-roadmap.html", nil)
+	})
+	r.HandleFunc("/data-analytics", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/data-analytics-roadmap.html", nil)
+	})
+	r.HandleFunc("/saa-c03", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/saa-c03.html", nil)
+	})
+	r.HandleFunc("/sap-c02", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/sap-c02.html", nil)
+	})
+	r.HandleFunc("/gcp-pca", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/gcp-pca.html", nil)
+	})
+	r.HandleFunc("/gcp-ace", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/gcp-ace.html", nil)
+	})
+	r.HandleFunc("/cka", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/cka.html", nil)
+	})
+	r.HandleFunc("/aif-c01", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/roadmaps/aif-c01.html", nil)
+	})
+
+	// AI-ML Tutorial Pages - Unit 1: Foundations
+	r.HandleFunc("/ai-ml-courses/unit-1/chapter-1-1-python-fundamentals", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-1/chapter-1-1-python-fundamentals.html", nil)
+	})
+	r.HandleFunc("/ai-ml-courses/unit-1/chapter-1-2-essential-libraries", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-1/chapter-1-2-essential-libraries.html", nil)
+	})
+	r.HandleFunc("/ai-ml-courses/unit-1/chapter-1-3-mathematics-basics", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-1/chapter-1-3-mathematics-basics.html", nil)
+	})
+
+	// AI-ML Tutorial Pages - Unit 2: Core Machine Learning
+	r.HandleFunc("/ai-ml-courses/unit-2/chapter-2-1-data-preprocessing", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-2/chapter-2-1-data-preprocessing.html", nil)
+	})
+	r.HandleFunc("/ai-ml-courses/unit-2/chapter-2-2-supervised-learning", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-2/chapter-2-2-supervised-learning.html", nil)
+	})
+	r.HandleFunc("/ai-ml-courses/unit-2/chapter-2-3-unsupervised-learning", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-2/chapter-2-3-unsupervised-learning.html", nil)
+	})
+
+	// AI-ML Tutorial Pages - Unit 3: Advanced AI/ML
+	r.HandleFunc("/ai-ml-courses/unit-3/chapter-3-1-deep-learning", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-3/chapter-3-1-deep-learning.html", nil)
+	})
+	r.HandleFunc("/ai-ml-courses/unit-3/chapter-3-2-nlp", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-3/chapter-3-2-nlp.html", nil)
+	})
+	r.HandleFunc("/ai-ml-courses/unit-3/chapter-3-3-model-deployment", func(w http.ResponseWriter, _ *http.Request) {
+		render(w, "pages/ai-ml-courses/unit-3/chapter-3-3-model-deployment.html", nil)
 	})
 
 	srv := &http.Server{

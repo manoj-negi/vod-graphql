@@ -1,0 +1,846 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="inline-flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 px-4 py-2 mb-4">
+      <svg class="w-6 h-6 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <span class="text-sm font-bold text-primary">Go Interview Preparation</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Go Interview Questions & Answers</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Comprehensive guide to common Go interview questions with detailed explanations and code examples
+    </p>
+  </div>
+
+  <!-- Question 1: var vs := -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</div>
+      <h2 class="text-2xl font-bold mt-1">Difference between <code class="text-primary">var memo = map[int]int{}</code> vs <code class="text-primary">memo := map[int]int{}</code></h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">Short Answer</h3>
+      <p class="mb-3">Both create an initialized empty map, but they differ in scope and usage context:</p>
+      <ul class="list-disc list-inside space-y-2 ml-4">
+        <li><code class="bg-black/30 px-2 py-1 rounded">var memo = map[int]int{}</code> - Can be used at package level or function level</li>
+        <li><code class="bg-black/30 px-2 py-1 rounded">memo := map[int]int{}</code> - Short variable declaration, only works inside functions</li>
+      </ul>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import "fmt"
+
+// Package-level variable - MUST use 'var'
+var globalMemo = map[int]int{}  // ✅ Valid
+// globalMemo2 := map[int]int{} // ❌ Syntax error: cannot use := at package level
+
+func main() {
+    // Inside function - both work
+    var memo1 = map[int]int{}  // ✅ Valid - explicit declaration
+    memo2 := map[int]int{}     // ✅ Valid - short declaration (preferred)
+    
+    fmt.Println(memo1, memo2)
+    
+    // Key difference: := infers type and declares
+    memo3 := map[string]int{"a": 1}  // Type inferred as map[string]int
+    
+    // var requires explicit type OR initialization
+    var memo4 map[int]int              // Declared but nil (not initialized)
+    var memo5 = map[int]int{}          // Declared and initialized
+    var memo6 map[int]int = map[int]int{}  // Explicit type and initialization
+    
+    fmt.Println(memo4 == nil)  // true - nil map
+    fmt.Println(memo5 == nil)  // false - initialized empty map
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm"><strong>💡 Best Practice:</strong> Use <code class="bg-black/30 px-2 py-1 rounded">:=</code> inside functions for conciseness. Use <code class="bg-black/30 px-2 py-1 rounded">var</code> at package level or when you need to declare without initialization.</p>
+    </div>
+  </div>
+
+  <!-- Question 2: Array vs Slice -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</div>
+      <h2 class="text-2xl font-bold mt-1">Array vs Slice: What to Use When?</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">Key Differences</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+          <h4 class="font-bold mb-2 text-blue-600">Array</h4>
+          <ul class="text-sm space-y-1">
+            <li>• Fixed size (part of type)</li>
+            <li>• Value type (copied on assignment)</li>
+            <li>• Size known at compile time</li>
+            <li>• Memory allocated on stack (usually)</li>
+          </ul>
+        </div>
+        <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+          <h4 class="font-bold mb-2 text-green-600">Slice</h4>
+          <ul class="text-sm space-y-1">
+            <li>• Dynamic size (can grow/shrink)</li>
+            <li>• Reference type (shares underlying array)</li>
+            <li>• Size determined at runtime</li>
+            <li>• Points to underlying array on heap</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import "fmt"
+
+func main() {
+    // ARRAYS - Fixed size
+    var arr1 [3]int              // [0, 0, 0]
+    arr2 := [3]int{1, 2, 3}      // [1, 2, 3]
+    arr3 := [...]int{1, 2, 3, 4} // Size inferred: [4]int
+    
+    // Arrays are value types - full copy on assignment
+    arr4 := arr2
+    arr4[0] = 100
+    fmt.Println(arr2[0])  // 1 (unchanged)
+    fmt.Println(arr4[0])  // 100
+    
+    // Different sizes = different types
+    // var x [3]int = [4]int{1,2,3,4}  // ❌ Type mismatch
+    
+    // SLICES - Dynamic size
+    var slice1 []int                    // nil slice
+    slice2 := []int{1, 2, 3}           // Initialized slice
+    slice3 := make([]int, 3)           // Length 3, capacity 3
+    slice4 := make([]int, 3, 5)        // Length 3, capacity 5
+    
+    // Slices are reference types - share underlying array
+    slice5 := slice2
+    slice5[0] = 100
+    fmt.Println(slice2[0])  // 100 (changed!)
+    fmt.Println(slice5[0])  // 100
+    
+    // Slices can grow
+    slice2 = append(slice2, 4, 5, 6)
+    fmt.Println(slice2)  // [100, 2, 3, 4, 5, 6]
+    
+    // Slicing creates a view (shares memory)
+    subSlice := slice2[1:4]  // [2, 3, 4]
+    subSlice[0] = 999
+    fmt.Println(slice2)      // [100, 999, 3, 4, 5, 6]
+}
+
+// Arrays as function parameters - COPIED
+func modifyArray(arr [3]int) {
+    arr[0] = 100  // Only modifies local copy
+}
+
+// Slices as function parameters - SHARED
+func modifySlice(s []int) {
+    s[0] = 100  // Modifies original slice's underlying array
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 When to Use:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li><strong>Arrays:</strong> Fixed-size data (e.g., RGB colors [3]uint8, coordinates [2]float64), performance-critical code needing stack allocation</li>
+        <li><strong>Slices:</strong> 99% of cases - dynamic collections, function parameters, working with variable-length data</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Question 3: Pointers -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</div>
+      <h2 class="text-2xl font-bold mt-1">Pointers in Go & Struct Pointers</h2>
+    </div>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import "fmt"
+
+type Person struct {
+    Name string
+    Age  int
+}
+
+func main() {
+    // Basic pointers
+    x := 42
+    p := &x        // p is pointer to x
+    fmt.Println(*p) // 42 - dereference to get value
+    *p = 100       // Modify value through pointer
+    fmt.Println(x)  // 100
+    
+    // Struct pointers
+    person1 := Person{Name: "Alice", Age: 30}
+    person2 := &Person{Name: "Bob", Age: 25}  // Returns pointer
+    
+    // Go automatically dereferences struct pointers
+    fmt.Println(person2.Name)   // Syntactic sugar for (*person2).Name
+    person2.Age = 26            // Automatically dereferenced
+    
+    // Passing by value vs pointer
+    modifyByValue(person1)
+    fmt.Println(person1.Age)    // 30 (unchanged)
+    
+    modifyByPointer(&person1)
+    fmt.Println(person1.Age)    // 31 (changed!)
+    
+    modifyByPointer(person2)    // Already a pointer
+    fmt.Println(person2.Age)    // 27
+    
+    // nil pointer
+    var p3 *Person
+    fmt.Println(p3 == nil)      // true
+    // fmt.Println(p3.Name)     // ❌ Panic: nil pointer dereference
+    
+    // new() allocates and returns pointer
+    p4 := new(Person)           // *Person with zero values
+    p4.Name = "Charlie"
+    
+    // Method receivers
+    person1.Birthday()          // Value receiver - makes copy
+    person2.BirthdayPointer()   // Pointer receiver - modifies original
+}
+
+// Value receiver - receives copy
+func (p Person) Birthday() {
+    p.Age++  // Only modifies copy
+}
+
+// Pointer receiver - receives pointer
+func (p *Person) BirthdayPointer() {
+    p.Age++  // Modifies original
+}
+
+func modifyByValue(p Person) {
+    p.Age++  // Only modifies local copy
+}
+
+func modifyByPointer(p *Person) {
+    p.Age++  // Modifies original struct
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 When to Use Pointers:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>1. Need to modify the original value</li>
+        <li>2. Large structs (avoid copying overhead)</li>
+        <li>3. Implementing interfaces that require pointer receivers</li>
+        <li>4. Sharing state across functions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Question 4: Empty Struct & Empty Interface -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">4</div>
+      <h2 class="text-2xl font-bold mt-1">Empty Struct <code class="text-primary">struct{}</code> & Empty Interface <code class="text-primary">interface{}</code></h2>
+    </div>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "unsafe"
+)
+
+func main() {
+    // EMPTY STRUCT - struct{}
+    // Size: 0 bytes - takes NO memory!
+    var empty struct{}
+    fmt.Println(unsafe.Sizeof(empty))  // 0
+    
+    // Use case 1: Set implementation (only care about keys)
+    set := make(map[string]struct{})
+    set["apple"] = struct{}{}
+    set["banana"] = struct{}{}
+    
+    if _, exists := set["apple"]; exists {
+        fmt.Println("Apple exists in set")
+    }
+    
+    // Use case 2: Signal-only channels
+    done := make(chan struct{})
+    go func() {
+        // Do work...
+        done <- struct{}{}  // Signal completion (no data needed)
+    }()
+    <-done  // Wait for signal
+    
+    // Use case 3: Method receiver when no state needed
+    type Worker struct{}
+    w := Worker{}
+    w.DoWork()
+    
+    // EMPTY INTERFACE - interface{}
+    // Can hold ANY type (like Object in Java, void* in C)
+    var any interface{}
+    
+    any = 42
+    fmt.Println(any)  // 42
+    
+    any = "hello"
+    fmt.Println(any)  // hello
+    
+    any = []int{1, 2, 3}
+    fmt.Println(any)  // [1 2 3]
+    
+    // Type assertion to get concrete type
+    str, ok := any.(string)
+    if ok {
+        fmt.Println("String:", str)
+    }
+    
+    // Type switch
+    switch v := any.(type) {
+    case int:
+        fmt.Println("Integer:", v)
+    case string:
+        fmt.Println("String:", v)
+    case []int:
+        fmt.Println("Int slice:", v)
+    default:
+        fmt.Println("Unknown type")
+    }
+    
+    // Modern Go (1.18+): use 'any' alias
+    var modern any  // Equivalent to interface{}
+    modern = 100
+}
+
+type Worker struct{}
+
+func (w Worker) DoWork() {
+    fmt.Println("Working...")
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Key Differences:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li><strong>struct{}:</strong> Zero-size type, used for signaling/sets where value doesn't matter</li>
+        <li><strong>interface{} (any):</strong> Can hold any type, used for generic containers or when type is unknown</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Question 5: make() -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">5</div>
+      <h2 class="text-2xl font-bold mt-1">What is <code class="text-primary">make()</code> Used For?</h2>
+    </div>
+    
+    <div class="mb-4">
+      <p class="mb-3"><code class="bg-black/30 px-2 py-1 rounded">make()</code> is used to initialize <strong>slices, maps, and channels</strong> (reference types). It allocates and initializes the underlying data structure.</p>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import "fmt"
+
+func main() {
+    // ============ SLICES ============
+    
+    // Without make - nil slice
+    var s1 []int
+    fmt.Println(s1 == nil)        // true
+    fmt.Println(len(s1), cap(s1)) // 0 0
+    // s1[0] = 1                  // ❌ Panic: index out of range
+    s1 = append(s1, 1)            // ✅ Works - append handles nil slices
+    
+    // With make - initialized slice
+    s2 := make([]int, 3)          // Length 3, capacity 3
+    fmt.Println(s2 == nil)        // false
+    fmt.Println(len(s2), cap(s2)) // 3 3
+    fmt.Println(s2)               // [0 0 0]
+    s2[0] = 100                   // ✅ Works
+    
+    s3 := make([]int, 3, 5)       // Length 3, capacity 5
+    fmt.Println(len(s3), cap(s3)) // 3 5
+    
+    // ============ MAPS ============
+    
+    // Without make - nil map
+    var m1 map[string]int
+    fmt.Println(m1 == nil)        // true
+    // m1["key"] = 1              // ❌ Panic: assignment to nil map
+    val, ok := m1["key"]          // ✅ Reading from nil map is safe
+    fmt.Println(val, ok)          // 0 false
+    
+    // With make - initialized map
+    m2 := make(map[string]int)
+    fmt.Println(m2 == nil)        // false
+    m2["key"] = 1                 // ✅ Works
+    fmt.Println(m2["key"])        // 1
+    
+    // With capacity hint (optimization)
+    m3 := make(map[string]int, 100)  // Pre-allocate for ~100 elements
+    
+    // ============ CHANNELS ============
+    
+    // Without make - nil channel
+    var ch1 chan int
+    fmt.Println(ch1 == nil)       // true
+    // ch1 <- 1                   // ❌ Deadlock: send on nil channel
+    // <-ch1                      // ❌ Deadlock: receive on nil channel
+    
+    // With make - unbuffered channel
+    ch2 := make(chan int)
+    go func() {
+        ch2 <- 42                 // Send
+    }()
+    val = <-ch2                   // Receive
+    fmt.Println(val)              // 42
+    
+    // With make - buffered channel
+    ch3 := make(chan int, 3)      // Buffer size 3
+    ch3 <- 1                      // Non-blocking (buffer not full)
+    ch3 <- 2
+    ch3 <- 3
+    // ch3 <- 4                   // Would block (buffer full)
+    fmt.Println(<-ch3)            // 1
+    
+    // ============ COMPARISON ============
+    
+    // Literal initialization (alternative to make for slices/maps)
+    s4 := []int{1, 2, 3}          // Same as make + assignment
+    m4 := map[string]int{"a": 1}  // Same as make + assignment
+    
+    // new() vs make()
+    p1 := new([]int)              // Returns *[]int (pointer to nil slice)
+    fmt.Println(*p1 == nil)       // true
+    
+    p2 := make([]int, 3)          // Returns []int (initialized slice)
+    fmt.Println(p2 == nil)        // false
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Summary:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li><strong>make():</strong> Initializes slices, maps, channels (returns ready-to-use value)</li>
+        <li><strong>new():</strong> Allocates memory, returns pointer to zero value (rarely used)</li>
+        <li><strong>Literal {}:</strong> Creates and initializes in one step</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Question 6: Channels -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">6</div>
+      <h2 class="text-2xl font-bold mt-1">Channels: Types & Panic Conditions</h2>
+    </div>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    // ============ CHANNEL TYPES ============
+    
+    // 1. Unbuffered channel (synchronous)
+    ch1 := make(chan int)
+    go func() {
+        ch1 <- 42  // Blocks until receiver is ready
+    }()
+    val := <-ch1   // Blocks until sender sends
+    fmt.Println(val)
+    
+    // 2. Buffered channel (asynchronous up to buffer size)
+    ch2 := make(chan int, 2)
+    ch2 <- 1       // Non-blocking (buffer has space)
+    ch2 <- 2       // Non-blocking (buffer has space)
+    // ch2 <- 3    // Would block (buffer full)
+    fmt.Println(<-ch2, <-ch2)
+    
+    // 3. Directional channels
+    // Send-only channel
+    var sendOnly chan<- int = make(chan int)
+    go func(ch chan<- int) {
+        ch <- 100
+        // val := <-ch  // ❌ Compile error: receive from send-only
+    }(sendOnly)
+    
+    // Receive-only channel
+    var recvOnly <-chan int = make(chan int)
+    go func(ch <-chan int) {
+        val := <-ch
+        fmt.Println(val)
+        // ch <- 100  // ❌ Compile error: send to receive-only
+    }(recvOnly)
+    
+    // ============ PANIC CONDITIONS ============
+    
+    // 1. Close already closed channel
+    ch3 := make(chan int)
+    close(ch3)
+    // close(ch3)  // ❌ PANIC: close of closed channel
+    
+    // 2. Send on closed channel
+    ch4 := make(chan int, 1)
+    close(ch4)
+    // ch4 <- 1    // ❌ PANIC: send on closed channel
+    
+    // 3. Receive from closed channel (NO PANIC - returns zero value)
+    ch5 := make(chan int, 2)
+    ch5 <- 1
+    ch5 <- 2
+    close(ch5)
+    fmt.Println(<-ch5)  // 1
+    fmt.Println(<-ch5)  // 2
+    fmt.Println(<-ch5)  // 0 (zero value, no panic)
+    
+    // Check if channel is closed
+    ch6 := make(chan int, 1)
+    ch6 <- 42
+    close(ch6)
+    
+    val, ok := <-ch6
+    fmt.Println(val, ok)  // 42 true (value was in buffer)
+    
+    val, ok = <-ch6
+    fmt.Println(val, ok)  // 0 false (channel closed, no more values)
+    
+    // ============ CHANNEL PATTERNS ============
+    
+    // Pattern 1: Range over channel
+    ch7 := make(chan int, 3)
+    ch7 <- 1
+    ch7 <- 2
+    ch7 <- 3
+    close(ch7)  // Must close for range to exit
+    
+    for val := range ch7 {
+        fmt.Println(val)  // 1, 2, 3
+    }
+    
+    // Pattern 2: Select with multiple channels
+    ch8 := make(chan int)
+    ch9 := make(chan string)
+    
+    go func() {
+        time.Sleep(100 * time.Millisecond)
+        ch8 <- 42
+    }()
+    
+    go func() {
+        time.Sleep(50 * time.Millisecond)
+        ch9 <- "hello"
+    }()
+    
+    select {
+    case v := <-ch8:
+        fmt.Println("Received int:", v)
+    case v := <-ch9:
+        fmt.Println("Received string:", v)  // This executes first
+    case <-time.After(200 * time.Millisecond):
+        fmt.Println("Timeout")
+    }
+    
+    // Pattern 3: Non-blocking send/receive
+    ch10 := make(chan int, 1)
+    
+    select {
+    case ch10 <- 42:
+        fmt.Println("Sent successfully")
+    default:
+        fmt.Println("Channel full, skipped")
+    }
+    
+    select {
+    case val := <-ch10:
+        fmt.Println("Received:", val)
+    default:
+        fmt.Println("No value available")
+    }
+}
+
+// ============ DEADLOCK CONDITIONS ============
+
+func deadlockExamples() {
+    // Deadlock 1: Send on unbuffered channel with no receiver
+    ch := make(chan int)
+    // ch <- 1  // ❌ DEADLOCK: all goroutines are asleep
+    
+    // Deadlock 2: Receive on unbuffered channel with no sender
+    // val := <-ch  // ❌ DEADLOCK
+    
+    // Deadlock 3: Send on nil channel
+    var nilCh chan int
+    // nilCh <- 1  // ❌ DEADLOCK: send on nil channel blocks forever
+    
+    // Deadlock 4: Receive on nil channel
+    // <-nilCh  // ❌ DEADLOCK: receive on nil channel blocks forever
+    
+    _ = ch
+}</code></pre>
+    </div>
+
+    <div class="bg-red-500/10 dark:bg-red-500/20 rounded-lg p-4 border border-red-500/30 mb-4">
+      <p class="text-sm mb-2"><strong>⚠️ Panic Conditions:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>1. Closing an already closed channel</li>
+        <li>2. Sending to a closed channel</li>
+        <li>3. Closing a nil channel</li>
+      </ul>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Best Practices:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>• Only the sender should close channels</li>
+        <li>• Use buffered channels to prevent blocking</li>
+        <li>• Check channel status with <code class="bg-black/30 px-1 rounded">val, ok := <-ch</code></li>
+        <li>• Use <code class="bg-black/30 px-1 rounded">select</code> for non-blocking operations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Question 7: WaitGroup -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">7</div>
+      <h2 class="text-2xl font-bold mt-1">WaitGroup & Wait Conditions</h2>
+    </div>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+func main() {
+    // ============ BASIC WAITGROUP ============
+    
+    var wg sync.WaitGroup
+    
+    // Add 3 goroutines to wait for
+    wg.Add(3)
+    
+    go worker(1, &wg)
+    go worker(2, &wg)
+    go worker(3, &wg)
+    
+    wg.Wait()  // Block until all Done() called
+    fmt.Println("All workers completed")
+    
+    // ============ COMMON PATTERNS ============
+    
+    // Pattern 1: Dynamic number of goroutines
+    tasks := []int{1, 2, 3, 4, 5}
+    var wg2 sync.WaitGroup
+    
+    for _, task := range tasks {
+        wg2.Add(1)  // Increment counter
+        go func(id int) {
+            defer wg2.Done()  // Decrement when done
+            processTask(id)
+        }(task)  // Pass task to avoid closure issue
+    }
+    
+    wg2.Wait()
+    fmt.Println("All tasks processed")
+    
+    // Pattern 2: WaitGroup with error handling
+    var wg3 sync.WaitGroup
+    errChan := make(chan error, 3)
+    
+    for i := 1; i <= 3; i++ {
+        wg3.Add(1)
+        go func(id int) {
+            defer wg3.Done()
+            if err := riskyOperation(id); err != nil {
+                errChan <- err
+            }
+        }(i)
+    }
+    
+    wg3.Wait()
+    close(errChan)
+    
+    for err := range errChan {
+        fmt.Println("Error:", err)
+    }
+    
+    // Pattern 3: Semaphore with WaitGroup
+    maxConcurrent := 2
+    sem := make(chan struct{}, maxConcurrent)
+    var wg4 sync.WaitGroup
+    
+    for i := 1; i <= 10; i++ {
+        wg4.Add(1)
+        go func(id int) {
+            defer wg4.Done()
+            sem <- struct{}{}        // Acquire semaphore
+            defer func() { <-sem }() // Release semaphore
+            
+            heavyTask(id)
+        }(i)
+    }
+    
+    wg4.Wait()
+    fmt.Println("All heavy tasks completed")
+}
+
+func worker(id int, wg *sync.WaitGroup) {
+    defer wg.Done()  // Decrement counter when function returns
+    
+    fmt.Printf("Worker %d starting\n", id)
+    time.Sleep(time.Second)
+    fmt.Printf("Worker %d done\n", id)
+}
+
+func processTask(id int) {
+    fmt.Printf("Processing task %d\n", id)
+    time.Sleep(100 * time.Millisecond)
+}
+
+func riskyOperation(id int) error {
+    time.Sleep(50 * time.Millisecond)
+    if id == 2 {
+        return fmt.Errorf("operation %d failed", id)
+    }
+    return nil
+}
+
+func heavyTask(id int) {
+    fmt.Printf("Heavy task %d running\n", id)
+    time.Sleep(500 * time.Millisecond)
+}
+
+// ============ COMMON MISTAKES ============
+
+func mistakes() {
+    // Mistake 1: Forgetting to call Done()
+    var wg sync.WaitGroup
+    wg.Add(1)
+    go func() {
+        // wg.Done()  // ❌ Forgot to call - deadlock!
+        time.Sleep(time.Second)
+    }()
+    // wg.Wait()  // Would wait forever
+    
+    // Mistake 2: Calling Add() inside goroutine (race condition)
+    var wg2 sync.WaitGroup
+    for i := 0; i < 5; i++ {
+        go func() {
+            wg2.Add(1)  // ❌ Race: might call Wait() before Add()
+            defer wg2.Done()
+        }()
+    }
+    // wg2.Wait()  // Might return before all goroutines start
+    
+    // Mistake 3: Reusing WaitGroup without resetting
+    var wg3 sync.WaitGroup
+    wg3.Add(1)
+    go func() { defer wg3.Done() }()
+    wg3.Wait()
+    
+    // wg3.Add(1)  // ✅ Can reuse after Wait() returns
+    
+    // Mistake 4: Negative counter
+    var wg4 sync.WaitGroup
+    wg4.Add(1)
+    wg4.Done()
+    // wg4.Done()  // ❌ PANIC: negative WaitGroup counter
+    
+    // Mistake 5: Copying WaitGroup
+    var wg5 sync.WaitGroup
+    wg5.Add(1)
+    // wgCopy := wg5  // ❌ Don't copy - pass by pointer
+    // Use: func(wg *sync.WaitGroup)
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 WaitGroup Rules:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>1. Call <code class="bg-black/30 px-1 rounded">Add()</code> before starting goroutine</li>
+        <li>2. Always call <code class="bg-black/30 px-1 rounded">Done()</code> (use <code class="bg-black/30 px-1 rounded">defer</code>)</li>
+        <li>3. Pass WaitGroup by pointer (<code class="bg-black/30 px-1 rounded">*sync.WaitGroup</code>)</li>
+        <li>4. Don't call <code class="bg-black/30 px-1 rounded">Add()</code> inside goroutine (race condition)</li>
+        <li>5. Counter must not go negative (panic)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Additional Topics -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">📚 More Interview Topics</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <h3 class="font-bold mb-2">Concurrency</h3>
+        <ul class="text-sm space-y-1">
+          <li>• Goroutines vs Threads</li>
+          <li>• Mutex vs RWMutex</li>
+          <li>• Context package</li>
+          <li>• Race conditions</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">Advanced Topics</h3>
+        <ul class="text-sm space-y-1">
+          <li>• Defer, Panic, Recover</li>
+          <li>• Reflection</li>
+          <li>• Generics (Go 1.18+)</li>
+          <li>• Memory management</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">Best Practices</h3>
+        <ul class="text-sm space-y-1">
+          <li>• Error handling patterns</li>
+          <li>• Code organization</li>
+          <li>• Testing strategies</li>
+          <li>• Performance optimization</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">Standard Library</h3>
+        <ul class="text-sm space-y-1">
+          <li>• HTTP server/client</li>
+          <li>• JSON encoding/decoding</li>
+          <li>• File I/O</li>
+          <li>• Database (database/sql)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resources -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://go.dev/tour/" class="text-primary hover:underline" target="_blank">A Tour of Go</a> - Official interactive tutorial</li>
+      <li>• <a href="https://gobyexample.com/" class="text-primary hover:underline" target="_blank">Go by Example</a> - Hands-on examples</li>
+      <li>• <a href="https://github.com/golang/go/wiki" class="text-primary hover:underline" target="_blank">Go Wiki</a> - Official documentation</li>
+      <li>• <a href="https://www.practical-go-lessons.com/" class="text-primary hover:underline" target="_blank">Practical Go Lessons</a> - Comprehensive guide</li>
+    </ul>
+  </div>
+</div>
+{{end}}

@@ -1,0 +1,357 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline text-sm">← Back to Roadmap</a>
+    </div>
+    <div class="inline-flex items-center justify-center rounded-full bg-blue-500/10 dark:bg-blue-500/20 px-4 py-2 mb-4">
+      <span class="text-xs font-bold text-blue-600 dark:text-blue-400">Unit 1 • Chapter 1.2</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Essential Libraries</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Master NumPy, Pandas, Matplotlib, and Jupyter Notebooks - the core tools for data science and machine learning
+    </p>
+  </div>
+
+  <!-- Introduction -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 p-6 border border-blue-500/20">
+    <h2 class="text-2xl font-bold mb-3">📚 What You'll Learn</h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>NumPy for efficient numerical computations</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Pandas for data manipulation and analysis</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Matplotlib and Seaborn for data visualization</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Jupyter Notebooks for interactive development</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Section 1: NumPy -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">1. NumPy - Numerical Python</h2>
+    <p class="mb-4 text-foreground-light dark:text-foreground-dark">
+      NumPy is the foundation for numerical computing in Python. It provides powerful n-dimensional array objects and mathematical functions.
+    </p>
+    
+    <h3 class="text-xl font-bold mb-3">Installation & Import</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Install NumPy
+# pip install numpy
+
+import numpy as np
+
+# Create arrays
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([[1, 2, 3], [4, 5, 6]])
+
+print(arr1.shape)  # (5,)
+print(arr2.shape)  # (2, 3)
+print(arr2.dtype)  # int64</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Array Creation & Operations</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Creating arrays
+zeros = np.zeros((3, 4))           # 3x4 array of zeros
+ones = np.ones((2, 3))             # 2x3 array of ones
+identity = np.eye(4)               # 4x4 identity matrix
+random_arr = np.random.rand(3, 3)  # 3x3 random values [0, 1)
+range_arr = np.arange(0, 10, 2)    # [0, 2, 4, 6, 8]
+linspace = np.linspace(0, 1, 5)    # 5 evenly spaced values
+
+# Array operations
+a = np.array([1, 2, 3, 4])
+b = np.array([10, 20, 30, 40])
+
+print(a + b)      # [11, 22, 33, 44]
+print(a * b)      # [10, 40, 90, 160]
+print(a ** 2)     # [1, 4, 9, 16]
+print(np.sqrt(a)) # [1., 1.41421356, 1.73205081, 2.]
+
+# Matrix operations
+matrix1 = np.array([[1, 2], [3, 4]])
+matrix2 = np.array([[5, 6], [7, 8]])
+
+print(np.dot(matrix1, matrix2))  # Matrix multiplication
+print(matrix1.T)                 # Transpose</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Indexing & Slicing</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>arr = np.array([[1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12]])
+
+# Indexing
+print(arr[0, 1])      # 2
+print(arr[1])         # [5, 6, 7, 8]
+
+# Slicing
+print(arr[:2, 1:3])   # [[2, 3], [6, 7]]
+print(arr[:, 2])      # [3, 7, 11]
+
+# Boolean indexing
+print(arr[arr > 5])   # [6, 7, 8, 9, 10, 11, 12]
+
+# Statistical operations
+print(arr.mean())     # 6.5
+print(arr.std())      # 3.452
+print(arr.sum(axis=0))  # Sum along columns
+print(arr.max(axis=1))  # Max along rows</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 2: Pandas -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">2. Pandas - Data Analysis</h2>
+    <p class="mb-4 text-foreground-light dark:text-foreground-dark">
+      Pandas provides high-performance data structures (Series and DataFrame) for data manipulation and analysis.
+    </p>
+    
+    <h3 class="text-xl font-bold mb-3">DataFrames & Series</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import pandas as pd
+
+# Create a Series
+s = pd.Series([1, 3, 5, 7, 9])
+print(s)
+
+# Create a DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Paris', 'Tokyo'],
+    'Salary': [70000, 80000, 75000, 85000]
+}
+df = pd.DataFrame(data)
+print(df)
+
+# Basic info
+print(df.head())       # First 5 rows
+print(df.tail(2))      # Last 2 rows
+print(df.info())       # DataFrame info
+print(df.describe())   # Statistical summary
+print(df.shape)        # (4, 4)</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Data Selection & Filtering</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Column selection
+print(df['Name'])           # Single column (Series)
+print(df[['Name', 'Age']])  # Multiple columns (DataFrame)
+
+# Row selection
+print(df.iloc[0])           # First row by index
+print(df.loc[0])            # First row by label
+print(df.iloc[1:3])         # Rows 1-2
+
+# Conditional filtering
+high_earners = df[df['Salary'] > 75000]
+young_people = df[df['Age'] < 30]
+combined = df[(df['Age'] > 25) & (df['Salary'] > 70000)]
+
+# Adding new columns
+df['Bonus'] = df['Salary'] * 0.1
+df['Total'] = df['Salary'] + df['Bonus']
+
+# Sorting
+df_sorted = df.sort_values('Salary', ascending=False)
+print(df_sorted)</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Data Manipulation</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Handling missing data
+df_with_na = df.copy()
+df_with_na.loc[1, 'Age'] = np.nan
+
+print(df_with_na.isnull().sum())  # Count missing values
+df_filled = df_with_na.fillna(df_with_na.mean())  # Fill with mean
+df_dropped = df_with_na.dropna()  # Drop rows with NaN
+
+# Grouping and aggregation
+grouped = df.groupby('City')['Salary'].mean()
+print(grouped)
+
+# Apply custom functions
+df['Age_Category'] = df['Age'].apply(lambda x: 'Young' if x < 30 else 'Senior')
+
+# Reading/Writing files
+# df.to_csv('data.csv', index=False)
+# df_loaded = pd.read_csv('data.csv')
+# df.to_excel('data.xlsx', index=False)
+# df_excel = pd.read_excel('data.xlsx')</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 3: Matplotlib -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">3. Matplotlib - Data Visualization</h2>
+    
+    <h3 class="text-xl font-bold mb-3">Basic Plots</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import matplotlib.pyplot as plt
+
+# Line plot
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, label='sin(x)', color='blue', linewidth=2)
+plt.plot(x, np.cos(x), label='cos(x)', color='red', linestyle='--')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.title('Trigonometric Functions')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Scatter plot
+x = np.random.rand(50)
+y = np.random.rand(50)
+colors = np.random.rand(50)
+sizes = 1000 * np.random.rand(50)
+
+plt.scatter(x, y, c=colors, s=sizes, alpha=0.5, cmap='viridis')
+plt.colorbar()
+plt.title('Scatter Plot Example')
+plt.show()</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Advanced Visualizations</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Bar chart
+categories = ['A', 'B', 'C', 'D']
+values = [23, 45, 56, 78]
+
+plt.bar(categories, values, color='skyblue')
+plt.title('Bar Chart')
+plt.ylabel('Values')
+plt.show()
+
+# Histogram
+data = np.random.randn(1000)
+plt.hist(data, bins=30, edgecolor='black', alpha=0.7)
+plt.title('Histogram')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.show()
+
+# Subplots
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+axes[0, 0].plot(x, y)
+axes[0, 0].set_title('Line Plot')
+
+axes[0, 1].scatter(x, y)
+axes[0, 1].set_title('Scatter Plot')
+
+axes[1, 0].bar(categories, values)
+axes[1, 0].set_title('Bar Chart')
+
+axes[1, 1].hist(data, bins=20)
+axes[1, 1].set_title('Histogram')
+
+plt.tight_layout()
+plt.show()</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 4: Jupyter Notebooks -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">4. Jupyter Notebooks</h2>
+    <p class="mb-4 text-foreground-light dark:text-foreground-dark">
+      Jupyter Notebooks provide an interactive environment for data science and machine learning development.
+    </p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Installation
+# pip install jupyter
+
+# Start Jupyter Notebook
+# jupyter notebook
+
+# Or use JupyterLab (modern interface)
+# pip install jupyterlab
+# jupyter lab</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30 mb-4">
+      <h4 class="font-bold mb-2">🎯 Key Features:</h4>
+      <ul class="text-sm space-y-1">
+        <li>• <strong>Interactive Cells:</strong> Execute code in cells and see results immediately</li>
+        <li>• <strong>Markdown Support:</strong> Mix code with formatted text, equations, and images</li>
+        <li>• <strong>Visualization:</strong> Display plots inline within the notebook</li>
+        <li>• <strong>Magic Commands:</strong> Use %timeit, %matplotlib inline, %%time, etc.</li>
+        <li>• <strong>Export Options:</strong> Save as .py, .html, .pdf, or .md files</li>
+      </ul>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Common Magic Commands</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Display plots inline
+%matplotlib inline
+
+# Time execution
+%timeit sum(range(1000))
+
+# Run external Python file
+%run script.py
+
+# List all variables
+%who
+
+# System commands
+!pip install numpy
+!ls -la
+
+# Load external code
+%load script.py
+
+# Debug mode
+%debug</code></pre>
+    </div>
+  </div>
+
+  <!-- Practice Exercises -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Practice Exercises</h2>
+    <ol class="space-y-3 text-sm list-decimal list-inside">
+      <li><strong>NumPy Matrix:</strong> Create a 5x5 matrix with random values and find the min, max, mean, and standard deviation.</li>
+      <li><strong>Pandas Analysis:</strong> Load a CSV dataset, clean missing values, and calculate summary statistics grouped by a category.</li>
+      <li><strong>Data Visualization:</strong> Create a dashboard with 4 subplots showing different aspects of a dataset (line, scatter, bar, histogram).</li>
+      <li><strong>Time Series:</strong> Generate a time series dataset and plot it with proper date formatting on the x-axis.</li>
+      <li><strong>Correlation Analysis:</strong> Create a correlation matrix heatmap using Seaborn for a multi-column dataset.</li>
+    </ol>
+  </div>
+
+  <!-- Resources -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Additional Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://numpy.org/doc/" class="text-primary hover:underline" target="_blank">NumPy Documentation</a></li>
+      <li>• <a href="https://pandas.pydata.org/docs/" class="text-primary hover:underline" target="_blank">Pandas Documentation</a></li>
+      <li>• <a href="https://matplotlib.org/stable/tutorials/index.html" class="text-primary hover:underline" target="_blank">Matplotlib Tutorials</a></li>
+      <li>• <a href="https://jupyter.org/documentation" class="text-primary hover:underline" target="_blank">Jupyter Documentation</a></li>
+      <li>• <a href="https://seaborn.pydata.org/" class="text-primary hover:underline" target="_blank">Seaborn (Advanced Visualization)</a></li>
+    </ul>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-8 border-t border-border-light dark:border-border-dark">
+    <a href="/ai-ml-courses/unit-1/chapter-1-1-python-fundamentals" class="text-primary hover:underline">← Previous: Python Fundamentals</a>
+    <a href="/ai-ml-courses/unit-1/chapter-1-3-mathematics-basics" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Next: Mathematics Basics →</a>
+  </div>
+</div>
+{{end}}

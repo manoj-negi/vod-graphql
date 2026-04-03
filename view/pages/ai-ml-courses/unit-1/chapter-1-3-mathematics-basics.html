@@ -1,0 +1,335 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline text-sm">← Back to Roadmap</a>
+    </div>
+    <div class="inline-flex items-center justify-center rounded-full bg-blue-500/10 dark:bg-blue-500/20 px-4 py-2 mb-4">
+      <span class="text-xs font-bold text-blue-600 dark:text-blue-400">Unit 1 • Chapter 1.3</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Mathematics Basics</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Essential mathematical concepts for understanding machine learning algorithms
+    </p>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 p-6 border border-blue-500/20">
+    <h2 class="text-2xl font-bold mb-3">📚 What You'll Learn</h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Linear algebra fundamentals (vectors, matrices, operations)</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Statistics and probability theory</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Calculus basics for optimization</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Gradients and derivatives in ML context</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">1. Linear Algebra</h2>
+    <p class="mb-4 text-foreground-light dark:text-foreground-dark">
+      Linear algebra is the backbone of machine learning, used in data representation, transformations, and model computations.
+    </p>
+    
+    <h3 class="text-xl font-bold mb-3">Vectors and Matrices</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import numpy as np
+
+# Vectors
+v1 = np.array([1, 2, 3])
+v2 = np.array([4, 5, 6])
+
+# Vector operations
+print("Addition:", v1 + v2)           # [5, 7, 9]
+print("Dot product:", np.dot(v1, v2)) # 32
+print("Magnitude:", np.linalg.norm(v1))  # 3.74
+
+# Matrices
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+# Matrix operations
+print("Matrix addition:\n", A + B)
+print("Matrix multiplication:\n", np.matmul(A, B))
+print("Transpose:\n", A.T)
+print("Determinant:", np.linalg.det(A))
+print("Inverse:\n", np.linalg.inv(A))
+
+# Eigenvalues and eigenvectors
+eigenvalues, eigenvectors = np.linalg.eig(A)
+print("Eigenvalues:", eigenvalues)
+print("Eigenvectors:\n", eigenvectors)</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30 mb-6">
+      <p class="text-sm"><strong>💡 ML Application:</strong> In ML, data points are vectors, features are matrix columns, and model parameters are often represented as matrices. Matrix multiplication is used in neural network forward propagation.</p>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">2. Statistics & Probability</h2>
+    
+    <h3 class="text-xl font-bold mb-3">Descriptive Statistics</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import numpy as np
+from scipy import stats
+
+# Sample data
+data = np.array([12, 15, 18, 20, 22, 25, 28, 30, 35, 40])
+
+# Central tendency
+print("Mean:", np.mean(data))           # 24.5
+print("Median:", np.median(data))       # 23.5
+print("Mode:", stats.mode(data))
+
+# Dispersion
+print("Variance:", np.var(data))        # 75.25
+print("Std Dev:", np.std(data))         # 8.67
+print("Range:", np.ptp(data))           # 28
+
+# Percentiles
+print("25th percentile:", np.percentile(data, 25))
+print("75th percentile:", np.percentile(data, 75))
+
+# Correlation
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 5, 4, 5])
+correlation = np.corrcoef(x, y)[0, 1]
+print("Correlation:", correlation)</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Probability Distributions</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import matplotlib.pyplot as plt
+from scipy.stats import norm, binom, poisson
+
+# Normal (Gaussian) Distribution
+mu, sigma = 0, 1
+x = np.linspace(-4, 4, 100)
+y = norm.pdf(x, mu, sigma)
+
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 3, 1)
+plt.plot(x, y)
+plt.title('Normal Distribution')
+plt.xlabel('x')
+plt.ylabel('Probability Density')
+
+# Binomial Distribution
+n, p = 10, 0.5
+x_binom = np.arange(0, n+1)
+y_binom = binom.pmf(x_binom, n, p)
+
+plt.subplot(1, 3, 2)
+plt.bar(x_binom, y_binom)
+plt.title('Binomial Distribution')
+plt.xlabel('Number of successes')
+plt.ylabel('Probability')
+
+# Poisson Distribution
+lambda_param = 3
+x_poisson = np.arange(0, 15)
+y_poisson = poisson.pmf(x_poisson, lambda_param)
+
+plt.subplot(1, 3, 3)
+plt.bar(x_poisson, y_poisson)
+plt.title('Poisson Distribution')
+plt.xlabel('Number of events')
+plt.ylabel('Probability')
+
+plt.tight_layout()
+plt.show()</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Bayes' Theorem</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Bayes' Theorem: P(A|B) = P(B|A) * P(A) / P(B)
+
+# Example: Medical test
+# P(Disease) = 0.01 (1% of population has disease)
+# P(Positive|Disease) = 0.95 (95% sensitivity)
+# P(Positive|No Disease) = 0.05 (5% false positive)
+
+P_disease = 0.01
+P_no_disease = 0.99
+P_pos_given_disease = 0.95
+P_pos_given_no_disease = 0.05
+
+# Calculate P(Positive)
+P_positive = (P_pos_given_disease * P_disease + 
+              P_pos_given_no_disease * P_no_disease)
+
+# Calculate P(Disease|Positive) using Bayes' Theorem
+P_disease_given_pos = (P_pos_given_disease * P_disease) / P_positive
+
+print(f"Probability of disease given positive test: {P_disease_given_pos:.4f}")
+# Output: 0.1610 (only 16% chance despite positive test!)</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">3. Calculus for ML</h2>
+    
+    <h3 class="text-xl font-bold mb-3">Derivatives</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import numpy as np
+import matplotlib.pyplot as plt
+
+# Function: f(x) = x^2
+def f(x):
+    return x**2
+
+# Derivative: f'(x) = 2x
+def f_prime(x):
+    return 2*x
+
+# Numerical derivative approximation
+def numerical_derivative(f, x, h=1e-5):
+    return (f(x + h) - f(x)) / h
+
+x = 2
+print(f"Analytical derivative at x={x}: {f_prime(x)}")
+print(f"Numerical derivative at x={x}: {numerical_derivative(f, x)}")
+
+# Visualize function and tangent line
+x_vals = np.linspace(-3, 3, 100)
+y_vals = f(x_vals)
+
+x_point = 1
+y_point = f(x_point)
+slope = f_prime(x_point)
+tangent_y = slope * (x_vals - x_point) + y_point
+
+plt.figure(figsize=(10, 6))
+plt.plot(x_vals, y_vals, label='f(x) = x²')
+plt.plot(x_vals, tangent_y, 'r--', label=f'Tangent at x={x_point}')
+plt.scatter([x_point], [y_point], color='red', s=100, zorder=5)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Function and Tangent Line')
+plt.legend()
+plt.grid(True)
+plt.show()</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Gradient Descent</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Gradient Descent to minimize f(x) = x^2
+def gradient_descent(learning_rate=0.1, iterations=50, start_x=10):
+    x = start_x
+    history = [x]
+    
+    for i in range(iterations):
+        gradient = 2 * x  # Derivative of x^2
+        x = x - learning_rate * gradient
+        history.append(x)
+        
+        if i % 10 == 0:
+            print(f"Iteration {i}: x = {x:.4f}, f(x) = {x**2:.4f}")
+    
+    return x, history
+
+# Run gradient descent
+final_x, history = gradient_descent()
+print(f"\nFinal x: {final_x:.6f}")
+print(f"Final f(x): {final_x**2:.6f}")
+
+# Visualize convergence
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.plot(history)
+plt.xlabel('Iteration')
+plt.ylabel('x value')
+plt.title('Convergence of x')
+plt.grid(True)
+
+plt.subplot(1, 2, 2)
+plt.plot([x**2 for x in history])
+plt.xlabel('Iteration')
+plt.ylabel('f(x)')
+plt.title('Convergence of f(x)')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Partial Derivatives</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Function with multiple variables: f(x, y) = x^2 + y^2
+def f(x, y):
+    return x**2 + y**2
+
+# Partial derivatives
+def df_dx(x, y):
+    return 2*x
+
+def df_dy(x, y):
+    return 2*y
+
+# Gradient (vector of partial derivatives)
+def gradient(x, y):
+    return np.array([df_dx(x, y), df_dy(x, y)])
+
+# Gradient descent in 2D
+def gradient_descent_2d(learning_rate=0.1, iterations=50):
+    x, y = 10, 10
+    path = [(x, y)]
+    
+    for i in range(iterations):
+        grad = gradient(x, y)
+        x = x - learning_rate * grad[0]
+        y = y - learning_rate * grad[1]
+        path.append((x, y))
+    
+    return path
+
+path = gradient_descent_2d()
+print(f"Starting point: {path[0]}")
+print(f"Final point: {path[-1]}")
+print(f"Final value: {f(path[-1][0], path[-1][1]):.6f}")</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm"><strong>💡 ML Application:</strong> Gradient descent is the fundamental optimization algorithm in ML. It's used to minimize loss functions and train neural networks through backpropagation.</p>
+    </div>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Practice Exercises</h2>
+    <ol class="space-y-3 text-sm list-decimal list-inside">
+      <li><strong>Matrix Operations:</strong> Implement matrix multiplication from scratch without NumPy and compare with np.matmul().</li>
+      <li><strong>Statistical Analysis:</strong> Generate 1000 random samples from a normal distribution and verify the 68-95-99.7 rule.</li>
+      <li><strong>Gradient Descent:</strong> Implement gradient descent for f(x) = x^3 - 2x^2 + x and visualize the optimization path.</li>
+      <li><strong>Covariance Matrix:</strong> Calculate and visualize the covariance matrix for a multi-dimensional dataset.</li>
+      <li><strong>Bayesian Inference:</strong> Solve a spam classification problem using Bayes' theorem with given probabilities.</li>
+    </ol>
+  </div>
+
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Additional Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://www.khanacademy.org/math/linear-algebra" class="text-primary hover:underline" target="_blank">Khan Academy - Linear Algebra</a></li>
+      <li>• <a href="https://www.3blue1brown.com/topics/linear-algebra" class="text-primary hover:underline" target="_blank">3Blue1Brown - Essence of Linear Algebra</a></li>
+      <li>• <a href="https://www.coursera.org/learn/machine-learning-calculus" class="text-primary hover:underline" target="_blank">Mathematics for Machine Learning</a></li>
+      <li>• <a href="https://seeing-theory.brown.edu/" class="text-primary hover:underline" target="_blank">Seeing Theory - Visual Probability</a></li>
+    </ul>
+  </div>
+
+  <div class="flex justify-between items-center pt-8 border-t border-border-light dark:border-border-dark">
+    <a href="/ai-ml-courses/unit-1/chapter-1-2-essential-libraries" class="text-primary hover:underline">← Previous: Essential Libraries</a>
+    <a href="/ai-ml-courses/unit-2/chapter-2-1-data-preprocessing" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Next: Data Preprocessing →</a>
+  </div>
+</div>
+{{end}}

@@ -1,0 +1,298 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline text-sm">← Back to Roadmap</a>
+    </div>
+    <div class="inline-flex items-center justify-center rounded-full bg-purple-500/10 dark:bg-purple-500/20 px-4 py-2 mb-4">
+      <span class="text-xs font-bold text-purple-600 dark:text-purple-400">Unit 3 • Chapter 3.2</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Natural Language Processing</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Process and understand human language using modern NLP techniques and transformers
+    </p>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 dark:from-purple-500/20 dark:to-purple-600/20 p-6 border border-purple-500/20">
+    <h2 class="text-2xl font-bold mb-3">📚 What You'll Learn</h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Text preprocessing and tokenization</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Word embeddings (Word2Vec, GloVe)</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Sentiment analysis and text classification</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Transformers and BERT</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">1. Text Preprocessing</h2>
+    <p class="mb-4">Clean and prepare text data for NLP tasks.</p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+import re
+
+# Download required NLTK data
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+# Sample text
+text = """Natural Language Processing (NLP) is amazing! 
+It allows computers to understand human language. 
+NLP has many applications like chatbots, translation, and sentiment analysis."""
+
+# 1. Lowercasing
+text_lower = text.lower()
+
+# 2. Remove special characters and numbers
+text_clean = re.sub(r'[^a-zA-Z\s]', '', text_lower)
+
+# 3. Tokenization
+tokens = word_tokenize(text_clean)
+print(f"Tokens: {tokens[:10]}")
+
+# 4. Remove stopwords
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [word for word in tokens if word not in stop_words]
+print(f"\nFiltered tokens: {filtered_tokens[:10]}")
+
+# 5. Stemming
+stemmer = PorterStemmer()
+stemmed = [stemmer.stem(word) for word in filtered_tokens]
+print(f"\nStemmed: {stemmed[:10]}")
+
+# 6. Lemmatization
+lemmatizer = WordNetLemmatizer()
+lemmatized = [lemmatizer.lemmatize(word) for word in filtered_tokens]
+print(f"\nLemmatized: {lemmatized[:10]}")</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">2. Text Vectorization</h2>
+    
+    <h3 class="text-xl font-bold mb-3">TF-IDF</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+
+# Sample documents
+documents = [
+    "Machine learning is fascinating",
+    "Deep learning is a subset of machine learning",
+    "Natural language processing uses machine learning",
+    "AI and machine learning are transforming industries"
+]
+
+# TF-IDF Vectorization
+tfidf = TfidfVectorizer(max_features=10)
+tfidf_matrix = tfidf.fit_transform(documents)
+
+print("TF-IDF Features:", tfidf.get_feature_names_out())
+print("\nTF-IDF Matrix:\n", tfidf_matrix.toarray())
+
+# Count Vectorization (Bag of Words)
+count_vec = CountVectorizer()
+count_matrix = count_vec.fit_transform(documents)
+
+print("\nCount Vectorizer Features:", count_vec.get_feature_names_out())
+print("\nCount Matrix:\n", count_matrix.toarray())</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Word Embeddings</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from gensim.models import Word2Vec
+import numpy as np
+
+# Sample sentences
+sentences = [
+    ['machine', 'learning', 'is', 'fascinating'],
+    ['deep', 'learning', 'is', 'subset', 'machine', 'learning'],
+    ['natural', 'language', 'processing', 'uses', 'machine', 'learning'],
+    ['ai', 'machine', 'learning', 'transforming', 'industries']
+]
+
+# Train Word2Vec model
+model = Word2Vec(sentences, vector_size=100, window=5, min_count=1, workers=4)
+
+# Get word vector
+vector = model.wv['machine']
+print(f"Vector for 'machine': {vector[:10]}...")
+
+# Find similar words
+similar = model.wv.most_similar('learning', topn=3)
+print(f"\nWords similar to 'learning': {similar}")
+
+# Word arithmetic
+result = model.wv.most_similar(positive=['machine', 'deep'], negative=['learning'])
+print(f"\nmachine + deep - learning = {result[0]}")</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">3. Sentiment Analysis</h2>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import classification_report, accuracy_score
+
+# Sample data
+texts = [
+    "This product is amazing! I love it.",
+    "Terrible experience, would not recommend.",
+    "Great quality and fast shipping.",
+    "Waste of money, very disappointed.",
+    "Excellent customer service!",
+    "Poor quality, broke after one use."
+]
+labels = [1, 0, 1, 0, 1, 0]  # 1 = positive, 0 = negative
+
+# Vectorize
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(texts)
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, labels, test_size=0.3, random_state=42)
+
+# Train classifier
+classifier = MultinomialNB()
+classifier.fit(X_train, y_train)
+
+# Predict
+y_pred = classifier.predict(X_test)
+
+# Evaluate
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.4f}")
+
+# Test on new text
+new_text = ["This is absolutely wonderful!"]
+new_vector = vectorizer.transform(new_text)
+prediction = classifier.predict(new_vector)
+print(f"\nPrediction for '{new_text[0]}': {'Positive' if prediction[0] == 1 else 'Negative'}")</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">4. Transformers & BERT</h2>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from transformers import pipeline, BertTokenizer, TFBertForSequenceClassification
+
+# Sentiment analysis with pre-trained model
+sentiment_analyzer = pipeline("sentiment-analysis")
+
+texts = [
+    "I absolutely love this product!",
+    "This is the worst purchase I've ever made.",
+    "It's okay, nothing special."
+]
+
+for text in texts:
+    result = sentiment_analyzer(text)[0]
+    print(f"Text: {text}")
+    print(f"Sentiment: {result['label']}, Score: {result['score']:.4f}\n")
+
+# Named Entity Recognition
+ner = pipeline("ner", grouped_entities=True)
+text = "Apple Inc. was founded by Steve Jobs in Cupertino, California."
+entities = ner(text)
+
+print("Named Entities:")
+for entity in entities:
+    print(f"  {entity['word']}: {entity['entity_group']} (score: {entity['score']:.4f})")
+
+# Question Answering
+qa = pipeline("question-answering")
+context = "Machine learning is a subset of artificial intelligence that focuses on learning from data."
+question = "What is machine learning?"
+answer = qa(question=question, context=context)
+
+print(f"\nQuestion: {question}")
+print(f"Answer: {answer['answer']} (score: {answer['score']:.4f})")</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">5. Text Generation with RNNs</h2>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Sample text
+text = "Hello world. This is a simple example of text generation using RNNs."
+
+# Create character mappings
+chars = sorted(set(text))
+char_to_idx = {c: i for i, c in enumerate(chars)}
+idx_to_char = {i: c for i, c in enumerate(chars)}
+
+# Prepare sequences
+seq_length = 10
+sequences = []
+next_chars = []
+
+for i in range(len(text) - seq_length):
+    sequences.append([char_to_idx[c] for c in text[i:i+seq_length]])
+    next_chars.append(char_to_idx[text[i+seq_length]])
+
+X = np.array(sequences)
+y = tf.keras.utils.to_categorical(next_chars, num_classes=len(chars))
+
+# Build LSTM model
+model = keras.Sequential([
+    layers.Embedding(len(chars), 64, input_length=seq_length),
+    layers.LSTM(128, return_sequences=True),
+    layers.LSTM(128),
+    layers.Dense(len(chars), activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy')
+model.summary()</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 dark:from-primary/20 dark:to-purple-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Practice Exercises</h2>
+    <ol class="space-y-3 text-sm list-decimal list-inside">
+      <li><strong>Spam Classifier:</strong> Build an email spam detector using TF-IDF and Naive Bayes.</li>
+      <li><strong>Movie Review Sentiment:</strong> Train a sentiment classifier on IMDB movie reviews dataset.</li>
+      <li><strong>Named Entity Recognition:</strong> Extract names, locations, and organizations from news articles.</li>
+      <li><strong>Text Summarization:</strong> Implement extractive summarization using TF-IDF scores.</li>
+      <li><strong>Chatbot:</strong> Build a simple intent classification chatbot using transformers.</li>
+    </ol>
+  </div>
+
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Additional Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://huggingface.co/course" class="text-primary hover:underline" target="_blank">Hugging Face NLP Course</a></li>
+      <li>• <a href="https://www.nltk.org/book/" class="text-primary hover:underline" target="_blank">NLTK Book</a></li>
+      <li>• <a href="https://web.stanford.edu/~jurafsky/slp3/" class="text-primary hover:underline" target="_blank">Speech and Language Processing (Jurafsky & Martin)</a></li>
+      <li>• <a href="https://jalammar.github.io/illustrated-transformer/" class="text-primary hover:underline" target="_blank">The Illustrated Transformer</a></li>
+    </ul>
+  </div>
+
+  <div class="flex justify-between items-center pt-8 border-t border-border-light dark:border-border-dark">
+    <a href="/ai-ml-courses/unit-3/chapter-3-1-deep-learning" class="text-primary hover:underline">← Previous: Deep Learning</a>
+    <a href="/ai-ml-courses/unit-3/chapter-3-3-model-deployment" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Next: Model Deployment →</a>
+  </div>
+</div>
+{{end}}

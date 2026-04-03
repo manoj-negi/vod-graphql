@@ -1,0 +1,325 @@
+{{define "content"}}
+<div class="max-w-6xl mx-auto">
+  <div class="text-center mb-12">
+    <div class="inline-flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 px-6 py-2 mb-4">
+      <svg class="w-6 h-6 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+      </svg>
+      <span class="text-sm font-bold text-primary">AWS Certification Path</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">AWS AI Practitioner (AIF-C01) Roadmap</h1>
+    <p class="max-w-2xl mx-auto text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Complete preparation guide for the AWS Certified AI Practitioner (AIF-C01) certification
+    </p>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 dark:from-primary/20 dark:to-purple-500/20 p-6 border border-primary/20">
+    <p class="text-base text-foreground-light/90 dark:text-foreground-dark/90 text-center">
+      <strong>Welcome!</strong> This roadmap covers all domains for the AIF-C01 exam organized into <strong>4 Units</strong> with <strong>12 Chapters</strong>. Master AI/ML fundamentals, AWS AI services, generative AI, and responsible AI practices.
+    </p>
+  </div>
+
+  <!-- Unit 1: AI & ML Fundamentals -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">1</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 1: AI &amp; ML Fundamentals</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Core concepts, terminology, and machine learning basics</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <!-- Chapter 1.1 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-orange-600 bg-orange-500/10 px-2 py-1 rounded">Chapter 1.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 1</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">AI &amp; ML Concepts</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Supervised, unsupervised, reinforcement learning</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>AI vs ML vs Deep Learning</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Supervised &amp; Unsupervised Learning</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Reinforcement Learning</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Features, Labels &amp; Datasets</span></div>
+        </div>
+      </div>
+      <!-- Chapter 1.2 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-orange-600 bg-orange-500/10 px-2 py-1 rounded">Chapter 1.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 1</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">ML Problem Types</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Classification, regression, clustering, NLP, CV</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Classification &amp; Regression</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Clustering &amp; Anomaly Detection</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Natural Language Processing (NLP)</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Computer Vision &amp; Object Detection</span></div>
+        </div>
+      </div>
+      <!-- Chapter 1.3 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-orange-600 bg-orange-500/10 px-2 py-1 rounded">Chapter 1.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 1</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Model Evaluation</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Metrics, overfitting, bias-variance tradeoff</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Accuracy, Precision, Recall, F1</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>AUC-ROC &amp; Confusion Matrix</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Overfitting &amp; Underfitting</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Cross-validation &amp; Hyperparameter Tuning</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 2: Generative AI -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">2</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 2: Generative AI &amp; Foundation Models</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">LLMs, prompt engineering, RAG, and generative AI on AWS</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <!-- Chapter 2.1 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-purple-600 bg-purple-500/10 px-2 py-1 rounded">Chapter 2.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 2</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Foundation Models &amp; LLMs</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Large language models, tokens, and inference</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Transformer Architecture &amp; Tokens</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Pre-training vs Fine-tuning</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Amazon Titan, Claude, Llama models</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Multimodal Models (text, image, audio)</span></div>
+        </div>
+      </div>
+      <!-- Chapter 2.2 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-purple-600 bg-purple-500/10 px-2 py-1 rounded">Chapter 2.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 2</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Prompt Engineering</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Prompt techniques and optimization strategies</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Zero-shot &amp; Few-shot Prompting</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Chain-of-Thought Reasoning</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Temperature &amp; Top-P Sampling</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>System Prompts &amp; Context Windows</span></div>
+        </div>
+      </div>
+      <!-- Chapter 2.3 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-purple-600 bg-purple-500/10 px-2 py-1 rounded">Chapter 2.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 2</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">RAG &amp; Amazon Bedrock</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Retrieval-Augmented Generation and Bedrock APIs</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>RAG Pattern &amp; Vector Databases</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Amazon Bedrock Knowledge Bases</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Bedrock Agents &amp; Action Groups</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Bedrock Guardrails &amp; Model Evaluation</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 3: AWS AI Services -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">3</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 3: AWS AI/ML Services</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Managed AI services, SageMaker, and MLOps on AWS</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <!-- Chapter 3.1 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-blue-600 bg-blue-500/10 px-2 py-1 rounded">Chapter 3.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 3</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Managed AI Services</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Pre-built AI services for common use cases</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Comprehend (NLP &amp; Sentiment)</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Rekognition (Image &amp; Video)</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Textract, Transcribe &amp; Polly</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Translate, Lex, Kendra &amp; Personalize</span></div>
+        </div>
+      </div>
+      <!-- Chapter 3.2 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-blue-600 bg-blue-500/10 px-2 py-1 rounded">Chapter 3.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 3</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Amazon SageMaker</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Build, train, and deploy ML models at scale</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>SageMaker Studio &amp; Notebooks</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Training Jobs &amp; Hyperparameter Tuning</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Real-time &amp; Batch Inference Endpoints</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Feature Store, Pipelines &amp; MLflow</span></div>
+        </div>
+      </div>
+      <!-- Chapter 3.3 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-blue-600 bg-blue-500/10 px-2 py-1 rounded">Chapter 3.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 3</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Amazon Q &amp; Productivity AI</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">AI assistants and developer productivity tools</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Amazon Q Business</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Amazon Q Developer (code assistant)</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Forecast &amp; Personalize</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>SageMaker Ground Truth (labeling)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 4: Responsible AI & Security -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">4</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 4: Responsible AI, Security &amp; Governance</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Ethical AI, compliance, bias mitigation, and data privacy</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <!-- Chapter 4.1 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-green-600 bg-green-500/10 px-2 py-1 rounded">Chapter 4.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 4</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Responsible AI Principles</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Fairness, transparency, and human-centred AI</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Bias Detection &amp; Mitigation</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Explainability &amp; SageMaker Clarify</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Hallucination &amp; Mitigation Strategies</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>AWS AI Service Cards</span></div>
+        </div>
+      </div>
+      <!-- Chapter 4.2 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-green-600 bg-green-500/10 px-2 py-1 rounded">Chapter 4.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 4</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Security &amp; Privacy</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Data protection, IAM, and encryption for AI workloads</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>IAM Roles for AI Services</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Amazon Macie &amp; PII Detection</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Encryption at Rest &amp; In Transit</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>VPC Endpoints for AI Services</span></div>
+        </div>
+      </div>
+      <!-- Chapter 4.3 -->
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-green-600 bg-green-500/10 px-2 py-1 rounded">Chapter 4.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 4</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Governance &amp; Compliance</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Model monitoring, audit trails, and regulatory alignment</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>SageMaker Model Monitor &amp; Drift</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>CloudTrail Audit Logs for AI APIs</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>Model Cards &amp; Documentation</span></div>
+          <div class="flex items-center gap-2 text-xs"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>GDPR &amp; HIPAA Considerations</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exam Domain Weights -->
+  <div class="mb-12 rounded-xl border border-border-light dark:border-border-dark p-6 bg-gradient-to-br from-background-light/50 to-background-dark/50">
+    <h3 class="text-xl font-bold mb-4 text-center">AIF-C01 Exam Domains &amp; Weights</h3>
+    <div class="grid md:grid-cols-4 gap-4">
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold mb-2 mx-auto text-sm">24%</div>
+        <p class="text-xs font-semibold">Fundamentals of AI &amp; ML</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold mb-2 mx-auto text-sm">28%</div>
+        <p class="text-xs font-semibold">Fundamentals of Generative AI</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold mb-2 mx-auto text-sm">28%</div>
+        <p class="text-xs font-semibold">Applications of Foundation Models</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold mb-2 mx-auto text-sm">20%</div>
+        <p class="text-xs font-semibold">Responsible AI &amp; Security</p>
+      </div>
+    </div>
+    <p class="text-xs text-center mt-4 text-foreground-muted-light dark:text-foreground-muted-dark">Focus on the middle two domains — they carry 56% of the exam!</p>
+  </div>
+
+  <div class="mt-10 rounded-xl bg-primary/10 dark:bg-primary/20 p-6 text-center">
+    <p class="text-base font-medium">💡 Exam Tip: Focus on recognising <em>which AWS AI service fits which use case</em>. Use AWS Skill Builder free labs and experiment directly with Amazon Bedrock!</p>
+  </div>
+
+  <!-- Study Resources -->
+  <div class="mt-12 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">Study Resources &amp; Preparation</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Official AWS Resources</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• <strong>AWS Skill Builder:</strong> AIF-C01 learning plan (free)</li>
+          <li>• <strong>AWS Bedrock Workshop:</strong> Hands-on generative AI labs</li>
+          <li>• <strong>AWS Documentation:</strong> Each AI service deep dive</li>
+          <li>• <strong>AWS AI Service Cards:</strong> Responsible AI documentation</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Practice &amp; Courses</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• <strong>Stephane Maarek:</strong> AWS AI Practitioner Course (Udemy)</li>
+          <li>• <strong>Tutorials Dojo:</strong> AIF-C01 Practice Exams</li>
+          <li>• <strong>A Cloud Guru:</strong> AI Practitioner learning path</li>
+          <li>• <strong>AWS Free Tier:</strong> Experiment with Bedrock &amp; SageMaker</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Exam Details</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• <strong>Duration:</strong> 90 minutes</li>
+          <li>• <strong>Questions:</strong> 65 (multiple choice &amp; multiple response)</li>
+          <li>• <strong>Passing Score:</strong> 700/1000</li>
+          <li>• <strong>Cost:</strong> $100 USD</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Key Services to Know</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• <strong>Amazon Bedrock:</strong> Central to generative AI questions</li>
+          <li>• <strong>Amazon SageMaker:</strong> ML lifecycle &amp; MLOps</li>
+          <li>• <strong>Amazon Q:</strong> Business &amp; developer productivity</li>
+          <li>• <strong>Comprehend / Rekognition / Textract:</strong> Managed AI APIs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}

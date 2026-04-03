@@ -1,0 +1,1184 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="inline-flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 px-4 py-2 mb-4">
+      <svg class="w-6 h-6 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+      </svg>
+      <span class="text-sm font-bold text-primary">Go Concurrency Mastery</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Channels Deep Dive</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Master Go channels from fundamentals to advanced patterns and best practices
+    </p>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+    <h2 class="text-2xl font-bold mb-4">📋 Contents</h2>
+    <div class="grid md:grid-cols-2 gap-2 text-sm">
+      <div>
+        <a href="#basics" class="text-primary hover:underline">1. Channel Basics</a><br>
+        <a href="#types" class="text-primary hover:underline">2. Channel Types</a><br>
+        <a href="#operations" class="text-primary hover:underline">3. Channel Operations</a><br>
+        <a href="#select" class="text-primary hover:underline">4. Select Statement</a>
+      </div>
+      <div>
+        <a href="#patterns" class="text-primary hover:underline">5. Channel Patterns</a><br>
+        <a href="#advanced" class="text-primary hover:underline">6. Advanced Techniques</a><br>
+        <a href="#best-practices" class="text-primary hover:underline">7. Best Practices</a><br>
+        <a href="#pitfalls" class="text-primary hover:underline">8. Common Pitfalls</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: Channel Basics -->
+  <div id="basics" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</div>
+      <h2 class="text-2xl font-bold mt-1">Channel Basics</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">What is a Channel?</h3>
+      <p class="mb-3">A <strong>channel</strong> is a typed conduit through which you can send and receive values with the channel operator <code class="bg-black/30 px-2 py-1 rounded">&lt;-</code>.</p>
+      
+      <blockquote class="border-l-4 border-primary pl-4 italic mb-4">
+        "Channels are the pipes that connect concurrent goroutines. You can send values into channels from one goroutine and receive those values in another goroutine."
+      </blockquote>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-4">
+        <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+          <h4 class="font-bold mb-2 text-blue-600">Type-Safe</h4>
+          <p class="text-sm">Channels are typed - can only send/receive specific type</p>
+        </div>
+        <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+          <h4 class="font-bold mb-2 text-green-600">Synchronized</h4>
+          <p class="text-sm">Built-in synchronization between goroutines</p>
+        </div>
+        <div class="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+          <h4 class="font-bold mb-2 text-purple-600">FIFO</h4>
+          <p class="text-sm">First-In-First-Out ordering guaranteed</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import "fmt"
+
+func main() {
+    // ============ CREATING CHANNELS ============
+    
+    // Unbuffered channel (synchronous)
+    ch1 := make(chan int)
+    
+    // Buffered channel (asynchronous up to capacity)
+    ch2 := make(chan string, 5)
+    
+    // Nil channel (zero value)
+    var ch3 chan bool  // nil
+    
+    // ============ BASIC OPERATIONS ============
+    
+    // Send (blocks until receiver ready)
+    go func() {
+        ch1 <- 42  // Send value to channel
+    }()
+    
+    // Receive (blocks until sender sends)
+    value := <-ch1  // Receive value from channel
+    fmt.Println(value)  // 42
+    
+    // ============ BUFFERED CHANNEL ============
+    
+    ch2 <- "hello"     // Non-blocking (buffer has space)
+    ch2 <- "world"
+    
+    fmt.Println(<-ch2)  // "hello"
+    fmt.Println(<-ch2)  // "world"
+    
+    // ============ CHANNEL PROPERTIES ============
+    
+    // Length: number of elements in buffer
+    fmt.Println(len(ch2))  // 0
+    
+    // Capacity: buffer size
+    fmt.Println(cap(ch2))  // 5
+    
+    // ============ CLOSING CHANNELS ============
+    
+    ch4 := make(chan int, 2)
+    ch4 <- 1
+    ch4 <- 2
+    close(ch4)  // No more values will be sent
+    
+    // Receiving from closed channel
+    fmt.Println(<-ch4)  // 1
+    fmt.Println(<-ch4)  // 2
+    fmt.Println(<-ch4)  // 0 (zero value, no panic)
+    
+    // Check if channel is closed
+    val, ok := <-ch4
+    fmt.Println(val, ok)  // 0 false (ok=false means closed)
+}
+
+// ============ CHANNEL AS FUNCTION PARAMETER ============
+
+// Send-only channel
+func sendOnly(ch chan<- int) {
+    ch <- 42
+    // val := <-ch  // ❌ Compile error
+}
+
+// Receive-only channel
+func receiveOnly(ch <-chan int) {
+    val := <-ch
+    fmt.Println(val)
+    // ch <- 42  // ❌ Compile error
+}
+
+// Bidirectional channel
+func bidirectional(ch chan int) {
+    ch <- 42
+    val := <-ch
+    fmt.Println(val)
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Key Points:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>• Channels must be created with <code class="bg-black/30 px-1 rounded">make()</code></li>
+        <li>• Sending/receiving blocks by default (synchronization)</li>
+        <li>• Buffered channels allow non-blocking sends up to capacity</li>
+        <li>• Receiving from closed channel returns zero value (no panic)</li>
+        <li>• Use directional channels in function signatures for safety</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 2: Channel Types -->
+  <div id="types" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</div>
+      <h2 class="text-2xl font-bold mt-1">Channel Types</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">1. Unbuffered Channels (Synchronous)</h3>
+      <p class="mb-3">Unbuffered channels have no capacity. Send blocks until receive happens (and vice versa).</p>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func unbufferedExample() {
+    ch := make(chan string)  // Unbuffered
+    
+    // This would deadlock (no receiver)
+    // ch <- "hello"  // ❌ DEADLOCK
+    
+    // Correct: Use goroutine
+    go func() {
+        time.Sleep(1 * time.Second)
+        ch <- "hello"  // Blocks until main receives
+        fmt.Println("Sent!")
+    }()
+    
+    fmt.Println("Waiting...")
+    msg := <-ch  // Blocks until goroutine sends
+    fmt.Println("Received:", msg)
+    
+    // Output:
+    // Waiting...
+    // Received: hello
+    // Sent!
+    
+    // ============ SYNCHRONIZATION ============
+    
+    done := make(chan bool)
+    
+    go func() {
+        fmt.Println("Working...")
+        time.Sleep(2 * time.Second)
+        fmt.Println("Done!")
+        done <- true  // Signal completion
+    }()
+    
+    <-done  // Wait for signal
+    fmt.Println("Main exits")
+}
+
+// Use Case: Synchronization, handoff, guaranteed delivery</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">2. Buffered Channels (Asynchronous)</h3>
+      <p class="mb-3">Buffered channels have capacity. Sends block only when buffer is full.</p>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>func bufferedExample() {
+    ch := make(chan int, 3)  // Buffer size 3
+    
+    // Non-blocking sends (buffer not full)
+    ch <- 1
+    ch <- 2
+    ch <- 3
+    
+    // This would block (buffer full)
+    // ch <- 4  // ❌ Would block without receiver
+    
+    // Receive values
+    fmt.Println(<-ch)  // 1
+    fmt.Println(<-ch)  // 2
+    
+    // Now we can send again (space available)
+    ch <- 4
+    
+    fmt.Println(<-ch)  // 3
+    fmt.Println(<-ch)  // 4
+    
+    // ============ PRODUCER-CONSUMER ============
+    
+    jobs := make(chan int, 100)
+    
+    // Producer (can send up to 100 without blocking)
+    go func() {
+        for i := 0; i < 100; i++ {
+            jobs <- i  // Non-blocking until buffer full
+        }
+        close(jobs)
+    }()
+    
+    // Consumer
+    for job := range jobs {
+        fmt.Println("Processing:", job)
+    }
+}
+
+// Use Case: Producer-consumer, rate limiting, buffering</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">3. Nil Channels</h3>
+      <p class="mb-3">Nil channels block forever on send/receive. Useful for disabling channels in select.</p>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>func nilChannelExample() {
+    var ch chan int  // nil channel
+    
+    // These block forever (deadlock if in main)
+    // ch <- 1   // ❌ Blocks forever
+    // <-ch      // ❌ Blocks forever
+    
+    // Useful in select to disable a case
+    ch1 := make(chan int)
+    ch2 := make(chan int)
+    
+    go func() {
+        time.Sleep(1 * time.Second)
+        ch1 <- 1
+    }()
+    
+    for i := 0; i < 2; i++ {
+        select {
+        case val := <-ch1:
+            fmt.Println("ch1:", val)
+            ch1 = nil  // Disable ch1 case
+        case val := <-ch2:
+            fmt.Println("ch2:", val)
+        }
+    }
+}
+
+// Use Case: Disabling select cases dynamically</code></pre>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+        <h4 class="font-bold mb-2 text-blue-600">Unbuffered</h4>
+        <ul class="text-sm space-y-1">
+          <li>• Capacity: 0</li>
+          <li>• Synchronous</li>
+          <li>• Guaranteed delivery</li>
+          <li>• Use: Synchronization</li>
+        </ul>
+      </div>
+      <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+        <h4 class="font-bold mb-2 text-green-600">Buffered</h4>
+        <ul class="text-sm space-y-1">
+          <li>• Capacity: > 0</li>
+          <li>• Asynchronous (up to cap)</li>
+          <li>• Decouples sender/receiver</li>
+          <li>• Use: Throughput</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Channel Operations -->
+  <div id="operations" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</div>
+      <h2 class="text-2xl font-bold mt-1">Channel Operations</h2>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import "fmt"
+
+func channelOperations() {
+    // ============ SEND ============
+    ch := make(chan int, 1)
+    ch <- 42  // Send value
+    
+    // ============ RECEIVE ============
+    
+    // Simple receive
+    val := <-ch
+    fmt.Println(val)
+    
+    // Receive with ok check
+    ch <- 100
+    val, ok := <-ch
+    fmt.Println(val, ok)  // 100 true
+    
+    close(ch)
+    val, ok = <-ch
+    fmt.Println(val, ok)  // 0 false (closed)
+    
+    // ============ CLOSE ============
+    
+    ch2 := make(chan string, 2)
+    ch2 <- "hello"
+    ch2 <- "world"
+    close(ch2)  // No more sends allowed
+    
+    // ❌ Panic: send on closed channel
+    // ch2 <- "oops"
+    
+    // ✅ OK: receive from closed channel
+    fmt.Println(<-ch2)  // "hello"
+    fmt.Println(<-ch2)  // "world"
+    fmt.Println(<-ch2)  // "" (zero value)
+    
+    // ============ RANGE OVER CHANNEL ============
+    
+    ch3 := make(chan int, 5)
+    for i := 0; i < 5; i++ {
+        ch3 <- i
+    }
+    close(ch3)  // Must close for range to exit
+    
+    for val := range ch3 {
+        fmt.Println(val)  // 0, 1, 2, 3, 4
+    }
+    // Range exits when channel closed and empty
+    
+    // ============ DIRECTIONAL CHANNELS ============
+    
+    // Convert bidirectional to directional
+    ch4 := make(chan int)
+    
+    go sender(ch4)     // Implicit conversion to chan<-
+    go receiver(ch4)   // Implicit conversion to <-chan
+}
+
+func sender(ch chan<- int) {
+    ch <- 42
+    close(ch)
+}
+
+func receiver(ch <-chan int) {
+    for val := range ch {
+        fmt.Println(val)
+    }
+}
+
+// ============ OPERATION BEHAVIOR TABLE ============
+//
+// Operation      | Nil Channel | Closed Channel | Open Channel
+// ---------------|-------------|----------------|-------------
+// Send           | Block       | Panic          | Block/Success
+// Receive        | Block       | Zero value     | Block/Value
+// Close          | Panic       | Panic          | Success
+// len()          | 0           | Buffered count | Buffered count
+// cap()          | 0           | Buffer size    | Buffer size</code></pre>
+    </div>
+
+    <div class="bg-red-500/10 dark:bg-red-500/20 rounded-lg p-4 border border-red-500/30">
+      <p class="text-sm mb-2"><strong>⚠️ Panic Conditions:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>1. Send on closed channel → <strong>PANIC</strong></li>
+        <li>2. Close already closed channel → <strong>PANIC</strong></li>
+        <li>3. Close nil channel → <strong>PANIC</strong></li>
+        <li>4. Receive from closed channel → <strong>Zero value (NO PANIC)</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 4: Select Statement -->
+  <div id="select" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">4</div>
+      <h2 class="text-2xl font-bold mt-1">Select Statement</h2>
+    </div>
+    
+    <div class="mb-4">
+      <p class="mb-3">The <code class="bg-black/30 px-2 py-1 rounded">select</code> statement lets a goroutine wait on multiple channel operations.</p>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func selectBasics() {
+    // ============ BASIC SELECT ============
+    
+    ch1 := make(chan string)
+    ch2 := make(chan string)
+    
+    go func() {
+        time.Sleep(1 * time.Second)
+        ch1 <- "one"
+    }()
+    
+    go func() {
+        time.Sleep(2 * time.Second)
+        ch2 <- "two"
+    }()
+    
+    // Select blocks until one case can proceed
+    select {
+    case msg1 := <-ch1:
+        fmt.Println("Received:", msg1)  // Executes first
+    case msg2 := <-ch2:
+        fmt.Println("Received:", msg2)
+    }
+    
+    // ============ SELECT WITH TIMEOUT ============
+    
+    ch3 := make(chan string)
+    
+    select {
+    case msg := <-ch3:
+        fmt.Println("Received:", msg)
+    case <-time.After(1 * time.Second):
+        fmt.Println("Timeout!")  // Executes after 1s
+    }
+    
+    // ============ NON-BLOCKING OPERATIONS ============
+    
+    ch4 := make(chan int, 1)
+    
+    // Non-blocking send
+    select {
+    case ch4 <- 42:
+        fmt.Println("Sent successfully")
+    default:
+        fmt.Println("Channel full, skipped")
+    }
+    
+    // Non-blocking receive
+    select {
+    case val := <-ch4:
+        fmt.Println("Received:", val)
+    default:
+        fmt.Println("No value available")
+    }
+    
+    // ============ MULTIPLE READY CASES ============
+    
+    ch5 := make(chan int, 2)
+    ch5 <- 1
+    ch5 <- 2
+    
+    // If multiple cases ready, one chosen randomly
+    select {
+    case val := <-ch5:
+        fmt.Println("Case 1:", val)  // Could be 1 or 2
+    case val := <-ch5:
+        fmt.Println("Case 2:", val)  // Could be 1 or 2
+    }
+}
+
+// ============ SELECT PATTERNS ============
+
+// Pattern 1: Timeout
+func withTimeout() {
+    ch := make(chan string)
+    
+    go func() {
+        time.Sleep(2 * time.Second)
+        ch <- "result"
+    }()
+    
+    select {
+    case result := <-ch:
+        fmt.Println(result)
+    case <-time.After(1 * time.Second):
+        fmt.Println("Operation timed out")
+    }
+}
+
+// Pattern 2: Done channel for cancellation
+func withDone() {
+    done := make(chan bool)
+    ch := make(chan int)
+    
+    go func() {
+        for {
+            select {
+            case val := <-ch:
+                fmt.Println("Processing:", val)
+            case <-done:
+                fmt.Println("Stopping...")
+                return
+            }
+        }
+    }()
+    
+    ch <- 1
+    ch <- 2
+    done <- true  // Signal to stop
+}
+
+// Pattern 3: Multiple channels
+func multiplexing() {
+    ch1 := make(chan int)
+    ch2 := make(chan int)
+    quit := make(chan bool)
+    
+    go func() {
+        for {
+            select {
+            case val := <-ch1:
+                fmt.Println("ch1:", val)
+            case val := <-ch2:
+                fmt.Println("ch2:", val)
+            case <-quit:
+                return
+            }
+        }
+    }()
+    
+    ch1 <- 1
+    ch2 <- 2
+    quit <- true
+}
+
+// Pattern 4: Empty select (blocks forever)
+func blockForever() {
+    select {}  // Blocks forever (useful for keeping main alive)
+}</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Select Behavior:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>• Blocks until one case can proceed</li>
+        <li>• If multiple cases ready, chooses randomly</li>
+        <li>• Default case makes it non-blocking</li>
+        <li>• Empty select blocks forever</li>
+        <li>• Cases with nil channels are ignored</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 5: Channel Patterns -->
+  <div id="patterns" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">5</div>
+      <h2 class="text-2xl font-bold mt-1">Channel Patterns</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">1. Pipeline Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// Pipeline: Chain of stages connected by channels
+
+func pipeline() {
+    // Stage 1: Generate numbers
+    nums := generate(1, 2, 3, 4, 5)
+    
+    // Stage 2: Square numbers
+    squares := square(nums)
+    
+    // Stage 3: Sum numbers
+    sum := sum(squares)
+    
+    fmt.Println("Sum:", sum)  // 55
+}
+
+func generate(nums ...int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for _, n := range nums {
+            out <- n
+        }
+    }()
+    return out
+}
+
+func square(in <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for n := range in {
+            out <- n * n
+        }
+    }()
+    return out
+}
+
+func sum(in <-chan int) int {
+    sum := 0
+    for n := range in {
+        sum += n
+    }
+    return sum
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">2. Fan-Out, Fan-In Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import "sync"
+
+// Fan-Out: Multiple workers read from same channel
+// Fan-In: Merge multiple channels into one
+
+func fanOutFanIn() {
+    in := generate(1, 2, 3, 4, 5)
+    
+    // Fan-Out: Start 3 workers
+    c1 := worker(in)
+    c2 := worker(in)
+    c3 := worker(in)
+    
+    // Fan-In: Merge results
+    for result := range merge(c1, c2, c3) {
+        fmt.Println(result)
+    }
+}
+
+func worker(in <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for n := range in {
+            out <- n * n
+        }
+    }()
+    return out
+}
+
+func merge(channels ...<-chan int) <-chan int {
+    out := make(chan int)
+    var wg sync.WaitGroup
+    
+    // Start goroutine for each channel
+    for _, ch := range channels {
+        wg.Add(1)
+        go func(c <-chan int) {
+            defer wg.Done()
+            for v := range c {
+                out <- v
+            }
+        }(ch)
+    }
+    
+    // Close out when all inputs closed
+    go func() {
+        wg.Wait()
+        close(out)
+    }()
+    
+    return out
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">3. Or-Done Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// Or-Done: Wrap channel to handle cancellation
+
+func orDone(done <-chan struct{}, ch <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for {
+            select {
+            case <-done:
+                return
+            case val, ok := <-ch:
+                if !ok {
+                    return
+                }
+                select {
+                case out <- val:
+                case <-done:
+                    return
+                }
+            }
+        }
+    }()
+    return out
+}
+
+// Usage
+func orDoneExample() {
+    done := make(chan struct{})
+    ch := make(chan int)
+    
+    go func() {
+        defer close(ch)
+        for i := 0; i < 10; i++ {
+            ch <- i
+        }
+    }()
+    
+    // Can cancel at any time
+    go func() {
+        time.Sleep(100 * time.Millisecond)
+        close(done)
+    }()
+    
+    for val := range orDone(done, ch) {
+        fmt.Println(val)
+    }
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">4. Tee Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// Tee: Split one channel into two
+
+func tee(in <-chan int) (<-chan int, <-chan int) {
+    out1 := make(chan int)
+    out2 := make(chan int)
+    
+    go func() {
+        defer close(out1)
+        defer close(out2)
+        
+        for val := range in {
+            // Send to both (blocks if either not ready)
+            out1 <- val
+            out2 <- val
+        }
+    }()
+    
+    return out1, out2
+}
+
+// Usage
+func teeExample() {
+    in := generate(1, 2, 3)
+    out1, out2 := tee(in)
+    
+    for val := range out1 {
+        fmt.Println("Out1:", val)
+    }
+    
+    for val := range out2 {
+        fmt.Println("Out2:", val)
+    }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 6: Advanced Techniques -->
+  <div id="advanced" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">6</div>
+      <h2 class="text-2xl font-bold mt-1">Advanced Techniques</h2>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+)
+
+// ============ CONTEXT WITH CHANNELS ============
+
+func contextWithChannels() {
+    ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+    defer cancel()
+    
+    results := make(chan int)
+    
+    go func() {
+        defer close(results)
+        for i := 0; ; i++ {
+            select {
+            case <-ctx.Done():
+                return
+            case results <- i:
+                time.Sleep(500 * time.Millisecond)
+            }
+        }
+    }()
+    
+    for val := range results {
+        fmt.Println(val)
+    }
+}
+
+// ============ RATE LIMITING ============
+
+func rateLimiter() {
+    // Limit to 1 request per 200ms
+    limiter := time.Tick(200 * time.Millisecond)
+    
+    requests := make(chan int, 5)
+    for i := 1; i <= 5; i++ {
+        requests <- i
+    }
+    close(requests)
+    
+    for req := range requests {
+        <-limiter  // Wait for rate limiter
+        fmt.Println("Request", req, time.Now())
+    }
+}
+
+// ============ SEMAPHORE PATTERN ============
+
+func semaphore() {
+    maxConcurrent := 3
+    sem := make(chan struct{}, maxConcurrent)
+    
+    work := make(chan int, 10)
+    for i := 0; i < 10; i++ {
+        work <- i
+    }
+    close(work)
+    
+    for w := range work {
+        sem <- struct{}{}  // Acquire
+        go func(id int) {
+            defer func() { <-sem }()  // Release
+            fmt.Println("Working on", id)
+            time.Sleep(1 * time.Second)
+        }(w)
+    }
+    
+    // Wait for all to complete
+    for i := 0; i < maxConcurrent; i++ {
+        sem <- struct{}{}
+    }
+}
+
+// ============ BROADCAST PATTERN ============
+
+type Broadcaster struct {
+    listeners []chan int
+}
+
+func (b *Broadcaster) Subscribe() <-chan int {
+    ch := make(chan int)
+    b.listeners = append(b.listeners, ch)
+    return ch
+}
+
+func (b *Broadcaster) Broadcast(val int) {
+    for _, ch := range b.listeners {
+        ch <- val
+    }
+}
+
+func (b *Broadcaster) Close() {
+    for _, ch := range b.listeners {
+        close(ch)
+    }
+}
+
+// ============ FUTURE/PROMISE PATTERN ============
+
+type Future struct {
+    result chan int
+}
+
+func NewFuture(fn func() int) *Future {
+    f := &Future{result: make(chan int, 1)}
+    go func() {
+        f.result <- fn()
+    }()
+    return f
+}
+
+func (f *Future) Get() int {
+    return <-f.result
+}
+
+func futureExample() {
+    f := NewFuture(func() int {
+        time.Sleep(1 * time.Second)
+        return 42
+    })
+    
+    fmt.Println("Doing other work...")
+    result := f.Get()  // Blocks until ready
+    fmt.Println("Result:", result)
+}
+
+// ============ OR CHANNEL ============
+
+// Returns channel that closes when any input closes
+func or(channels ...<-chan struct{}) <-chan struct{} {
+    switch len(channels) {
+    case 0:
+        return nil
+    case 1:
+        return channels[0]
+    }
+    
+    orDone := make(chan struct{})
+    go func() {
+        defer close(orDone)
+        
+        switch len(channels) {
+        case 2:
+            select {
+            case <-channels[0]:
+            case <-channels[1]:
+            }
+        default:
+            select {
+            case <-channels[0]:
+            case <-channels[1]:
+            case <-channels[2]:
+            case <-or(append(channels[3:], orDone)...):
+            }
+        }
+    }()
+    return orDone
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 7: Best Practices -->
+  <div id="best-practices" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">7</div>
+      <h2 class="text-2xl font-bold mt-1">Best Practices</h2>
+    </div>
+    
+    <div class="space-y-4">
+      <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+        <h4 class="font-bold mb-2">✅ DO</h4>
+        <ul class="text-sm space-y-1 ml-4">
+          <li>• Close channels from sender side only</li>
+          <li>• Use directional channels in function signatures</li>
+          <li>• Check if channel is closed with <code class="bg-black/30 px-1 rounded">val, ok := &lt;-ch</code></li>
+          <li>• Use buffered channels to prevent goroutine blocking</li>
+          <li>• Use <code class="bg-black/30 px-1 rounded">select</code> with <code class="bg-black/30 px-1 rounded">default</code> for non-blocking ops</li>
+          <li>• Use context.Context for cancellation</li>
+          <li>• Document channel ownership and closing responsibility</li>
+          <li>• Use <code class="bg-black/30 px-1 rounded">range</code> to receive until closed</li>
+        </ul>
+      </div>
+
+      <div class="bg-red-500/10 rounded-lg p-4 border border-red-500/30">
+        <h4 class="font-bold mb-2">❌ DON'T</h4>
+        <ul class="text-sm space-y-1 ml-4">
+          <li>• Don't send on closed channels (panic!)</li>
+          <li>• Don't close channels from receiver side</li>
+          <li>• Don't close channels multiple times (panic!)</li>
+          <li>• Don't use channels for simple synchronization (use sync.WaitGroup)</li>
+          <li>• Don't create unbounded buffered channels</li>
+          <li>• Don't ignore channel leaks (goroutines blocked forever)</li>
+          <li>• Don't use channels when shared memory with mutex is simpler</li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+        <h4 class="font-bold mb-2">💡 Guidelines</h4>
+        <ul class="text-sm space-y-1 ml-4">
+          <li>• <strong>Unbuffered:</strong> Use for synchronization and guaranteed delivery</li>
+          <li>• <strong>Buffered:</strong> Use for throughput and decoupling</li>
+          <li>• <strong>Buffer size:</strong> Should match expected burst, not total volume</li>
+          <li>• <strong>Closing:</strong> Only close if receivers need to know (e.g., range)</li>
+          <li>• <strong>Ownership:</strong> Creator should close (unless explicitly transferred)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: Common Pitfalls -->
+  <div id="pitfalls" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">8</div>
+      <h2 class="text-2xl font-bold mt-1">Common Pitfalls</h2>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// ❌ Pitfall 1: Sending on unbuffered channel without receiver
+func pitfall1() {
+    ch := make(chan int)
+    ch <- 1  // ❌ DEADLOCK! No receiver
+}
+
+// ✅ Fix: Use goroutine or buffered channel
+func fix1() {
+    ch := make(chan int, 1)
+    ch <- 1  // ✅ Works (buffered)
+}
+
+// ❌ Pitfall 2: Not closing channel in range
+func pitfall2() {
+    ch := make(chan int)
+    go func() {
+        ch <- 1
+        ch <- 2
+        // Forgot to close!
+    }()
+    
+    for val := range ch {  // ❌ Loops forever
+        fmt.Println(val)
+    }
+}
+
+// ✅ Fix: Close channel
+func fix2() {
+    ch := make(chan int)
+    go func() {
+        ch <- 1
+        ch <- 2
+        close(ch)  // ✅ Range exits
+    }()
+    
+    for val := range ch {
+        fmt.Println(val)
+    }
+}
+
+// ❌ Pitfall 3: Closing from receiver
+func pitfall3() {
+    ch := make(chan int)
+    
+    go func() {
+        ch <- 1
+        ch <- 2
+    }()
+    
+    val := <-ch
+    close(ch)  // ❌ Sender might still send (panic!)
+}
+
+// ✅ Fix: Close from sender
+func fix3() {
+    ch := make(chan int)
+    
+    go func() {
+        ch <- 1
+        ch <- 2
+        close(ch)  // ✅ Sender closes
+    }()
+    
+    for val := range ch {
+        fmt.Println(val)
+    }
+}
+
+// ❌ Pitfall 4: Goroutine leak
+func pitfall4() {
+    ch := make(chan int)
+    
+    go func() {
+        val := <-ch  // ❌ Blocks forever
+        fmt.Println(val)
+    }()
+    
+    // Goroutine never exits!
+}
+
+// ✅ Fix: Use timeout or context
+func fix4() {
+    ch := make(chan int)
+    done := make(chan struct{})
+    
+    go func() {
+        select {
+        case val := <-ch:
+            fmt.Println(val)
+        case <-time.After(1 * time.Second):
+            return  // ✅ Exits on timeout
+        case <-done:
+            return  // ✅ Exits on signal
+        }
+    }()
+}
+
+// ❌ Pitfall 5: Reusing closed channel
+func pitfall5() {
+    ch := make(chan int, 1)
+    ch <- 1
+    close(ch)
+    ch <- 2  // ❌ PANIC! Send on closed channel
+}
+
+// ✅ Fix: Don't send after close
+func fix5() {
+    ch := make(chan int, 2)
+    ch <- 1
+    ch <- 2
+    close(ch)  // ✅ Close after all sends
+    
+    fmt.Println(<-ch)  // ✅ OK to receive
+    fmt.Println(<-ch)
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Key Takeaways</h2>
+    <ul class="space-y-2">
+      <li>✓ Channels are typed, synchronized pipes for goroutine communication</li>
+      <li>✓ Unbuffered channels synchronize; buffered channels decouple</li>
+      <li>✓ Always close from sender side; never send on closed channels</li>
+      <li>✓ Use <code class="bg-black/30 px-1 rounded">select</code> for multiplexing and timeouts</li>
+      <li>✓ Patterns: Pipeline, Fan-Out/Fan-In, Or-Done, Semaphore</li>
+      <li>✓ Prevent goroutine leaks with proper cleanup and context</li>
+      <li>✓ "Share memory by communicating, don't communicate by sharing memory"</li>
+    </ul>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-6 border-t border-border-light dark:border-border-dark">
+    <a href="/golang-goroutines-concurrency" class="text-primary hover:underline">← Back to Goroutines & Concurrency</a>
+    <a href="/golang-interview-questions" class="text-primary hover:underline">Back to Interview Questions →</a>
+  </div>
+</div>
+{{end}}

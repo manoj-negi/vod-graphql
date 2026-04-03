@@ -1,0 +1,921 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="inline-flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 px-4 py-2 mb-4">
+      <svg class="w-6 h-6 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+      <span class="text-sm font-bold text-primary">Go Concurrency Mastery</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Goroutines & Concurrency</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Complete guide to Go's concurrency model from basic concepts to advanced patterns
+    </p>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+    <h2 class="text-2xl font-bold mb-4">📋 Contents</h2>
+    <div class="grid md:grid-cols-2 gap-2 text-sm">
+      <div>
+        <a href="#basics" class="text-primary hover:underline">1. Goroutine Basics</a><br>
+        <a href="#concurrency-vs-parallelism" class="text-primary hover:underline">2. Concurrency vs Parallelism</a><br>
+        <a href="#runtime" class="text-primary hover:underline">3. Go Runtime & Scheduler</a><br>
+        <a href="#communication" class="text-primary hover:underline">4. Communication & Synchronization</a>
+      </div>
+      <div>
+        <a href="#race-conditions" class="text-primary hover:underline">5. Race Conditions</a><br>
+        <a href="#patterns" class="text-primary hover:underline">6. Concurrency Patterns</a><br>
+        <a href="#best-practices" class="text-primary hover:underline">7. Best Practices</a><br>
+        <a href="#common-mistakes" class="text-primary hover:underline">8. Common Mistakes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: Goroutine Basics -->
+  <div id="basics" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</div>
+      <h2 class="text-2xl font-bold mt-1">Goroutine Basics</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">What is a Goroutine?</h3>
+      <p class="mb-3">A <strong>goroutine</strong> is a lightweight thread managed by the Go runtime. It's not an OS thread - it's much lighter and cheaper to create.</p>
+      
+      <div class="grid md:grid-cols-3 gap-4 mb-4">
+        <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+          <h4 class="font-bold mb-2 text-green-600">Lightweight</h4>
+          <p class="text-sm">~2KB stack (vs 1-2MB for OS threads)</p>
+        </div>
+        <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+          <h4 class="font-bold mb-2 text-blue-600">Cheap</h4>
+          <p class="text-sm">Can run millions concurrently</p>
+        </div>
+        <div class="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+          <h4 class="font-bold mb-2 text-purple-600">Managed</h4>
+          <p class="text-sm">Go runtime handles scheduling</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    // Sequential execution
+    sayHello("Alice")
+    sayHello("Bob")
+    // Takes ~2 seconds total
+    
+    // Concurrent execution with goroutines
+    go sayHello("Charlie")  // Runs in separate goroutine
+    go sayHello("David")    // Runs in separate goroutine
+    
+    // Main goroutine continues immediately
+    fmt.Println("Main function continues...")
+    
+    // Wait for goroutines to complete
+    time.Sleep(2 * time.Second)
+    // Takes ~1 second total (both run concurrently)
+}
+
+func sayHello(name string) {
+    time.Sleep(1 * time.Second)
+    fmt.Printf("Hello, %s!\n", name)
+}
+
+// Output (order may vary):
+// Hello, Alice!
+// Hello, Bob!
+// Main function continues...
+// Hello, Charlie!
+// Hello, David!</code></pre>
+    </div>
+
+    <div class="bg-yellow-500/10 dark:bg-yellow-500/20 rounded-lg p-4 border border-yellow-500/30">
+      <p class="text-sm"><strong>⚠️ Important:</strong> The main goroutine doesn't wait for other goroutines. If main exits, all goroutines are terminated immediately!</p>
+    </div>
+  </div>
+
+  <!-- Section 2: Concurrency vs Parallelism -->
+  <div id="concurrency-vs-parallelism" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</div>
+      <h2 class="text-2xl font-bold mt-1">Concurrency vs Parallelism</h2>
+    </div>
+    
+    <div class="mb-4">
+      <blockquote class="border-l-4 border-primary pl-4 italic mb-4">
+        "Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once." - Rob Pike
+      </blockquote>
+      
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+          <h4 class="font-bold mb-2 text-blue-600">🔄 Concurrency</h4>
+          <ul class="text-sm space-y-1">
+            <li>• <strong>Composition</strong> of independently executing tasks</li>
+            <li>• Tasks can run on single core (time-slicing)</li>
+            <li>• About <strong>structure</strong> and design</li>
+            <li>• Example: Juggling multiple balls</li>
+          </ul>
+        </div>
+        <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+          <h4 class="font-bold mb-2 text-green-600">⚡ Parallelism</h4>
+          <ul class="text-sm space-y-1">
+            <li>• <strong>Simultaneous execution</strong> of tasks</li>
+            <li>• Requires multiple cores</li>
+            <li>• About <strong>execution</strong></li>
+            <li>• Example: Multiple people juggling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "runtime"
+    "sync"
+)
+
+func main() {
+    // Check available CPU cores
+    fmt.Println("CPU cores:", runtime.NumCPU())
+    
+    // Set max CPUs for parallelism (default is NumCPU)
+    runtime.GOMAXPROCS(4)  // Use 4 cores
+    
+    // Concurrent execution (may or may not be parallel)
+    var wg sync.WaitGroup
+    
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        go func(id int) {
+            defer wg.Done()
+            // CPU-intensive work
+            sum := 0
+            for j := 0; j < 1000000; j++ {
+                sum += j
+            }
+            fmt.Printf("Goroutine %d done on CPU %d\n", id, runtime.NumCPU())
+        }(i)
+    }
+    
+    wg.Wait()
+    
+    // With 1 CPU: Concurrent but NOT parallel (time-sliced)
+    // With 4+ CPUs: Concurrent AND parallel (truly simultaneous)
+}
+
+// Key Insight:
+// - Concurrency enables parallelism
+// - You can have concurrency without parallelism
+// - You cannot have parallelism without concurrency</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 3: Go Runtime & Scheduler -->
+  <div id="runtime" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</div>
+      <h2 class="text-2xl font-bold mt-1">Go Runtime & Scheduler (GMP Model)</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">The GMP Model</h3>
+      <p class="mb-3">Go uses a sophisticated M:N scheduler that multiplexes M goroutines onto N OS threads.</p>
+      
+      <div class="grid md:grid-cols-3 gap-4 mb-4">
+        <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+          <h4 class="font-bold mb-2 text-blue-600">G - Goroutine</h4>
+          <p class="text-sm">Lightweight execution context with its own stack</p>
+        </div>
+        <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+          <h4 class="font-bold mb-2 text-green-600">M - Machine (OS Thread)</h4>
+          <p class="text-sm">Actual OS thread that executes goroutines</p>
+        </div>
+        <div class="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+          <h4 class="font-bold mb-2 text-purple-600">P - Processor</h4>
+          <p class="text-sm">Scheduling context, holds runnable goroutines</p>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-bold mb-3 mt-6">How It Works</h3>
+      <ul class="list-disc list-inside space-y-2 ml-4 mb-4">
+        <li><strong>P (Processor):</strong> Number of Ps = GOMAXPROCS (default: number of CPU cores)</li>
+        <li><strong>M (Machine):</strong> Created on demand, can be more than Ps</li>
+        <li><strong>G (Goroutine):</strong> Scheduled onto Ps, executed by Ms</li>
+        <li><strong>Work Stealing:</strong> Idle Ps steal goroutines from busy Ps</li>
+        <li><strong>Preemption:</strong> Goroutines are preempted at function calls (cooperative scheduling)</li>
+      </ul>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "runtime"
+    "time"
+)
+
+func main() {
+    // Runtime information
+    fmt.Println("GOMAXPROCS:", runtime.GOMAXPROCS(0))
+    fmt.Println("NumCPU:", runtime.NumCPU())
+    fmt.Println("NumGoroutine:", runtime.NumGoroutine())
+    
+    // Create many goroutines
+    for i := 0; i < 100; i++ {
+        go func(id int) {
+            time.Sleep(1 * time.Second)
+        }(i)
+    }
+    
+    time.Sleep(100 * time.Millisecond)
+    fmt.Println("Active goroutines:", runtime.NumGoroutine())
+    
+    // Force garbage collection
+    runtime.GC()
+    
+    // Get memory stats
+    var m runtime.MemStats
+    runtime.ReadMemStats(&m)
+    fmt.Printf("Alloc = %v MB\n", m.Alloc/1024/1024)
+    
+    time.Sleep(2 * time.Second)
+}
+
+// Scheduler Behavior:
+// 1. Goroutine created → placed in P's local queue
+// 2. M picks goroutine from P's queue
+// 3. If goroutine blocks (I/O, channel), M parks it
+// 4. M picks next goroutine from queue
+// 5. Work stealing if queue empty</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Key Insights:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>• Goroutines are multiplexed onto OS threads (M:N scheduling)</li>
+        <li>• Blocking a goroutine doesn't block the OS thread</li>
+        <li>• Go runtime handles all scheduling automatically</li>
+        <li>• Work stealing ensures efficient CPU utilization</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 4: Communication & Synchronization -->
+  <div id="communication" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">4</div>
+      <h2 class="text-2xl font-bold mt-1">Communication & Synchronization</h2>
+    </div>
+    
+    <div class="mb-4">
+      <blockquote class="border-l-4 border-primary pl-4 italic mb-4">
+        "Don't communicate by sharing memory; share memory by communicating." - Go Proverb
+      </blockquote>
+      
+      <h3 class="text-xl font-bold mb-3">Synchronization Primitives</h3>
+      
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+          <h4 class="font-bold mb-2 text-blue-600">Channels (Preferred)</h4>
+          <ul class="text-sm space-y-1">
+            <li>• Type-safe communication</li>
+            <li>• Built-in synchronization</li>
+            <li>• Prevents race conditions</li>
+            <li>• Idiomatic Go way</li>
+          </ul>
+        </div>
+        <div class="bg-yellow-500/10 rounded-lg p-4 border border-yellow-500/30">
+          <h4 class="font-bold mb-2 text-yellow-600">sync Package</h4>
+          <ul class="text-sm space-y-1">
+            <li>• Mutex, RWMutex</li>
+            <li>• WaitGroup</li>
+            <li>• Once, Cond</li>
+            <li>• Use when channels don't fit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+// ============ MUTEX EXAMPLE ============
+type SafeCounter struct {
+    mu    sync.Mutex
+    count int
+}
+
+func (c *SafeCounter) Increment() {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    c.count++
+}
+
+func (c *SafeCounter) Value() int {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    return c.count
+}
+
+// ============ RWMUTEX EXAMPLE ============
+type Cache struct {
+    mu   sync.RWMutex
+    data map[string]string
+}
+
+func (c *Cache) Get(key string) (string, bool) {
+    c.mu.RLock()  // Multiple readers allowed
+    defer c.mu.RUnlock()
+    val, ok := c.data[key]
+    return val, ok
+}
+
+func (c *Cache) Set(key, value string) {
+    c.mu.Lock()  // Exclusive write access
+    defer c.mu.Unlock()
+    c.data[key] = value
+}
+
+// ============ WAITGROUP EXAMPLE ============
+func main() {
+    // Mutex example
+    counter := &SafeCounter{}
+    var wg sync.WaitGroup
+    
+    for i := 0; i < 1000; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            counter.Increment()
+        }()
+    }
+    
+    wg.Wait()
+    fmt.Println("Counter:", counter.Value())  // Always 1000
+    
+    // RWMutex example
+    cache := &Cache{data: make(map[string]string)}
+    
+    // Multiple concurrent reads
+    for i := 0; i < 10; i++ {
+        go func(id int) {
+            cache.Get("key")  // No blocking between readers
+        }(i)
+    }
+    
+    // Single write blocks all
+    go cache.Set("key", "value")
+    
+    time.Sleep(100 * time.Millisecond)
+}
+
+// ============ SYNC.ONCE EXAMPLE ============
+var (
+    instance *Singleton
+    once     sync.Once
+)
+
+type Singleton struct {
+    data string
+}
+
+func GetInstance() *Singleton {
+    once.Do(func() {
+        instance = &Singleton{data: "initialized"}
+    })
+    return instance
+}
+
+// once.Do ensures initialization happens exactly once
+// even with concurrent calls</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 When to Use What:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>• <strong>Channels:</strong> Passing data between goroutines, signaling, coordination</li>
+        <li>• <strong>Mutex:</strong> Protecting shared state, simple locks</li>
+        <li>• <strong>RWMutex:</strong> Read-heavy workloads (caches, configs)</li>
+        <li>• <strong>WaitGroup:</strong> Waiting for multiple goroutines to complete</li>
+        <li>• <strong>Once:</strong> One-time initialization (singletons, configs)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 5: Race Conditions -->
+  <div id="race-conditions" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">5</div>
+      <h2 class="text-2xl font-bold mt-1">Race Conditions & Detection</h2>
+    </div>
+    
+    <div class="mb-4">
+      <p class="mb-3">A <strong>race condition</strong> occurs when multiple goroutines access shared data concurrently, and at least one modifies it.</p>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+// ============ RACE CONDITION (BAD) ============
+func raceConditionExample() {
+    counter := 0
+    var wg sync.WaitGroup
+    
+    for i := 0; i < 1000; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            counter++  // ❌ RACE! Multiple goroutines modifying counter
+        }()
+    }
+    
+    wg.Wait()
+    fmt.Println(counter)  // Unpredictable! Could be < 1000
+}
+
+// ============ FIXED WITH MUTEX ============
+func fixedWithMutex() {
+    counter := 0
+    var mu sync.Mutex
+    var wg sync.WaitGroup
+    
+    for i := 0; i < 1000; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            mu.Lock()
+            counter++  // ✅ Safe
+            mu.Unlock()
+        }()
+    }
+    
+    wg.Wait()
+    fmt.Println(counter)  // Always 1000
+}
+
+// ============ FIXED WITH CHANNEL ============
+func fixedWithChannel() {
+    results := make(chan int, 1000)
+    
+    for i := 0; i < 1000; i++ {
+        go func(val int) {
+            results <- val  // ✅ Safe - channels are thread-safe
+        }(1)
+    }
+    
+    counter := 0
+    for i := 0; i < 1000; i++ {
+        counter += <-results
+    }
+    
+    fmt.Println(counter)  // Always 1000
+}
+
+// ============ ATOMIC OPERATIONS ============
+import "sync/atomic"
+
+func fixedWithAtomic() {
+    var counter int64
+    var wg sync.WaitGroup
+    
+    for i := 0; i < 1000; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            atomic.AddInt64(&counter, 1)  // ✅ Atomic operation
+        }()
+    }
+    
+    wg.Wait()
+    fmt.Println(atomic.LoadInt64(&counter))  // Always 1000
+}
+
+func main() {
+    raceConditionExample()
+    fixedWithMutex()
+    fixedWithChannel()
+    fixedWithAtomic()
+}</code></pre>
+    </div>
+
+    <div class="bg-red-500/10 dark:bg-red-500/20 rounded-lg p-4 border border-red-500/30 mb-4">
+      <p class="text-sm mb-2"><strong>🔍 Race Detector:</strong></p>
+      <div class="bg-black/50 rounded p-2 text-sm font-mono mb-2">
+        go run -race main.go<br>
+        go test -race ./...<br>
+        go build -race
+      </div>
+      <p class="text-sm">The race detector finds data races at runtime. Use it during development and testing!</p>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm mb-2"><strong>💡 Prevention Strategies:</strong></p>
+      <ul class="text-sm space-y-1 ml-4">
+        <li>1. <strong>Channels:</strong> Share data by communicating</li>
+        <li>2. <strong>Mutex:</strong> Protect shared state with locks</li>
+        <li>3. <strong>Atomic:</strong> Use atomic operations for simple counters</li>
+        <li>4. <strong>Immutability:</strong> Don't modify shared data</li>
+        <li>5. <strong>Confinement:</strong> Keep data local to one goroutine</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 6: Concurrency Patterns -->
+  <div id="patterns" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">6</div>
+      <h2 class="text-2xl font-bold mt-1">Common Concurrency Patterns</h2>
+    </div>
+    
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">1. Worker Pool Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+// Worker Pool: Fixed number of workers processing jobs
+func workerPool() {
+    jobs := make(chan int, 100)
+    results := make(chan int, 100)
+    
+    // Start workers
+    numWorkers := 3
+    var wg sync.WaitGroup
+    
+    for w := 1; w <= numWorkers; w++ {
+        wg.Add(1)
+        go worker(w, jobs, results, &wg)
+    }
+    
+    // Send jobs
+    for j := 1; j <= 9; j++ {
+        jobs <- j
+    }
+    close(jobs)
+    
+    // Wait for workers to finish
+    go func() {
+        wg.Wait()
+        close(results)
+    }()
+    
+    // Collect results
+    for result := range results {
+        fmt.Println("Result:", result)
+    }
+}
+
+func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    for job := range jobs {
+        fmt.Printf("Worker %d processing job %d\n", id, job)
+        time.Sleep(time.Second)
+        results <- job * 2
+    }
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">2. Fan-Out, Fan-In Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// Fan-Out: Multiple goroutines read from same channel
+// Fan-In: Multiple channels merged into one
+
+func fanOutFanIn() {
+    // Input channel
+    input := make(chan int)
+    
+    // Fan-Out: Start multiple workers
+    c1 := worker("A", input)
+    c2 := worker("B", input)
+    c3 := worker("C", input)
+    
+    // Fan-In: Merge results
+    results := merge(c1, c2, c3)
+    
+    // Send work
+    go func() {
+        for i := 0; i < 10; i++ {
+            input <- i
+        }
+        close(input)
+    }()
+    
+    // Collect results
+    for result := range results {
+        fmt.Println(result)
+    }
+}
+
+func worker(name string, input <-chan int) <-chan string {
+    out := make(chan string)
+    go func() {
+        defer close(out)
+        for n := range input {
+            out <- fmt.Sprintf("Worker %s processed %d", name, n)
+        }
+    }()
+    return out
+}
+
+func merge(channels ...<-chan string) <-chan string {
+    out := make(chan string)
+    var wg sync.WaitGroup
+    
+    for _, c := range channels {
+        wg.Add(1)
+        go func(ch <-chan string) {
+            defer wg.Done()
+            for v := range ch {
+                out <- v
+            }
+        }(c)
+    }
+    
+    go func() {
+        wg.Wait()
+        close(out)
+    }()
+    
+    return out
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">3. Pipeline Pattern</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-6 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// Pipeline: Chain of stages connected by channels
+
+func pipeline() {
+    // Stage 1: Generate numbers
+    nums := generate(2, 3, 4, 5)
+    
+    // Stage 2: Square numbers
+    squares := square(nums)
+    
+    // Stage 3: Filter even numbers
+    evens := filter(squares)
+    
+    // Consume results
+    for n := range evens {
+        fmt.Println(n)
+    }
+}
+
+func generate(nums ...int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for _, n := range nums {
+            out <- n
+        }
+    }()
+    return out
+}
+
+func square(in <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for n := range in {
+            out <- n * n
+        }
+    }()
+    return out
+}
+
+func filter(in <-chan int) <-chan int {
+    out := make(chan int)
+    go func() {
+        defer close(out)
+        for n := range in {
+            if n%2 == 0 {
+                out <- n
+            }
+        }
+    }()
+    return out
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-xl font-bold mb-3">4. Context for Cancellation</h3>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import "context"
+
+func contextPattern() {
+    // Create context with timeout
+    ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+    defer cancel()
+    
+    // Start work
+    results := make(chan int)
+    go doWork(ctx, results)
+    
+    // Wait for completion or timeout
+    select {
+    case result := <-results:
+        fmt.Println("Result:", result)
+    case <-ctx.Done():
+        fmt.Println("Timeout:", ctx.Err())
+    }
+}
+
+func doWork(ctx context.Context, results chan<- int) {
+    for i := 0; i < 10; i++ {
+        select {
+        case <-ctx.Done():
+            // Context cancelled, stop work
+            return
+        case results <- i:
+            time.Sleep(500 * time.Millisecond)
+        }
+    }
+    close(results)
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 7: Best Practices -->
+  <div id="best-practices" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">7</div>
+      <h2 class="text-2xl font-bold mt-1">Best Practices</h2>
+    </div>
+    
+    <div class="space-y-4">
+      <div class="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+        <h4 class="font-bold mb-2">✅ DO</h4>
+        <ul class="text-sm space-y-1 ml-4">
+          <li>• Use channels for communication between goroutines</li>
+          <li>• Keep goroutines simple and focused</li>
+          <li>• Always handle goroutine cleanup (use defer, context)</li>
+          <li>• Use buffered channels to prevent blocking when appropriate</li>
+          <li>• Prefer sync.WaitGroup over sleep for synchronization</li>
+          <li>• Use context.Context for cancellation and timeouts</li>
+          <li>• Run race detector during testing</li>
+          <li>• Document goroutine lifecycle and ownership</li>
+        </ul>
+      </div>
+
+      <div class="bg-red-500/10 rounded-lg p-4 border border-red-500/30">
+        <h4 class="font-bold mb-2">❌ DON'T</h4>
+        <ul class="text-sm space-y-1 ml-4">
+          <li>• Don't create unbounded goroutines (use worker pools)</li>
+          <li>• Don't share memory without synchronization</li>
+          <li>• Don't use time.Sleep for synchronization</li>
+          <li>• Don't forget to close channels when done sending</li>
+          <li>• Don't close channels from receiver side</li>
+          <li>• Don't send on closed channels (panic!)</li>
+          <li>• Don't ignore goroutine leaks</li>
+          <li>• Don't use goroutines for everything (overhead exists)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: Common Mistakes -->
+  <div id="common-mistakes" class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6 bg-white/5 dark:bg-black/20">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">8</div>
+      <h2 class="text-2xl font-bold mt-1">Common Mistakes</h2>
+    </div>
+
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>// ❌ Mistake 1: Goroutine closure capturing loop variable
+for i := 0; i < 5; i++ {
+    go func() {
+        fmt.Println(i)  // ❌ All print 5!
+    }()
+}
+
+// ✅ Fix: Pass variable as parameter
+for i := 0; i < 5; i++ {
+    go func(n int) {
+        fmt.Println(n)  // ✅ Prints 0,1,2,3,4
+    }(i)
+}
+
+// ❌ Mistake 2: Goroutine leak (never exits)
+func leak() {
+    ch := make(chan int)
+    go func() {
+        val := <-ch  // ❌ Blocks forever if nothing sent
+        fmt.Println(val)
+    }()
+    // Goroutine never exits!
+}
+
+// ✅ Fix: Use context or timeout
+func noLeak() {
+    ch := make(chan int)
+    ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+    defer cancel()
+    
+    go func() {
+        select {
+        case val := <-ch:
+            fmt.Println(val)
+        case <-ctx.Done():
+            return  // ✅ Exits on timeout
+        }
+    }()
+}
+
+// ❌ Mistake 3: Forgetting to wait for goroutines
+func noWait() {
+    go doWork()
+    // main exits immediately, goroutine killed!
+}
+
+// ✅ Fix: Use WaitGroup or channel
+func withWait() {
+    var wg sync.WaitGroup
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        doWork()
+    }()
+    wg.Wait()  // ✅ Waits for completion
+}
+
+// ❌ Mistake 4: Sending on unbuffered channel without receiver
+func deadlock() {
+    ch := make(chan int)
+    ch <- 1  // ❌ DEADLOCK! No receiver
+}
+
+// ✅ Fix: Use goroutine or buffered channel
+func noDeadlock() {
+    ch := make(chan int, 1)  // Buffered
+    ch <- 1  // ✅ Works
+    
+    // Or use goroutine
+    ch2 := make(chan int)
+    go func() {
+        ch2 <- 1  // ✅ Works
+    }()
+    <-ch2
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Key Takeaways</h2>
+    <ul class="space-y-2">
+      <li>✓ Goroutines are lightweight, cheap, and managed by Go runtime</li>
+      <li>✓ Concurrency is about structure; parallelism is about execution</li>
+      <li>✓ Use channels for communication, sync primitives for shared state</li>
+      <li>✓ Always run race detector during development</li>
+      <li>✓ Prevent goroutine leaks with proper cleanup and context</li>
+      <li>✓ Use patterns like worker pools, pipelines, and fan-out/fan-in</li>
+      <li>✓ "Don't communicate by sharing memory; share memory by communicating"</li>
+    </ul>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-6 border-t border-border-light dark:border-border-dark">
+    <a href="/golang-interview-questions" class="text-primary hover:underline">← Back to Interview Questions</a>
+    <a href="/golang-channels" class="text-primary hover:underline">Next: Channels Deep Dive →</a>
+  </div>
+</div>
+{{end}}

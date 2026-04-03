@@ -1,0 +1,256 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline text-sm">← Back to Roadmap</a>
+    </div>
+    <div class="inline-flex items-center justify-center rounded-full bg-purple-500/10 dark:bg-purple-500/20 px-4 py-2 mb-4">
+      <span class="text-xs font-bold text-purple-600 dark:text-purple-400">Unit 3 • Chapter 3.1</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Deep Learning</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Build neural networks for complex pattern recognition using TensorFlow and Keras
+    </p>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 dark:from-purple-500/20 dark:to-purple-600/20 p-6 border border-purple-500/20">
+    <h2 class="text-2xl font-bold mb-3">📚 What You'll Learn</h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Neural network fundamentals and architecture</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Building models with TensorFlow and Keras</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Convolutional Neural Networks (CNNs) for images</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Transfer learning and pre-trained models</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">1. Neural Network Basics</h2>
+    <p class="mb-4">Understanding the building blocks of deep learning.</p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import numpy as np
+
+# Simple neural network for binary classification
+model = keras.Sequential([
+    layers.Dense(64, activation='relu', input_shape=(10,)),
+    layers.Dropout(0.2),
+    layers.Dense(32, activation='relu'),
+    layers.Dropout(0.2),
+    layers.Dense(1, activation='sigmoid')
+])
+
+# Compile model
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# Model summary
+model.summary()
+
+# Generate dummy data
+X_train = np.random.rand(1000, 10)
+y_train = np.random.randint(0, 2, 1000)
+X_test = np.random.rand(200, 10)
+y_test = np.random.randint(0, 2, 200)
+
+# Train model
+history = model.fit(
+    X_train, y_train,
+    epochs=20,
+    batch_size=32,
+    validation_split=0.2,
+    verbose=1
+)
+
+# Evaluate
+test_loss, test_acc = model.evaluate(X_test, y_test)
+print(f"\nTest accuracy: {test_acc:.4f}")</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">2. Convolutional Neural Networks (CNNs)</h2>
+    <p class="mb-4">Specialized networks for image processing and computer vision.</p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from tensorflow.keras.datasets import mnist
+from tensorflow.keras.utils import to_categorical
+
+# Load MNIST dataset
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
+
+# Preprocess data
+X_train = X_train.reshape(-1, 28, 28, 1).astype('float32') / 255
+X_test = X_test.reshape(-1, 28, 28, 1).astype('float32') / 255
+y_train = to_categorical(y_train, 10)
+y_test = to_categorical(y_test, 10)
+
+# Build CNN model
+model = keras.Sequential([
+    # Convolutional layers
+    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    layers.MaxPooling2D((2, 2)),
+    
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D((2, 2)),
+    
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    
+    # Dense layers
+    layers.Flatten(),
+    layers.Dense(64, activation='relu'),
+    layers.Dropout(0.5),
+    layers.Dense(10, activation='softmax')
+])
+
+# Compile
+model.compile(
+    optimizer='adam',
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+# Train
+history = model.fit(
+    X_train, y_train,
+    epochs=10,
+    batch_size=128,
+    validation_data=(X_test, y_test)
+)
+
+# Evaluate
+test_loss, test_acc = model.evaluate(X_test, y_test)
+print(f"\nTest accuracy: {test_acc:.4f}")</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">3. Transfer Learning</h2>
+    <p class="mb-4">Leverage pre-trained models for faster training and better performance.</p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>from tensorflow.keras.applications import VGG16
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# Load pre-trained VGG16 model (without top layers)
+base_model = VGG16(
+    weights='imagenet',
+    include_top=False,
+    input_shape=(224, 224, 3)
+)
+
+# Freeze base model layers
+base_model.trainable = False
+
+# Add custom layers
+model = keras.Sequential([
+    base_model,
+    layers.GlobalAveragePooling2D(),
+    layers.Dense(256, activation='relu'),
+    layers.Dropout(0.5),
+    layers.Dense(10, activation='softmax')  # 10 classes
+])
+
+# Compile
+model.compile(
+    optimizer=keras.optimizers.Adam(learning_rate=0.0001),
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+model.summary()
+
+# Data augmentation
+datagen = ImageDataGenerator(
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    horizontal_flip=True,
+    zoom_range=0.2
+)
+
+# Fine-tuning: Unfreeze some layers
+base_model.trainable = True
+for layer in base_model.layers[:-4]:
+    layer.trainable = False</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">4. Training Visualization</h2>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>import matplotlib.pyplot as plt
+
+# Plot training history
+def plot_history(history):
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    
+    # Accuracy
+    ax1.plot(history.history['accuracy'], label='Training Accuracy')
+    ax1.plot(history.history['val_accuracy'], label='Validation Accuracy')
+    ax1.set_xlabel('Epoch')
+    ax1.set_ylabel('Accuracy')
+    ax1.set_title('Model Accuracy')
+    ax1.legend()
+    ax1.grid(True)
+    
+    # Loss
+    ax2.plot(history.history['loss'], label='Training Loss')
+    ax2.plot(history.history['val_loss'], label='Validation Loss')
+    ax2.set_xlabel('Epoch')
+    ax2.set_ylabel('Loss')
+    ax2.set_title('Model Loss')
+    ax2.legend()
+    ax2.grid(True)
+    
+    plt.tight_layout()
+    plt.show()
+
+plot_history(history)</code></pre>
+    </div>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 dark:from-primary/20 dark:to-purple-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Practice Exercises</h2>
+    <ol class="space-y-3 text-sm list-decimal list-inside">
+      <li><strong>MNIST Classifier:</strong> Build a CNN to classify handwritten digits with >98% accuracy.</li>
+      <li><strong>Image Classification:</strong> Use transfer learning with ResNet50 for a custom image dataset.</li>
+      <li><strong>Data Augmentation:</strong> Implement and compare different data augmentation techniques.</li>
+      <li><strong>Model Optimization:</strong> Experiment with different architectures, optimizers, and learning rates.</li>
+    </ol>
+  </div>
+
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Additional Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://www.tensorflow.org/tutorials" class="text-primary hover:underline" target="_blank">TensorFlow Official Tutorials</a></li>
+      <li>• <a href="https://keras.io/guides/" class="text-primary hover:underline" target="_blank">Keras Documentation</a></li>
+      <li>• <a href="https://cs231n.github.io/" class="text-primary hover:underline" target="_blank">Stanford CS231n: CNNs for Visual Recognition</a></li>
+      <li>• <a href="https://www.deeplearning.ai/" class="text-primary hover:underline" target="_blank">DeepLearning.AI Courses</a></li>
+    </ul>
+  </div>
+
+  <div class="flex justify-between items-center pt-8 border-t border-border-light dark:border-border-dark">
+    <a href="/ai-ml-courses/unit-2/chapter-2-3-unsupervised-learning" class="text-primary hover:underline">← Previous: Unsupervised Learning</a>
+    <a href="/ai-ml-courses/unit-3/chapter-3-2-nlp" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Next: Natural Language Processing →</a>
+  </div>
+</div>
+{{end}}

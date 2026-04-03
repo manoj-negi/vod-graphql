@@ -1,0 +1,306 @@
+{{define "content"}}
+<div class="max-w-5xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-2 mb-4">
+      <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline text-sm">← Back to Roadmap</a>
+    </div>
+    <div class="inline-flex items-center justify-center rounded-full bg-blue-500/10 dark:bg-blue-500/20 px-4 py-2 mb-4">
+      <span class="text-xs font-bold text-blue-600 dark:text-blue-400">Unit 1 • Chapter 1.1</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Python Fundamentals</h1>
+    <p class="text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Master Python syntax, data structures, and programming basics to build a solid foundation for AI/ML
+    </p>
+  </div>
+
+  <!-- Introduction -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 p-6 border border-blue-500/20">
+    <h2 class="text-2xl font-bold mb-3">📚 What You'll Learn</h2>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Python syntax, variables, and data types</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Control flow with if-else statements and loops</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Working with lists, dictionaries, and functions</span>
+      </li>
+      <li class="flex items-start gap-2">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Object-oriented programming basics</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Section 1: Variables and Data Types -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">1. Variables and Data Types</h2>
+    <p class="mb-4 text-foreground-light dark:text-foreground-dark">
+      Python is dynamically typed, meaning you don't need to declare variable types explicitly. Let's explore the basic data types:
+    </p>
+    
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Numbers
+age = 25                    # Integer
+price = 19.99              # Float
+complex_num = 3 + 4j       # Complex number
+
+# Strings
+name = "Alice"
+message = 'Hello, World!'
+multiline = """This is a
+multiline string"""
+
+# Boolean
+is_student = True
+has_license = False
+
+# None type
+result = None
+
+# Type checking
+print(type(age))           # &lt;class 'int'&gt;
+print(type(price))         # &lt;class 'float'&gt;
+print(type(name))          # &lt;class 'str'&gt;</code></pre>
+    </div>
+
+    <div class="bg-blue-500/10 dark:bg-blue-500/20 rounded-lg p-4 border border-blue-500/30">
+      <p class="text-sm"><strong>💡 Pro Tip:</strong> Use descriptive variable names like <code class="bg-black/30 px-2 py-1 rounded">student_count</code> instead of <code class="bg-black/30 px-2 py-1 rounded">sc</code> for better code readability.</p>
+    </div>
+  </div>
+
+  <!-- Section 2: Control Flow -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">2. Control Flow</h2>
+    
+    <h3 class="text-xl font-bold mb-3">If-Else Statements</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code>score = 85
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+else:
+    grade = "F"
+
+print(f"Your grade is: {grade}")  # Output: Your grade is: B</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Loops</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># For loop
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Range-based loop
+for i in range(5):
+    print(i)  # Prints 0, 1, 2, 3, 4
+
+# While loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# List comprehension (Pythonic way)
+squares = [x**2 for x in range(10)]
+print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 3: Data Structures -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">3. Data Structures</h2>
+    
+    <h3 class="text-xl font-bold mb-3">Lists</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Creating and manipulating lists
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)          # Add element
+numbers.insert(0, 0)       # Insert at index
+numbers.remove(3)          # Remove element
+popped = numbers.pop()     # Remove and return last element
+
+# Slicing
+print(numbers[1:4])        # [1, 2, 4]
+print(numbers[:3])         # [0, 1, 2]
+print(numbers[-2:])        # [4, 5]
+
+# List methods
+numbers.sort()             # Sort in place
+numbers.reverse()          # Reverse in place
+print(len(numbers))        # Get length</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Dictionaries</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Key-value pairs
+student = {
+    "name": "Alice",
+    "age": 20,
+    "courses": ["Math", "Physics", "CS"]
+}
+
+# Accessing values
+print(student["name"])              # Alice
+print(student.get("grade", "N/A"))  # N/A (default value)
+
+# Adding/updating
+student["grade"] = "A"
+student["age"] = 21
+
+# Dictionary methods
+print(student.keys())               # dict_keys(['name', 'age', 'courses', 'grade'])
+print(student.values())             # dict_values(['Alice', 21, ['Math', 'Physics', 'CS'], 'A'])
+print(student.items())              # Key-value pairs
+
+# Looping through dictionary
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 mt-6">Tuples and Sets</h3>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Tuples (immutable)
+coordinates = (10, 20)
+rgb = (255, 128, 0)
+# coordinates[0] = 15  # This would raise an error
+
+# Sets (unique elements)
+unique_numbers = {1, 2, 3, 3, 4, 5}
+print(unique_numbers)  # {1, 2, 3, 4, 5}
+
+# Set operations
+set_a = {1, 2, 3, 4}
+set_b = {3, 4, 5, 6}
+print(set_a.union(set_b))         # {1, 2, 3, 4, 5, 6}
+print(set_a.intersection(set_b))  # {3, 4}
+print(set_a.difference(set_b))    # {1, 2}</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 4: Functions -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">4. Functions</h2>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Basic function
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Alice"))  # Hello, Alice!
+
+# Default parameters
+def power(base, exponent=2):
+    return base ** exponent
+
+print(power(3))      # 9
+print(power(3, 3))   # 27
+
+# Multiple return values
+def get_stats(numbers):
+    return min(numbers), max(numbers), sum(numbers) / len(numbers)
+
+minimum, maximum, average = get_stats([1, 2, 3, 4, 5])
+
+# Lambda functions (anonymous)
+square = lambda x: x ** 2
+print(square(5))  # 25
+
+# Map, filter, reduce
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+evens = list(filter(lambda x: x % 2 == 0, numbers))</code></pre>
+    </div>
+  </div>
+
+  <!-- Section 5: OOP Basics -->
+  <div class="mb-10">
+    <h2 class="text-3xl font-bold mb-4">5. Object-Oriented Programming</h2>
+    <div class="bg-black/90 rounded-lg p-6 mb-4 overflow-x-auto">
+      <pre class="text-sm text-green-400"><code># Defining a class
+class Student:
+    # Class variable
+    school_name = "Python Academy"
+    
+    # Constructor
+    def __init__(self, name, age):
+        self.name = name      # Instance variable
+        self.age = age
+        self.grades = []
+    
+    # Instance method
+    def add_grade(self, grade):
+        self.grades.append(grade)
+    
+    def get_average(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+    
+    # String representation
+    def __str__(self):
+        return f"Student: {self.name}, Age: {self.age}"
+
+# Creating objects
+alice = Student("Alice", 20)
+alice.add_grade(85)
+alice.add_grade(90)
+alice.add_grade(88)
+
+print(alice)                    # Student: Alice, Age: 20
+print(alice.get_average())      # 87.66666666666667
+print(Student.school_name)      # Python Academy
+
+# Inheritance
+class GraduateStudent(Student):
+    def __init__(self, name, age, thesis_topic):
+        super().__init__(name, age)
+        self.thesis_topic = thesis_topic
+    
+    def __str__(self):
+        return f"Graduate Student: {self.name}, Thesis: {self.thesis_topic}"
+
+bob = GraduateStudent("Bob", 24, "Machine Learning")
+print(bob)  # Graduate Student: Bob, Thesis: Machine Learning</code></pre>
+    </div>
+  </div>
+
+  <!-- Practice Exercises -->
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <h2 class="text-2xl font-bold mb-4">🎯 Practice Exercises</h2>
+    <ol class="space-y-3 text-sm list-decimal list-inside">
+      <li><strong>FizzBuzz:</strong> Write a program that prints numbers 1-100, but for multiples of 3 print "Fizz", for multiples of 5 print "Buzz", and for multiples of both print "FizzBuzz".</li>
+      <li><strong>Palindrome Checker:</strong> Create a function that checks if a string is a palindrome (reads the same forwards and backwards).</li>
+      <li><strong>Student Management:</strong> Build a class to manage student records with methods to add students, calculate class average, and find top performers.</li>
+      <li><strong>Word Counter:</strong> Write a function that counts the frequency of each word in a text using dictionaries.</li>
+      <li><strong>List Operations:</strong> Create functions to find the second largest number in a list and remove duplicates without using sets.</li>
+    </ol>
+  </div>
+
+  <!-- Resources -->
+  <div class="mb-10 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">📖 Additional Resources</h2>
+    <ul class="space-y-2 text-sm">
+      <li>• <a href="https://docs.python.org/3/tutorial/" class="text-primary hover:underline" target="_blank">Official Python Tutorial</a></li>
+      <li>• <a href="https://www.learnpython.org/" class="text-primary hover:underline" target="_blank">LearnPython.org - Interactive Tutorial</a></li>
+      <li>• <a href="https://realpython.com/" class="text-primary hover:underline" target="_blank">Real Python - In-depth Articles</a></li>
+      <li>• <a href="https://www.codecademy.com/learn/learn-python-3" class="text-primary hover:underline" target="_blank">Codecademy Python Course</a></li>
+    </ul>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-8 border-t border-border-light dark:border-border-dark">
+    <a href="/roadmaps/ai-ml-roadmap" class="text-primary hover:underline">← Back to Roadmap</a>
+    <a href="/ai-ml-courses/unit-1/chapter-1-2-essential-libraries" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Next: Essential Libraries →</a>
+  </div>
+</div>
+{{end}}

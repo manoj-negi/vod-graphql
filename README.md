@@ -37,3 +37,4 @@ Example: `public/images/screen.png` → `http://localhost:8080/public/images/scr
 ## Notes
 - Templates are rendered file-by-file without a layout; this matches the current project structure. If you later want a shared layout, we can refactor to use a base template and `{{define}}` blocks.
 
+https://chatgpt.com/c/697a51cb-2aac-8321-99f9-13d244becb9c

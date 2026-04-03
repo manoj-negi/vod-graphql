@@ -1,0 +1,480 @@
+{{define "content"}}
+<div class="max-w-6xl mx-auto">
+  <div class="text-center mb-12">
+    <div class="inline-flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 px-6 py-2 mb-4">
+      <svg class="w-6 h-6 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+      </svg>
+      <span class="text-sm font-bold text-primary">Google Cloud Professional Certification</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">GCP Professional Cloud Architect</h1>
+    <p class="max-w-2xl mx-auto text-lg text-foreground-muted-light dark:text-foreground-muted-dark">
+      Complete preparation guide for Google Cloud Professional Cloud Architect certification
+    </p>
+  </div>
+
+  <div class="mb-10 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 dark:from-primary/20 dark:to-blue-500/20 p-6 border border-primary/20">
+    <p class="text-base text-foreground-light/90 dark:text-foreground-dark/90 text-center">
+      <strong>Professional Level!</strong> This roadmap covers enterprise-grade GCP architectures across <strong>5 Units</strong> with <strong>15 Chapters</strong>. Master cloud infrastructure design, security, migration strategies, and cost optimization for production workloads.
+    </p>
+  </div>
+
+  <!-- Unit 1: Core Infrastructure -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">1</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 1: Core Infrastructure</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Compute, storage, and networking fundamentals</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-blue-600 bg-blue-500/10 px-2 py-1 rounded">Chapter 1.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 1</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Compute Services</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">GCE, GKE, Cloud Run, and App Engine</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Compute Engine & Instance Groups</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>GKE Autopilot & Standard</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Run & Cloud Functions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-blue-600 bg-blue-500/10 px-2 py-1 rounded">Chapter 1.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 1</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Storage Solutions</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Cloud Storage, Persistent Disk, and Filestore</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Storage Classes</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Persistent Disk Types</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Filestore & Cloud CDN</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-blue-600 bg-blue-500/10 px-2 py-1 rounded">Chapter 1.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 1</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Networking</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">VPC, Load Balancing, and Cloud DNS</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>VPC & Subnets</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Load Balancing</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Interconnect & VPN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 2: Data & Databases -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">2</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 2: Data & Databases</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Database services and data analytics</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-green-600 bg-green-500/10 px-2 py-1 rounded">Chapter 2.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 2</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Database Services</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Cloud SQL, Spanner, Firestore, and Bigtable</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud SQL & AlloyDB</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Spanner</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Firestore & Bigtable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-green-600 bg-green-500/10 px-2 py-1 rounded">Chapter 2.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 2</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Big Data & Analytics</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">BigQuery, Dataflow, and Pub/Sub</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>BigQuery & BI Engine</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Dataflow & Dataproc</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Pub/Sub Messaging</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-green-600 bg-green-500/10 px-2 py-1 rounded">Chapter 2.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 2</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">ML & AI Services</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Vertex AI and pre-trained APIs</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Vertex AI Platform</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>AutoML & Custom Models</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Vision, NLP & Translation APIs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 3: Security & Identity -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">3</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 3: Security & Identity</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">IAM, encryption, and compliance</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-red-600 bg-red-500/10 px-2 py-1 rounded">Chapter 3.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 3</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">IAM & Access Control</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Roles, policies, and service accounts</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>IAM Roles & Permissions</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Service Accounts</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Organization Policies</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-red-600 bg-red-500/10 px-2 py-1 rounded">Chapter 3.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 3</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Encryption & Secrets</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">KMS, Secret Manager, and data protection</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud KMS</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Secret Manager</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Data Loss Prevention</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-red-600 bg-red-500/10 px-2 py-1 rounded">Chapter 3.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 3</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Security Services</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Cloud Armor, Security Command Center</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Armor (DDoS)</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Security Command Center</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>VPC Service Controls</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 4: Operations & Monitoring -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">4</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 4: Operations & Monitoring</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Observability and automation</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-purple-600 bg-purple-500/10 px-2 py-1 rounded">Chapter 4.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 4</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Cloud Operations Suite</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Logging, monitoring, and tracing</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Logging</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Monitoring</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Trace & Profiler</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-purple-600 bg-purple-500/10 px-2 py-1 rounded">Chapter 4.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 4</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Infrastructure as Code</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Deployment Manager and Terraform</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Deployment Manager</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Terraform on GCP</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Config Connector</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-purple-600 bg-purple-500/10 px-2 py-1 rounded">Chapter 4.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 4</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">CI/CD & DevOps</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Cloud Build and deployment pipelines</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Build</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Artifact Registry</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-purple-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Deploy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unit 5: Migration & Cost Optimization -->
+  <div class="mb-12">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">5</div>
+      <div>
+        <h2 class="text-3xl font-black">Unit 5: Migration & Cost Optimization</h2>
+        <p class="text-sm text-foreground-muted-light dark:text-foreground-muted-dark">Cloud migration and financial management</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-orange-600 bg-orange-500/10 px-2 py-1 rounded">Chapter 5.1</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 5</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Migration Strategies</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Migrate for Compute Engine and Database Migration</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Migrate for Compute Engine</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Database Migration Service</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Transfer Appliance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-orange-600 bg-orange-500/10 px-2 py-1 rounded">Chapter 5.2</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 5</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Cost Management</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">Billing, budgets, and cost optimization</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Cloud Billing</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Committed Use Discounts</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Recommender & Active Assist</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/5 dark:bg-black/20 rounded-xl border border-border-light dark:border-border-dark p-5 hover:border-primary/50 transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-xs font-bold text-orange-600 bg-orange-500/10 px-2 py-1 rounded">Chapter 5.3</span>
+          <span class="text-xs text-foreground-muted-light dark:text-foreground-muted-dark">Unit 5</span>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Reliability & DR</h3>
+        <p class="text-xs text-foreground-light/70 dark:text-foreground-dark/70 mb-3">High availability and disaster recovery</p>
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Multi-Region Deployments</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Backup & Recovery</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <svg class="w-4 h-4 text-orange-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>SLA & SLO Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 rounded-xl bg-primary/10 dark:bg-primary/20 p-6 text-center">
+    <p class="text-base font-medium">💡 Pro Tip: Practice with GCP Free Tier and Qwiklabs. Build real projects using multiple services and understand the Google Cloud Architecture Framework!</p>
+  </div>
+
+  <div class="mt-12 rounded-xl border border-border-light dark:border-border-dark p-6">
+    <h2 class="text-2xl font-bold mb-4">Exam Preparation Resources</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Exam Details</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• <strong>Duration:</strong> 120 minutes (2 hours)</li>
+          <li>• <strong>Questions:</strong> 50-60 (multiple choice & multiple select)</li>
+          <li>• <strong>Passing Score:</strong> Not disclosed (estimated 70%)</li>
+          <li>• <strong>Cost:</strong> $200 USD</li>
+          <li>• <strong>Validity:</strong> 2 years</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Exam Domains</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• <strong>Design & Plan:</strong> 24%</li>
+          <li>• <strong>Manage & Provision:</strong> 20%</li>
+          <li>• <strong>Security & Compliance:</strong> 20%</li>
+          <li>• <strong>Analyze & Optimize:</strong> 20%</li>
+          <li>• <strong>Manage Implementation:</strong> 16%</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Study Resources</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• Google Cloud Skills Boost</li>
+          <li>• Coursera GCP Specialization</li>
+          <li>• A Cloud Guru PCA Course</li>
+          <li>• Official Practice Exam</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2 text-primary">Key Focus Areas</h3>
+        <ul class="space-y-1 text-sm">
+          <li>• GKE and containerization</li>
+          <li>• BigQuery and data analytics</li>
+          <li>• IAM and security best practices</li>
+          <li>• Cost optimization strategies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
